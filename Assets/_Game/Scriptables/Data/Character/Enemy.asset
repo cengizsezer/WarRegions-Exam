@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c7d6386237af4241b601a87bf894dae, type: 3}
+  m_Name: Enemy
+  m_EditorClassIdentifier: 
+  ItemName: 3
+  ItemData:
+  - Weopan: {fileID: 21300000, guid: d1b7bf28151884843a26c0474c918358, type: 3}
+    ThrowingItem: {fileID: 0}
+    ItemIcons:
+    - Body:
+        Head: {fileID: 21300000, guid: 106f224fb24551e4b8bdecc0e0e0d31f, type: 3}
+        ArmF: {fileID: 21300000, guid: feb3993a9e3ac5645967a0b447b24bb5, type: 3}
+        ArmB: {fileID: 21300000, guid: e74255d7255aa34458fad88e07c184a7, type: 3}
+      Bottom:
+        BottomMiddle: {fileID: 21300000, guid: e34951e0480c01d47ba6a5bc7504e931, type: 3}
+        LegF: {fileID: 21300000, guid: d6846ca93aa950742ba169ba00fbc549, type: 3}
+        LegB: {fileID: 21300000, guid: cc7c6144f75e85949b63dbb29696ff7a, type: 3}
+  - Weopan: {fileID: 21300000, guid: accc70be79665a74297df2b208807ec2, type: 3}
+    ThrowingItem: {fileID: 0}
+    ItemIcons:
+    - Body:
+        Head: {fileID: 21300000, guid: fd7fe3c8940aaaa43b73a7940e7f9dac, type: 3}
+        ArmF: {fileID: 21300000, guid: 2cba93e0f450aa14b8eef85b84274003, type: 3}
+        ArmB: {fileID: 21300000, guid: a7853c40e6e61bf4183848dd19971835, type: 3}
+      Bottom:
+        BottomMiddle: {fileID: 21300000, guid: fbec18cecc4ac8b4a9e42704d58be006, type: 3}
+        LegF: {fileID: 21300000, guid: f8114298f24d91142bdc44d674dba818, type: 3}
+        LegB: {fileID: 21300000, guid: 3441eca84a47dbd4b93f5a893c3e77e0, type: 3}
+  - Weopan: {fileID: 21300000, guid: 0fb7975856b48b04880b479162905205, type: 3}
+    ThrowingItem: {fileID: 0}
+    ItemIcons:
+    - Body:
+        Head: {fileID: 21300000, guid: 028da22f91da80443a89a5c9e45fdb68, type: 3}
+        ArmF: {fileID: 21300000, guid: cff01763052c4494f9bad6e58cc6e5ed, type: 3}
+        ArmB: {fileID: 21300000, guid: ce9e91753547b3748aa5cda1ec7d3d02, type: 3}
+      Bottom:
+        BottomMiddle: {fileID: 21300000, guid: ef5fa353c2f3e9941b389d3cffb172cc, type: 3}
+        LegF: {fileID: 21300000, guid: 2337127dceb8e244d9ff98fd785d6f5a, type: 3}
+        LegB: {fileID: 21300000, guid: 389727e436898994db275afb08abbc1f, type: 3}
+  - Weopan: {fileID: 21300000, guid: 71ef19f343753654783d835b574e5810, type: 3}
+    ThrowingItem: {fileID: 0}
+    ItemIcons:
+    - Body:
+        Head: {fileID: 21300000, guid: 0b8272ce7be454f46a172a8035685b58, type: 3}
+        ArmF: {fileID: 21300000, guid: 57fe10b0c854c5a4ea1aeb3bd4af8d00, type: 3}
+        ArmB: {fileID: 21300000, guid: 5f6f05df9c59bbd4d968d8c437ae77c5, type: 3}
+      Bottom:
+        BottomMiddle: {fileID: 21300000, guid: 05e3cfd9a3b58794c82f42f7f3bb30d8, type: 3}
+        LegF: {fileID: 21300000, guid: ae45fb97dcd505e41b8e2cd6b86acb45, type: 3}
+        LegB: {fileID: 21300000, guid: 0e0a6e724beb5944da47ec8aae9708ec, type: 3}
+  - Weopan: {fileID: 21300000, guid: 2672adcf4977e2749956e62fa9891d71, type: 3}
+    ThrowingItem: {fileID: 0}
+    ItemIcons:
+    - Body:
+        Head: {fileID: 21300000, guid: 3e9f266f53ceb5f47a6cb1abf43106c6, type: 3}
+        ArmF: {fileID: 21300000, guid: 21746c0d109fd0444a9f98efd24b3d42, type: 3}
+        ArmB: {fileID: 21300000, guid: 50a648e2bc5fce74bb5dd691a48b3b7b, type: 3}
+      Bottom:
+        BottomMiddle: {fileID: 21300000, guid: 77c0abf853c893a44831b664b98b36e6, type: 3}
+        LegF: {fileID: 21300000, guid: 319cfb69455f8e544bb7f1c2950ee45e, type: 3}
+        LegB: {fileID: 21300000, guid: cf839c7a313672e4c8bb51a3c081f6e6, type: 3}

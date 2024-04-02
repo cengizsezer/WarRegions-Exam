@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7181479797434862627
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4316977912942845137, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: m_Name
+      value: BomberManW1_Bomb_Lv1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597874762501281536, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597874762501281536, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.9979981
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597874762501281536, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.9009434
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597874762501281536, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597874762501281536, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.g
+      value: 0.68485904
+      objectReference: {fileID: 0}
+    - target: {fileID: 4597874762501281536, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368457070833461084, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368457070833461084, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368457070833461084, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368457070833461084, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368457070833461084, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368457070833461084, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368457070833461084, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368457070833461084, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368457070833461084, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368457070833461084, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6368457070833461084, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6540761390014471132, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d79f8e73ad8adc540b580881e9bf32d9,
+        type: 3}
+    - target: {fileID: 7067150863319602602, guid: 70d4c9c83b334c54d98edfac0c1f3382,
+        type: 3}
+      propertyPath: explosionFx
+      value: 
+      objectReference: {fileID: 5028669074909449857, guid: 075e6e73ae4ef1448a5033524f458d7a,
+        type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 70d4c9c83b334c54d98edfac0c1f3382, type: 3}

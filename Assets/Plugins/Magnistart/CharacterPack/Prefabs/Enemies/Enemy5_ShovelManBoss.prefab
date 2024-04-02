@@ -1,0 +1,240 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &958133527220702063
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675767, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 25b0051bb329c7940828c88b1cf33ac6, type: 2}
+    - target: {fileID: 196779087255675770, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy5_ShovelManBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779088089069569, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 16da325ece2c26246bb07cffdf978313,
+        type: 3}
+    - target: {fileID: 196779088089069574, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.098
+      objectReference: {fileID: 0}
+    - target: {fileID: 918620929008801858, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1057759303488161508, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3e9f266f53ceb5f47a6cb1abf43106c6,
+        type: 3}
+    - target: {fileID: 1345197342548274030, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: animationData
+      value: 
+      objectReference: {fileID: 11400000, guid: 423e6a9f643de1e48ac0aaaffadd7a9a,
+        type: 2}
+    - target: {fileID: 1345197342548274030, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: characterSprites.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1345197342548274030, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: characterSpriteRenderers.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354783696090160176, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cf839c7a313672e4c8bb51a3c081f6e6,
+        type: 3}
+    - target: {fileID: 1487200341389992853, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647880277119865879, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.6666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 2354624189790262474, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.341
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547311513774632059, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.042
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547311513774632059, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.132
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179095004917223608, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 50a648e2bc5fce74bb5dd691a48b3b7b,
+        type: 3}
+    - target: {fileID: 4040809934266499830, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 77c0abf853c893a44831b664b98b36e6,
+        type: 3}
+    - target: {fileID: 4130894695232310445, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 319cfb69455f8e544bb7f1c2950ee45e,
+        type: 3}
+    - target: {fileID: 4131083523918085285, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 21746c0d109fd0444a9f98efd24b3d42,
+        type: 3}
+    - target: {fileID: 4548809791265082214, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: cardID
+      value: EnemyShovelManBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 4548809791265082214, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: _projectileTargetPos.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252120925816706592, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.236
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252120925816706592, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.296
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252120925816706592, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252120925816706592, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252120925816706592, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965243278037914202, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.489
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965243278037914202, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.342
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666863613991184764, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: cardID
+      value: EnemyShovelManBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 7689841664562371807, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.312
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943994019946613440, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: indicatorVisualPrefab
+      value: 
+      objectReference: {fileID: 114159132713730270, guid: 536dcd28b4748d246bb5daa9c868a9ef,
+        type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: db6955427fc7e9340961a9477bf5b73e, type: 3}

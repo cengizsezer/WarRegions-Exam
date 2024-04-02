@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b797f48542c3ec64dad9f78551235667, type: 3}
+  m_Name: CharacterItemSettings
+  m_EditorClassIdentifier: 
+  PlayerMobViewPrefab: {fileID: 3052468964579521900, guid: 5d13592080a701545b531b17fd7f34b6, type: 3}
+  EnemyMobViewPrefab: {fileID: 1313040788003860201, guid: 9019a6a58b6a71a4a83c1eb4b18627e3, type: 3}
+  characterGridItemPoolSize: 50
+  characterGridItemPoolName: CharacterViews
+  characterLocalScale: {x: 1, y: 1, z: 1}
+  CharacterItems:
+    PlayerGroupData: {fileID: 11400000, guid: da090ac4f902dc14cb1e4f2de3bb852a, type: 2}
+    EnemyGroupData: {fileID: 11400000, guid: 71c32f451544fc74693a817f36661d4d, type: 2}
+  PlayerGamingSettings:
+    Damage: 10
+    AttackSpeed: 0.5
+    AttackInterval: 0.1
+    AttackTimer: 0.0692425
+    PlayerBossHP: 150
+  EnemyGamingSettings:
+    MovementSpeed: 30

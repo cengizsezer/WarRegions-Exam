@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1945934745582862235
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 196779087255675761, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675770, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_Name
+      value: Enemy4_SwordManGold
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779088089069569, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1c9650fe1b9596149aa5ecdafcc958a5, type: 3}
+    - target: {fileID: 196779088219357013, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1057759303488161508, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 948da9ad7da43d147a8d171a6c541d3d, type: 3}
+    - target: {fileID: 1354783696090160176, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b6325d674c6b78b439cc0b932a5f83de, type: 3}
+    - target: {fileID: 1487200341389992853, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3006001954083198388, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: cardID
+      value: EnemySwordManGold
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179095004917223608, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b15e19defcce3634ebdc35525baa47e6, type: 3}
+    - target: {fileID: 4040809934266499830, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8fce6bbbeb02bcb44aa706bb7665fbcc, type: 3}
+    - target: {fileID: 4130894695232310445, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5b7baf3f5db225f48936cacce99bcb55, type: 3}
+    - target: {fileID: 4131083523918085285, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 95bbfd4727a576a4cba54e9800df0690, type: 3}
+    - target: {fileID: 4439225407005277040, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6146343146707352145, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070787920743888193, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 71ef19f343753654783d835b574e5810, type: 3}
+    - target: {fileID: 7666863613991184764, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: cardID
+      value: EnemySwordManGold
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902933613649173833, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_Color.b
+      value: 0.7921569
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902933613649173833, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902933613649173833, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}
+      propertyPath: m_Color.r
+      value: 0.972549
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 69a317169115a5844a888ad76c7eddbe, type: 3}

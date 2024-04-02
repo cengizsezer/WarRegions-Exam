@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3020a4036bb0f5544b2c2bf9ac198bef, type: 3}
+  m_Name: ApplicationPrefabSettings
+  m_EditorClassIdentifier: 
+  buildType: 0
+  runInBackground: 0
+  MainScreenPrefab: {fileID: 322338784938039322, guid: 2d3a18f8232c14852a61bf9a48040965, type: 3}
+  MapScreenPrefab: {fileID: 6586496343563005865, guid: fb29051ef2882ec4dbacf5a862bbc578, type: 3}
+  GridViewPrefab: {fileID: 2281999716739654153, guid: 21fba85834b0a4b44bb5c7c8fd777d9a, type: 3}
+  BoardVFXView: {fileID: 6800607852340839048, guid: f1e1ce960bbf4244ca684931dbb64eb4, type: 3}
+  BombWeopanVFXViewPrefab: {fileID: 430418913394417021, guid: cd7ab74f66dd5d5438caf108c62f8259, type: 3}
+  AxeWeopanVFXViewPrefab: {fileID: 9220505910175217873, guid: 8b4c8162aaf354c45806ec84c918f1b6, type: 3}
+  ArrowWeopanVFXViewPrefab: {fileID: 7623135342805753691, guid: cdd573e36bd9c1745ac56f62a8a06ba2, type: 3}
+  DamageTextPrefab: {fileID: 8714819557763660437, guid: 41f025c81431559458ac557570934663, type: 3}
+  PlayerBossPrefab: {fileID: 8807938679511224883, guid: e76c574ccb65f1549bbb47f9d41dd106, type: 3}
+  EnemyBossPrefab: {fileID: 4696410393734328559, guid: 3d3cd1dac569fb6418eb646f0e1053ac, type: 3}

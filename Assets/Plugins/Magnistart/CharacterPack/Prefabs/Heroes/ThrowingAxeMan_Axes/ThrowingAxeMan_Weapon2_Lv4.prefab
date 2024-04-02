@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8193940037040823575
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2646118181958192366, guid: 5d8f5030127fb6d47b80d25c2733110c,
+        type: 3}
+      propertyPath: rotatingSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7ceaeed3e931e9c45aa1d07f5ee86ada,
+        type: 3}
+    - target: {fileID: 2648749478030691125, guid: 5d8f5030127fb6d47b80d25c2733110c,
+        type: 3}
+      propertyPath: m_Name
+      value: ThrowingAxeMan_Weapon2_Lv4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147775682742415310, guid: 5d8f5030127fb6d47b80d25c2733110c,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: acb9d5971880e16408c5e595f4aee119,
+        type: 3}
+    - target: {fileID: 4819870134966565821, guid: 5d8f5030127fb6d47b80d25c2733110c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819870134966565821, guid: 5d8f5030127fb6d47b80d25c2733110c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819870134966565821, guid: 5d8f5030127fb6d47b80d25c2733110c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819870134966565821, guid: 5d8f5030127fb6d47b80d25c2733110c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819870134966565821, guid: 5d8f5030127fb6d47b80d25c2733110c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819870134966565821, guid: 5d8f5030127fb6d47b80d25c2733110c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819870134966565821, guid: 5d8f5030127fb6d47b80d25c2733110c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819870134966565821, guid: 5d8f5030127fb6d47b80d25c2733110c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819870134966565821, guid: 5d8f5030127fb6d47b80d25c2733110c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819870134966565821, guid: 5d8f5030127fb6d47b80d25c2733110c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819870134966565821, guid: 5d8f5030127fb6d47b80d25c2733110c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5d8f5030127fb6d47b80d25c2733110c, type: 3}

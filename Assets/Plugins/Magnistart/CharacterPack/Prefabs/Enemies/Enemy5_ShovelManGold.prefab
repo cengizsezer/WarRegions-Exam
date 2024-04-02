@@ -1,0 +1,143 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2183447105352722089
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 196779087255675770, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy5_ShovelManGold
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4548809791265082214, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: cardID
+      value: EnemyShovelManGold
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779088089069569, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 311c150f5bbe45d4fbfc1b40e3112cc1,
+        type: 3}
+    - target: {fileID: 1354783696090160176, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b0e5c01590f766b45aeef23d3139847f,
+        type: 3}
+    - target: {fileID: 3179095004917223608, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2b4863f60eff0854281012663a54363a,
+        type: 3}
+    - target: {fileID: 1057759303488161508, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 873f1791ebf114841be477dc84af1637,
+        type: 3}
+    - target: {fileID: 4131083523918085285, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1192f926873af0945be07606582609ee,
+        type: 3}
+    - target: {fileID: 4130894695232310445, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8ba6f8e214e3dce448c7b42c1fbbb1cd,
+        type: 3}
+    - target: {fileID: 7070787920743888193, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2672adcf4977e2749956e62fa9891d71,
+        type: 3}
+    - target: {fileID: 1487200341389992853, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902933613649173833, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.972549
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902933613649173833, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.9607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902933613649173833, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.7921569
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666863613991184764, guid: db6955427fc7e9340961a9477bf5b73e,
+        type: 3}
+      propertyPath: cardID
+      value: EnemyShovelManGold
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: db6955427fc7e9340961a9477bf5b73e, type: 3}

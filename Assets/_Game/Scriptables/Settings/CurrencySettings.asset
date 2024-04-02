@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19c9011211546e641b834bc56bec976f, type: 3}
+  m_Name: CurrencySettings
+  m_EditorClassIdentifier: 
+  CurrencyAnim: {fileID: 2084950854832963398, guid: 6000ec46dd8eb4338a3c98e0062ffbc7, type: 3}
+  CurrencyPairData:
+  - CurrencyType: 0
+    Sprite: {fileID: 21300000, guid: 0e7978d3560984003a02d0e04fee4b8d, type: 3}
+    ManaCostSettings:
+      DefaultCost: 0
+      PerEnemyKillingMana: 0
+      DefaultManaValue: 0
+  - CurrencyType: 1
+    Sprite: {fileID: 21300000, guid: fc3976395b7a841d29d9108d51d2e79b, type: 3}
+    ManaCostSettings:
+      DefaultCost: 10
+      PerEnemyKillingMana: 10
+      DefaultManaValue: 200

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: GlobalSettingsInstaller
+  m_EditorClassIdentifier: Assembly-CSharp:MyProject.Core.Installer:GlobalSettingsInstaller
+  settings:
+  - {fileID: 11400000, guid: 4b77ceb0db8d6bc4dbd576829eb5bbb3, type: 2}
+  - {fileID: 11400000, guid: 1a853db0527d6714985613edd1974b17, type: 2}
+  - {fileID: 11400000, guid: e673aaf99d84cbb4e8a8094e46065156, type: 2}
+  - {fileID: 11400000, guid: ddb4096de1d54fb40aefadabbf0dc531, type: 2}
+  - {fileID: 11400000, guid: 746530d4a8ad00e40a11805895a2b88c, type: 2}
+  - {fileID: 11400000, guid: 07e71f139b873704aaa899cd89d137f1, type: 2}
+  - {fileID: 11400000, guid: fa87fc368bba3c44ead060a013ebbfce, type: 2}
+  - {fileID: 11400000, guid: 27bb4e0e063d27c429aab9e6cdc973bc, type: 2}

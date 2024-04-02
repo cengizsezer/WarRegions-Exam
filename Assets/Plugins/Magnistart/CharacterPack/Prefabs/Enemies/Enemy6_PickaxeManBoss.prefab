@@ -1,0 +1,175 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1575210350439701269
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 196779087255675761, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675761, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779087255675770, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy6_PickaxeManBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 196779088089069569, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9d1672adfc4f40949a7149582ad8c65f,
+        type: 3}
+    - target: {fileID: 1057759303488161508, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3976d1ffb94d8f14b853ef43479ef2a9,
+        type: 3}
+    - target: {fileID: 1354783696090160176, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 41ab6c6c3ff6d6042a773cfa1afb85d6,
+        type: 3}
+    - target: {fileID: 1487200341389992853, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547311513774632059, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547311513774632059, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3179095004917223608, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c6b74d0b6c023bb458cc974d646ecb8c,
+        type: 3}
+    - target: {fileID: 3545763881471156424, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: cardID
+      value: EnemyPickaxeManBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545763881471156424, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: _projectileTargetPos.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4040809934266499830, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 57da09b0c53649446b1dba4046b590c6,
+        type: 3}
+    - target: {fileID: 4130894695232310445, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a19fd6fed81cccd469d2d579c2f918ff,
+        type: 3}
+    - target: {fileID: 4131083523918085285, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d7ddd646d3a7e4147b83ad93aece6968,
+        type: 3}
+    - target: {fileID: 5880633806245158472, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: animationData
+      value: 
+      objectReference: {fileID: 11400000, guid: 423e6a9f643de1e48ac0aaaffadd7a9a,
+        type: 2}
+    - target: {fileID: 5880633806245158472, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: characterSprites.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5880633806245158472, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: characterSpriteRenderers.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7666863613991184764, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: cardID
+      value: EnemyPickaxeManBoss
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943994019946613440, guid: 9d41883ebd8a72540b7ac2ae7f601fe4,
+        type: 3}
+      propertyPath: indicatorVisualPrefab
+      value: 
+      objectReference: {fileID: 114159132713730270, guid: 536dcd28b4748d246bb5daa9c868a9ef,
+        type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9d41883ebd8a72540b7ac2ae7f601fe4, type: 3}
