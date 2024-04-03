@@ -23,7 +23,7 @@ namespace MyProject.GamePlay.Controllers
         private CoroutineHandle _coroutineHandle;
         private EnemyMobView.Factory _enemyMobFactory;
         private BoardCoordinateSystem _boardCoordinateSystem;
-        private BoardGamePlayController _boardGamePlayController;
+        //private BoardGamePlayController _boardGamePlayController;
         private EnemySpawnSettings _enemySpawnSettings;
         private CharacterItemSettings _characterSettings;
         private FlagService _flagService;
@@ -34,7 +34,7 @@ namespace MyProject.GamePlay.Controllers
            CoroutineService coroutineService
            , EnemyMobView.Factory enemyMobFactory
             , BoardCoordinateSystem boardCoordinateSystem
-            , BoardGamePlayController boardGamePlayController
+            //, BoardGamePlayController boardGamePlayController
             , EnemySpawnSettings enemySpawnSettings
             , CharacterItemSettings characterSettings
             , FlagService flagService
@@ -43,7 +43,7 @@ namespace MyProject.GamePlay.Controllers
             _coroutineService = coroutineService;
             _enemyMobFactory = enemyMobFactory;
             _boardCoordinateSystem = boardCoordinateSystem;
-            _boardGamePlayController = boardGamePlayController;
+            //_boardGamePlayController = boardGamePlayController;
             _enemySpawnSettings = enemySpawnSettings;
             _characterSettings = characterSettings;
             _flagService = flagService;
@@ -106,7 +106,7 @@ namespace MyProject.GamePlay.Controllers
 
         public void RemoveEnemyMobs(EnemyMobView enemyView)
         {
-            if (!_boardGamePlayController.IsRunning) return;
+            //if (!_boardGamePlayController.IsRunning) return;
 
             LsEnemyMobViews.Remove(enemyView);
         }

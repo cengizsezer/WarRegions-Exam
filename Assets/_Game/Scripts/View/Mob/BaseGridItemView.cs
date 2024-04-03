@@ -85,7 +85,7 @@ namespace MyProject.GamePlay.Characters
             _moveTween?.Kill();
             _scaleTween?.Kill();
             gridView.ChangeState(GridState.Filled);
-            transform.SetParent(gridView.ItemHolder);
+            //transform.SetParent(gridView.ItemHolder);
             _sortings[GetID()].sortingOrder = GlobalConsts.SortingOrders.CharacterDefault;
             transform.localRotation = Quaternion.identity;
             transform.localScale = _characterSettings.characterLocalScale;
@@ -115,10 +115,10 @@ namespace MyProject.GamePlay.Characters
 
         public void MoveToGrid(GridView gridView, float speed)
         {
-            _moveTween?.Kill();
-            _scaleTween?.Kill();
-            _moveTween = transform.DOMove(gridView.ItemHolder.position, speed)
-                .SetEase(_itemTweenSettings.MoveEase).OnComplete(() => { BondWithGrid(gridView); });
+            //_moveTween?.Kill();
+            //_scaleTween?.Kill();
+            //_moveTween = transform.DOMove(gridView.ItemHolder.position, speed)
+            //    .SetEase(_itemTweenSettings.MoveEase).OnComplete(() => { BondWithGrid(gridView); });
         }
 
         public override void Dispose()

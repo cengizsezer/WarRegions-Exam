@@ -20,18 +20,18 @@ public abstract class AttackBaseView : BaseView
     [SerializeField] protected PlayerMobView Owner;
 
     private WeopanVFXController _weopanVFXController;
-    private BoardGamePlayController _boardGamePlayController;
+    //private BoardGamePlayController _boardGamePlayController;
     
     [Inject]
     protected virtual void Construct
     (
        WeopanVFXController weopanVFXController
-        ,BoardGamePlayController boardGamePlayController
+        //,BoardGamePlayController boardGamePlayController
        
     )
     {
         _weopanVFXController = weopanVFXController;
-        _boardGamePlayController = boardGamePlayController;
+        //_boardGamePlayController = boardGamePlayController;
     }
 
     public override void Initialize()

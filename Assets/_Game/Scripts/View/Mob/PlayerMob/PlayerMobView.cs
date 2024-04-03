@@ -77,7 +77,7 @@ namespace MyProject.GamePlay.Characters
         #region Injection
 
         private WeopanVFXController _weopanVFXController;
-        private BoardGamePlayController _boardGameplayController;
+        //private BoardGamePlayController _boardGameplayController;
         private EnemyMobController _enemyMobController;
         private EnemySpawnController _enemySpawnController;
         private SignalBus _signalBus;
@@ -89,7 +89,7 @@ namespace MyProject.GamePlay.Characters
                , CharacterItemSettings itemSettings
                , BoardFXController boardFXController
                , SignalBus signalBus
-               , BoardGamePlayController boardGameplayController
+               //, BoardGamePlayController boardGameplayController
                , WeopanVFXController weopanVFXController
                , EnemyMobController enemyMobController
                ,EnemySpawnController enemySpawnController
@@ -99,7 +99,7 @@ namespace MyProject.GamePlay.Characters
             _characterSettings = itemSettings;
             _boardFXController = boardFXController;
             _signalBus = signalBus;
-            _boardGameplayController = boardGameplayController;
+            //_boardGameplayController = boardGameplayController;
             _weopanVFXController = weopanVFXController;
             _enemyMobController = enemyMobController;
             _enemySpawnController = enemySpawnController;
@@ -131,7 +131,7 @@ namespace MyProject.GamePlay.Characters
 
         public override void OnSelected(GridView gridView)
         {
-            _signalBus.Fire(new CharacterItemSelectedSignal(_itemGroupData, gridView.Coordinates, ItemLevel));
+            //_signalBus.Fire(new CharacterItemSelectedSignal(_itemGroupData, gridView.Coordinates, ItemLevel));
             base.OnSelected(gridView);
         }
 
@@ -233,18 +233,18 @@ namespace MyProject.GamePlay.Characters
 
             EnemyMobView enemyView = _enemyMobController.GetTargetEnemy();
 
-            if (!_boardGameplayController.IsRunning)
-            {
-                StopFight();
-                return;
-            }
+            //if (!_boardGameplayController.IsRunning)
+            //{
+            //    StopFight();
+            //    return;
+            //}
 
-            if (enemyView == null && _boardGameplayController.IsRunning && !_enemySpawnController.IsWaveComplate)
-            {
-                StartFight();
+            //if (enemyView == null && _boardGameplayController.IsRunning && !_enemySpawnController.IsWaveComplate)
+            //{
+            //    StartFight();
 
-                return;
-            }
+            //    return;
+            //}
 
             if (enemyView != null && !enemyView.IsAlive)
             {
@@ -266,12 +266,12 @@ namespace MyProject.GamePlay.Characters
 
         void FollowTarget()
         {
-            if (!_boardGameplayController.IsRunning || !_enemySpawnController.IsWaveComplate)
-            {
-                onUpdate = null;
-                StopFight();
-                return;
-            }
+            //if (!_boardGameplayController.IsRunning || !_enemySpawnController.IsWaveComplate)
+            //{
+            //    onUpdate = null;
+            //    StopFight();
+            //    return;
+            //}
 
             if (TargetView == null || !TargetView.IsAlive)
             {
@@ -287,12 +287,12 @@ namespace MyProject.GamePlay.Characters
         }
         void AttackRoutine()
         {
-            if (!_boardGameplayController.IsRunning)
-            {
-                StopFight();
-                onUpdate = null;
-                return;
-            }
+            //if (!_boardGameplayController.IsRunning)
+            //{
+            //    StopFight();
+            //    onUpdate = null;
+            //    return;
+            //}
 
             if (TargetView == null)
             {
@@ -326,8 +326,8 @@ namespace MyProject.GamePlay.Characters
 
         public virtual void _OnUpdate()
         {
-            if (_boardGameplayController.IsRunning)
-                onUpdate?.Invoke();
+            //if (_boardGameplayController.IsRunning)
+            //    onUpdate?.Invoke();
         }
 
         public override void Dispose()

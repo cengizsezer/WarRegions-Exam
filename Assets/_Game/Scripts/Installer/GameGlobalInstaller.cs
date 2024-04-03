@@ -65,7 +65,7 @@ namespace MyProject.Core.Installer
             Container.BindInterfacesAndSelfTo<PlayerMobController>().AsSingle();
             Container.BindInterfacesAndSelfTo<BoardFXController>().AsSingle();
             Container.BindInterfacesAndSelfTo<BoardCoordinateSystem>().AsSingle();
-            Container.BindInterfacesAndSelfTo<BoardGamePlayController>().AsSingle();
+            //Container.BindInterfacesAndSelfTo<BoardGamePlayController>().AsSingle();
             Container.BindInterfacesAndSelfTo<BoardDataController>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnemySpawnController>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnemyMobController>().AsSingle();

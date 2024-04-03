@@ -4,7 +4,7 @@ namespace MyProject.Core.Const
 {
     public class GlobalConsts
     {
-        public const string GameName = "TowerDefence";
+        public const string GameName = "WarRegions";
         private const string Prefix = "MyProject_" + GameName + "_";
         private const string FlagPrefix = "MyProject_" + GameName + "_Flag_";
         public class AssetMenuName
@@ -30,7 +30,6 @@ namespace MyProject.Core.Const
         }
         public struct PopupName
         {
-            public const string AdminPanelPopup = "AdminPanelPopup";
             public const string LevelUpPopup = "LevelUpPopup";
             public const string LevelFailPopup = "LevelFailPopup";
             public const string ShopPopup = "ShopPopup";

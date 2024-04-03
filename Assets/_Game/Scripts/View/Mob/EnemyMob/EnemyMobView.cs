@@ -86,7 +86,7 @@ namespace MyProject.GamePlay.Characters
         private EnemyMobController _enemyMobController;
         private DamageTextFeedbackView.Factory _damageTextFeedbackFactory;
         private CurrencyController _currencyController;
-        private BoardGamePlayController _boardGameplayController;
+        //private BoardGamePlayController _boardGameplayController;
         private TaskService _taskService;
         private CurrencySettings _currencySettings;
         private UserController _userController;
@@ -101,7 +101,7 @@ namespace MyProject.GamePlay.Characters
             , EnemyMobController enemyMobController
             , DamageTextFeedbackView.Factory damageTextFeedbackFactory
             , CurrencyController currencyController
-            , BoardGamePlayController boardGameplayController
+            //, BoardGamePlayController boardGameplayController
             , TaskService taskService
             , CurrencySettings currencySettings
             , UserController userController
@@ -115,7 +115,7 @@ namespace MyProject.GamePlay.Characters
             _enemyMobController = enemyMobController;
             _damageTextFeedbackFactory = damageTextFeedbackFactory;
             _currencyController = currencyController;
-            _boardGameplayController = boardGameplayController;
+            //_boardGameplayController = boardGameplayController;
             _taskService = taskService;
             _currencySettings = currencySettings;
             _userController = userController;
@@ -287,7 +287,7 @@ namespace MyProject.GamePlay.Characters
 
         public void ApplyDamage(Vector3 tp)
         {
-            if (!_boardGameplayController.IsRunning) return;
+            //if (!_boardGameplayController.IsRunning) return;
             RaycastHit[] hits = Physics.SphereCastAll(tp, 10f, Vector3.up);
             PlayerBossView target;
             if (hits.Length > 0)

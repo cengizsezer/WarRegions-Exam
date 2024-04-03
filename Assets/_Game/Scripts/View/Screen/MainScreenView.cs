@@ -69,11 +69,6 @@ public class MainScreenView : BaseScreen
             return;
         }
         _currencies.sortingOrder = 90;
-        _popupService.AddPopup(new ShopPopupParametres
-        {
-            PopupPriority = PopupPriority.IMMEDIATE,
-            PopupParent = _screenController.MainScreen.transform,
-        });
 
         _signalBus.Fire<SettingsPopupOpenedSignal>();
        
