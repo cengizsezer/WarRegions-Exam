@@ -10,17 +10,15 @@ namespace MyProject.Core.Settings
     [CreateAssetMenu(fileName = nameof(GridViewSettings), menuName = AssetMenuName.SETTINGS + nameof(GridViewSettings))]
     public class GridViewSettings : ScriptableObject
     {
-        public RoadViewData RoadViewData;
-        public Sprite CharacterFieldSprite;
+        public GridViewData GridViewData;
+       
     }
 
     [Serializable]
-    public class RoadViewData
+    public class GridViewData
     {
-        public Sprite RightSprite;
-        public Sprite LeftSprite;
-        public Sprite HorizontalSprite;
-        public Sprite VerticalSprite;
+        public int xSize, zSize;
+        public float xOffset, zOffset;
     }
 }
 

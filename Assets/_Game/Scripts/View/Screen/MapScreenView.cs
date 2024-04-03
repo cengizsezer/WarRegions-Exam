@@ -32,7 +32,7 @@ public class MapScreenView : BaseScreen
     private PopupService _popupService;
     private FlagService _flagService;
     private ScreenController _screenController;
-    //private BoardGamePlayController _boardGamePlayController;
+    private BoardGamePlayController _boardGamePlayController;
     private EnemyMobController _enemyMobController;
     private EnemySpawnController _enemySpawnController;
     private CurrencyController _currencyController;
@@ -45,7 +45,7 @@ public class MapScreenView : BaseScreen
         , PopupService popupService,
         ScreenController screenController,
         FlagService flagService
-        //,BoardGamePlayController boardGamePlayController
+        ,BoardGamePlayController boardGamePlayController
         ,EnemyMobController enemyMobController
         , EnemySpawnController enemySpawnController
         , CurrencyController currencyController
@@ -55,7 +55,7 @@ public class MapScreenView : BaseScreen
         _flagService = flagService;
         _screenController = screenController;
         _popupService = popupService;
-        //_boardGamePlayController = boardGamePlayController;
+        _boardGamePlayController = boardGamePlayController;
         _enemyMobController = enemyMobController;
         _enemySpawnController = enemySpawnController;
         _currencyController = currencyController;
@@ -71,9 +71,9 @@ public class MapScreenView : BaseScreen
         coinCurrencyView.Initialize();
         _currencyController.ResetCurrency(CurrencyType.Mana);
         _moveCountView.Initialize();
-        //_boardGamePlayController.Init();
-        _enemyMobController.ManuelInit();
-        _enemySpawnController.ManuelInit();
+        _boardGamePlayController.Init();
+        //_enemyMobController.ManuelInit();
+        //_enemySpawnController.ManuelInit();
         //_screenController.ManuelInit();
         currencies.sortingOrder = 195;
     }

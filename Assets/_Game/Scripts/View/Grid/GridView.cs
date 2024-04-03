@@ -64,120 +64,7 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
     bool hasCollectedBefore = false;
 
     [HideInInspector]
-    //public MobBase Owner
-    //{
-    //    get => _owner;
-    //    set
-    //    {
-    //        if (_owner != value)
-    //        {
-
-    //            if (_owner != null)
-    //            {
-    //                _owner.DecreaseHexaCount();
-
-    //                if (mType == HexTypes.Tent)
-    //                    StopTentCooldown();
-    //            }
-
-    //            _owner = value;
-
-    //            if (_owner != null)
-    //            {
-    //                _owner.IncreaseHexaCount();
-
-    //                OnConverted();
-
-    //                if (!hasCollectedBefore)
-    //                {
-    //                    onCollected?.Invoke();
-    //                    hasCollectedBefore = true;
-    //                }
-    //                else if (mType == HexTypes.Tent)
-    //                {
-    //                    onCollected?.Invoke();
-    //                    if (tentSpawnTween != null)
-    //                        tentSpawnTween.Kill(false);
-    //                    StartTentCooldown();
-    //                }
-
-    //                if (!_owner.IsPlayer())
-    //                {
-    //                    _owner.RemoveHexFromList(this);
-    //                }
-    //                else
-    //                {
-    //                    //Vibrator.Haptic(MoreMountains.NiceVibrations.HapticTypes.MediumImpact);
-    //                    //SoundManager.I.PlayOnce(Sounds.HexConquer);
-    //                }
-
-    //            }
-
-    //            SetColorOfOwner();
-    //        }
-    //    }
-    //}
-
-    float _timerConvertion = 0f;
-
-    private void Update()
-    {
-        //HandleConvertTime();
-
-        //if (GameManager.isRunning)
-        //{
-        //    CheckWaitingList();
-        //}
-
-    }
-
-    void CheckWaitingList()
-    {
-        //if (lsWaitingList.Count > 0)
-        //{
-        //    for (int i = 0; i < lsWaitingList.Count; i++)
-        //    {
-        //        if (AmINeighbourOfOwner(lsWaitingList[i]))
-        //        {
-        //            SetPlayerInside(lsWaitingList[i]);
-        //        }
-        //    }
-        //}
-    }
-
-    //public void Init(bool hasInitial, InitialMobType imt = InitialMobType.None, EnemyTypes et = EnemyTypes.Red)
-    //{
-    //    hasInitialOwner = hasInitial;
-    //    initialMob = imt;
-
-    //    if (hasInitialOwner)
-    //    {
-    //        //if (initialMob == InitialMobType.Player)
-    //        //{
-    //        //    Owner = PlayerController.I.playerMob;
-    //        //    PlayerController.I.playerMob.transform.position = transform.position.WithY(PlayerController.I.playerMob.transform.position.y);
-    //        //}
-    //        //else if (initialMob == InitialMobType.Enemy)
-    //        //{
-    //        //    enemyID = et;
-    //        //    Owner = LevelHandler.I.GetLevel().enemies[(int)enemyID];
-    //        //    Owner.gameObject.SetActive(true);
-    //        //}
-
-    //        if (Owner != null)
-    //        {
-    //            SetPlayerInside(Owner);
-    //            firstInsideMob = Owner;
-    //            Owner.SetInitialPosition(transform.position);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        Owner = null;
-    //        SetColorOfOwner();
-    //        SetProps();
-    //    }
-    //}
+   
 
 
     #region INIT PROPS
@@ -418,7 +305,7 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
 
     void StopCountDown()
     {
-        _timerConvertion = 0f;
+      
         SetConvertionVisualPercentage(0f);
        
     }
@@ -468,73 +355,6 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
     {
         borders[id].SetActive(true);
     }
-
-    //void CloseNeighbourBorders()
-    //{
-
-    //    HexSpawner hs; /*= LevelHandler.I.GetLevel().hexSpawner;*/
-
-    //    if (z % 2 == 0)
-    //    {
-    //        if (x - 1 >= 0)
-    //        {
-    //            hs.GetHexAt(x - 1, z).EnableBorder(1);
-
-
-    //            if (z - 1 >= 0)
-    //            {
-    //                hs.GetHexAt(x - 1, z - 1).EnableBorder(0);
-
-    //            }
-    //            if (z + 1 < hs.zSize)
-    //            {
-    //                hs.GetHexAt(x - 1, z + 1).EnableBorder(2);
-    //            }
-
-    //        }
-    //        if (x + 1 < hs.xSize)
-    //        {
-    //            hs.GetHexAt(x + 1, z).EnableBorder(4);
-    //        }
-    //        if (z - 1 >= 0)
-    //        {
-    //            hs.GetHexAt(x, z - 1).EnableBorder(5);
-    //        }
-    //        if (z + 1 < hs.zSize)
-    //        {
-    //            hs.GetHexAt(x, z + 1).EnableBorder(3);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (x + 1 < hs.xSize)
-    //        {
-    //            hs.GetHexAt(x + 1, z).EnableBorder(4);
-
-    //            if (z + 1 < hs.zSize)
-    //            {
-    //                hs.GetHexAt(x + 1, z + 1).EnableBorder(3);
-    //            }
-
-    //            if (z - 1 >= 0)
-    //            {
-    //                hs.GetHexAt(x + 1, z - 1).EnableBorder(5);
-    //            }
-    //        }
-    //        if (z + 1 < hs.zSize)
-    //        {
-    //            hs.GetHexAt(x, z + 1).EnableBorder(2);
-    //        }
-    //        if (x - 1 >= 0)
-    //        {
-    //            hs.GetHexAt(x - 1, z).EnableBorder(1);
-    //        }
-    //        if (z - 1 >= 0)
-    //        {
-    //            hs.GetHexAt(x, z - 1).EnableBorder(0);
-    //        }
-    //    }
-    //}
 
     public void SetOutsideHex()
     {
@@ -604,15 +424,11 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
         transform.SetParent(args.parent);
         //_spriteRenderer.sortingOrder = GlobalConsts.SortingOrders.GridViewDefault;
         transform.localScale = args.localScale;
-       
-        var pos = new Vector3(
-            args.offSet.x + args.coloumValue * args.localScale.x,
-            args.offSet.y + args.rowValue * args.localScale.y,
-            args.offSet.z
-        );
 
-        transform.localPosition = pos;
-
+        float xPos = args.xPos;
+        float zPos = args.zPos;
+        transform.localPosition = new Vector3(xPos, -2.5f, zPos);
+        Debug.Log("spawned");
     }
     
     public void ChangeState(GridState gridState) => _gridState = gridState;
@@ -656,15 +472,17 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
         public readonly Vector3 offSet;
         public readonly int rowValue;
         public readonly int coloumValue;
-        
+        public readonly float xPos;
+        public readonly float zPos;
                
-        public Args(Transform Parent,Vector3 LocalScale,Vector3 OffSet, int RowValue, int ColoumValue) : this()
+        public Args(Transform Parent,Vector3 LocalScale,int RowValue, int ColoumValue, float XPos, float ZPos) : this()
         {
             parent = Parent;
             localScale = LocalScale;
-            offSet = OffSet;
             rowValue = RowValue;
             coloumValue = ColoumValue;
+            xPos = XPos;
+            zPos = ZPos;
         }
     }
 }

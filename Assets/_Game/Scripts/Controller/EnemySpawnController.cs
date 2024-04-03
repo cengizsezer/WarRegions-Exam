@@ -96,7 +96,7 @@ namespace MyProject.GamePlay.Controllers
 
         private void TrySpawn()
         {
-            _enemyMobController.StartSpawn();
+            //_enemyMobController.StartSpawn();
         }
 
         public void ResumeTime(float passedRealtime)
