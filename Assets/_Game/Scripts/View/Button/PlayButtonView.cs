@@ -24,7 +24,6 @@ public class PlayButtonView : BaseButtonView
         if (!_flagService.IsFlagAvailable(Flags.BoardFlag)) return;
         _flagService.SetFlag(Flags.BoardFlag, FlagState.Unavailable);
         _signalBus.Fire<PlayButtonClickSignal>();
-        _flagService.SetFlag(Flags.BoardFlag, FlagState.Available);
     }
 
     public void TakeHit()

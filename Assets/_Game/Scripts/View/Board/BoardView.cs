@@ -49,7 +49,7 @@ public class BoardView : BaseView
         }
 
         gameObject.SetActive(false);
-        _flagService.SetFlag(Flags.BoardFlag, FlagState.Available);
+       
     }
 
     public override void Dispose()

@@ -17,6 +17,12 @@ namespace MyProject.Core.Enums
         Sea
     }
 
+    public enum UserType
+    {
+        Player,
+        Enemy
+    }
+
     public enum BuildType
     {
         DevelopmentBuild,

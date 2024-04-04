@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7122645535072306482}
   - component: {fileID: 7002760528301632397}
   - component: {fileID: 1132388418943349205}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: B2
   m_TagString: Border
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 8235159413922774890}
   - component: {fileID: 3451769452464995848}
   - component: {fileID: 7459240523168024521}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: B1
   m_TagString: Border
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 1477962018822665138}
   - component: {fileID: 6052173339311556467}
   - component: {fileID: 1942235670138776002}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: B5
   m_TagString: Border
   m_Icon: {fileID: 0}
@@ -326,7 +326,7 @@ GameObject:
   - component: {fileID: 3768676799605161196}
   - component: {fileID: 3768676799605161194}
   - component: {fileID: 3768676799605161197}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -496,7 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3731160727147863714}
   - component: {fileID: 4460098208075343353}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: HexagonMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +563,6 @@ MonoBehaviour:
   colTrigger: {fileID: 2915574019171970882}
   x: 0
   z: 0
-  _gridState: 0
 --- !u!1 &4314672073985731118
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,7 +575,7 @@ GameObject:
   - component: {fileID: 9156267473843928023}
   - component: {fileID: 7615478743506888456}
   - component: {fileID: 7413051370120928633}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: B0
   m_TagString: Border
   m_Icon: {fileID: 0}
@@ -679,7 +678,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3266794005763187581}
   - component: {fileID: 2688445705128741913}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: icon_speed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -763,7 +762,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8022620883974268833}
   - component: {fileID: 6806529134494249948}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -849,7 +848,7 @@ GameObject:
   - component: {fileID: 6788104312640421665}
   - component: {fileID: 1385844511646119361}
   - component: {fileID: 6474947610405821734}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: B4
   m_TagString: Border
   m_Icon: {fileID: 0}
@@ -954,7 +953,7 @@ GameObject:
   - component: {fileID: 1332986121091231733}
   - component: {fileID: 7180015289698887702}
   - component: {fileID: 3985358004496961638}
-  m_Layer: 12
+  m_Layer: 8
   m_Name: B3
   m_TagString: Border
   m_Icon: {fileID: 0}
@@ -1057,7 +1056,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6719241649655066795}
   - component: {fileID: 702310438478072356}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Soldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1141,7 +1140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2545067952670742741}
   - component: {fileID: 624272530277625837}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1225,7 +1224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4934473087884132731}
   - component: {fileID: 6185015508927593157}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Circle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1312,7 +1311,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5424698347539370775}
   - component: {fileID: 7701042909362036893}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1396,7 +1395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6912893124341614438}
   - component: {fileID: 8043239439617442014}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: icon_Upgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1480,9 +1479,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4934473087884132731}
     m_Modifications:
+    - target: {fileID: 127810, guid: 36bdc02b23d9ca94d93bd715c0cca5c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 129898, guid: 36bdc02b23d9ca94d93bd715c0cca5c0, type: 3}
       propertyPath: m_Name
       value: ConfettiBlastRainbow
+      objectReference: {fileID: 0}
+    - target: {fileID: 129898, guid: 36bdc02b23d9ca94d93bd715c0cca5c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 192986, guid: 36bdc02b23d9ca94d93bd715c0cca5c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 192986, guid: 36bdc02b23d9ca94d93bd715c0cca5c0, type: 3}
       propertyPath: m_IsActive
@@ -1694,6 +1705,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hexagon_Border6
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5fd026e77024e488ea4fd6ed4d73c18b, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1786,6 +1801,10 @@ PrefabInstance:
       value: Military Build
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0df4b3a93184e40509a2af26caaf5357, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0df4b3a93184e40509a2af26caaf5357, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -1818,11 +1837,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 109516, guid: 6308f0b3d17858a479f9cb4a9456e13a, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 195296, guid: 6308f0b3d17858a479f9cb4a9456e13a, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 195296, guid: 6308f0b3d17858a479f9cb4a9456e13a, type: 3}
       propertyPath: m_IsActive
@@ -2341,7 +2360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8bc4f393a46e94302a75f540887ab14b, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8bc4f393a46e94302a75f540887ab14b, type: 3}
       propertyPath: m_TagString

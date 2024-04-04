@@ -62,7 +62,7 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
 
     bool hasCollectedBefore = false;
 
-    [HideInInspector]
+    public SkinnedMeshRenderer GetSmr() => smr;
 
 
 
@@ -153,6 +153,8 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
         transform.localPosition = new Vector3(xPos, yPos, zPos);
        
     }
+
+  
 
     public void PlayVFX(VFXType vfxType)
     {

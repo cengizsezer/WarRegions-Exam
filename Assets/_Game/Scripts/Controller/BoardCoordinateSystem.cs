@@ -121,6 +121,7 @@ namespace MyProject.GamePlay.Controllers
                     {
                         //Editorde ki ground dizaynı set ediyorum -- LevelSettings scripti
                         entity = startGroundLayout.BlockDatas.Blocks[i];
+                        LsAllGridViews[gridIndex].mType = (entity as GroundTypeDefinition).BlockType;
                         LsAllGridViews[gridIndex].name = $"grid---{entity.DefaultEntitySpriteName}";
                         LsAllGridViews[gridIndex].SetColor((entity as GroundTypeDefinition).RGBColor);
 
@@ -136,7 +137,8 @@ namespace MyProject.GamePlay.Controllers
                         //üzerine MillitaryBase
                         if (startMilitaryBaseLayout.BlockDatas.Blocks[i] != null)
                         {
-                            CreateMilitaryBaseDesign(LsAllGridViews[gridIndex]);
+                            IBlockEntityTypeDefinition entity = startMilitaryBaseLayout.BlockDatas.Blocks[i];
+                            CreateMilitaryBaseDesign(LsAllGridViews[gridIndex],entity);
                         }
                     }
                     else if (startGroundLayout.BlockDatas.Blocks[i] == null)
@@ -182,16 +184,17 @@ namespace MyProject.GamePlay.Controllers
             }
         }
 
-        void CreateMilitaryBaseDesign(GridView grid)
+        void CreateMilitaryBaseDesign(GridView grid, IBlockEntityTypeDefinition entity)
         {
            
             Vector3 MillitaryBasePosition = grid.transform.position
                 + Vector3.up * 2.5f + Vector3.forward * 1.2f;
 
             MillitaryBaseView MB = _millitaryBaseViewFactory.Create(
-                new MillitaryBaseView.Args(_boardView.transform, Vector3.one*2f,MillitaryBasePosition));
-
-          
+                new MillitaryBaseView.Args(_boardView.transform, Vector3.one*2f,MillitaryBasePosition,grid));
+            MB.MilitaryBaseType = (entity as MilitaryBaseDefinition).MillitaryBaseType;
+            MB.UserType =grid.mType == BlockType.Blue ? MB.UserType = UserType.Player : UserType.Enemy;
+            MB.Initialize();
         }
 
 

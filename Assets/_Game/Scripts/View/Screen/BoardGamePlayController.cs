@@ -15,8 +15,8 @@ namespace MyProject.GamePlay.Controllers
     {
         public bool IsRunning = false;
 
-        private GridView _selectedGrid;
-        private GridView _lastSelectedGrid;
+        private MillitaryBaseView _selectedView;
+        private MillitaryBaseView _lastSelectedView;
         private Vector3 _lastClickPoint;
         private bool _isDragging;
         private bool _boardDataLoaded;
@@ -83,8 +83,8 @@ namespace MyProject.GamePlay.Controllers
 
         public void Init()
         {
+            Debug.Log("Init");
             InitBoardView().Forget();
-            _signalBus.Subscribe<AttackButtonClickSignal>(GetRandomCharacter);
             _signalBus.Subscribe<ContinueButtonClickSignal>(DisposeBoard);
             _signalBus.Fire<StartEnemySpawnTimerSignal>();
         }
@@ -99,7 +99,7 @@ namespace MyProject.GamePlay.Controllers
             RegisterBoardEvents();
             _mainCamera.gameObject.SetActive(true);
             _boardDataController.BoardState = BoardState.Active;
-            _flagService.SetFlag(Flags.BoardFlag, FlagState.Unavailable);
+           
         }
 
         public void DisposeBoard(ContinueButtonClickSignal signal)
@@ -148,95 +148,80 @@ namespace MyProject.GamePlay.Controllers
 
         private void OnFingerDown()
         {
+          
             if (!_flagService.IsFlagAvailable(Flags.BoardFlag)) return;
 
-            if (TryCatchGridView(out var gridView))
+            if (TryCatchGridView(out var view))
             {
 
-                //switch (gridView.GridState)
-                //{
-                //    case GridState.Filled:
-                //        if (_lastSelectedGrid)
-                //        {
-                //            if (Time.realtimeSinceStartup - _lastFingerDownTime < 0.5f
-                //                && _lastSelectedGrid == gridView
-                //                )
-                //            {
-                //                return;
-                //            }
+                switch (view.MilitaryBaseType)
+                {
+                    case MilitaryBaseType.Land:
 
-                //            _lastSelectedGrid.UnSelectGrid();
-                //        }
+                        if (_lastSelectedView)
+                        {
+                            if (Time.realtimeSinceStartup - _lastFingerDownTime < 0.5f)
+                            {
+                                return;
+                            }
 
-                //        _lastFingerDownTime = Time.realtimeSinceStartup;
-                //        _selectedGrid = gridView;
-                //        _selectedGrid.GridState = GridState.Free;
+                            
+                        }
+                        Debug.Log(view.name,view.gameObject);
+                        _lastFingerDownTime = Time.realtimeSinceStartup;
+                        _selectedView = view;
+                        _selectedView.SelectView();
+                        break;
 
-                       
+                    case MilitaryBaseType.Sea:
 
-                //        _selectedGrid.SelectGrid(false);
-                //        break;
-
-                //    case GridState.Free:
-                //        break;
-                //}
+                        Debug.Log(view.name, view.gameObject);
+                        break;
+                }
             }
 
         }
-        public void GetRandomCharacter(AttackButtonClickSignal signal)
-        {
-           
-        }
+       
         private void OnFingerUp()
         {
-            
-
-            _isDragging = false;
-            TryInteractItem();
-            _lastSelectedGrid = _selectedGrid;
-            TryReleaseItem();
-        }
-        private void TryInteractItem()
-        {
-            var grid = _selectedGrid;
-           
-        }
-        private void TryReleaseItem()
-        {
-            if (_selectedGrid == null)
+            if (!_selectedView)
             {
                 return;
             }
 
-            if (TryCatchGridView(out GridView otherGrid))
+            _isDragging = false;
+            _lastSelectedView = _selectedView;
+            TryReleaseItem();
+        }
+       
+        private void TryReleaseItem()
+        {
+            if (_selectedView == null)
+            {
+                return;
+            }
+
+            if (TryCatchGridView(out MillitaryBaseView other))
             {
 
-                if (otherGrid == _selectedGrid)
+                if (other == _selectedView)
                 {
-                   
-
                     return;
                 }
 
-                //switch (otherGrid.GridState)
-                //{
-                //    case GridState.Free:
-                //        //LandSelectedItemToFreeGrid(otherGrid);
-                      
-                //        otherGrid.SelectGrid(false);
-                //        break;
-                //    //case GridState.Filled when IsGridMergeable(otherGrid):
-                //    //    MergeSelectedItemWith(otherGrid);
-                //    //    otherGrid.SelectGrid(true);
-                //    //    break;
-                //    //case GridState.Filled when !IsGridMergeable(otherGrid):
-                //    //    ResetSelectedItemPosition();
-                //    //    otherGrid.SelectGrid(true);
-                //    //    break;
-                //    default:
-                       
-                //        break;
-                //}
+                switch (other.UserType)
+                {
+                    case UserType.Player:
+                        Debug.Log("Player");
+                        break;
+                    case UserType.Enemy:
+                        _selectedView.Attack();
+                        Debug.Log("Enemy");
+                        break;
+                    default:
+
+                        break;
+                }
             }
 
         }
@@ -249,31 +234,31 @@ namespace MyProject.GamePlay.Controllers
                     !_isDragging) return;
              
 
-                //_selectedGrid.UnSelectGrid();
+                _selectedView.UnSelectView();
                 _isDragging = true;
-                _lastSelectedGrid = null;
+                _lastSelectedView = null;
             }
 
         }
         private void OnFingerUpdate()
         {
-            if (_selectedGrid)
+            if (_selectedView)
             {
                 TryDragSelectedItem();
             }
         }
        
-        private bool TryCatchGridView(out GridView grid)
+        private bool TryCatchGridView(out MillitaryBaseView millitaryBaseView)
         {
-            grid = null;
+            millitaryBaseView = null;
 
             if (Physics.Raycast(_mainCamera.ScreenPointToRay(_inputController.FingerPosition), out var hit, 100,
                     LayerMasks.COLLIDER))
             {
-                if (hit.collider.TryGetComponent(out GridView gridView))
+                if (hit.collider.TryGetComponent(out MillitaryBaseView view))
                 {
 
-                    grid = gridView;
+                    millitaryBaseView = view;
                     _lastClickPoint = hit.point;
                     return true;
                 }
@@ -294,9 +279,7 @@ namespace MyProject.GamePlay.Controllers
 
         protected override void OnDispose()
         {
-            _signalBus.TryUnsubscribe<AttackButtonClickSignal>(GetRandomCharacter);
             _signalBus.TryUnsubscribe<ContinueButtonClickSignal>(DisposeBoard);
-
             UnRegisterBoardEvents();
         }
         public async UniTaskVoid ResetGame()
