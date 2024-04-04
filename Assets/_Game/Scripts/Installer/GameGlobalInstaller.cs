@@ -85,6 +85,7 @@ namespace MyProject.Core.Installer
             InstallBombWeopanVFXView();
             InstallArrowWeopanVFXView();
             InstallAxeWeopanVFXView();
+            InstallMilitaryBaseViews();
         }
 
 
@@ -97,6 +98,14 @@ namespace MyProject.Core.Installer
                    .UnderTransformGroup("GridViews"));
         }
 
+        private void InstallMilitaryBaseViews()
+        {
+            Container.BindFactory<MillitaryBaseView.Args, MillitaryBaseView, MillitaryBaseView.Factory>()
+              .FromPoolableMemoryPool<MillitaryBaseView.Args, MillitaryBaseView, MillitaryBaseView.Pool>(poolbinder => poolbinder
+                  .WithInitialSize(10)
+                  .FromComponentInNewPrefab(_applicationPrefabSettings.MilitaryBaseViewPrefab)
+                  .UnderTransformGroup("MilitaryBaseViews"));
+        }
         private void InstallCurrencyVfx()
         {
             Container.BindFactory<CurrencyVFXView.Args, CurrencyVFXView, CurrencyVFXView.Factory>()

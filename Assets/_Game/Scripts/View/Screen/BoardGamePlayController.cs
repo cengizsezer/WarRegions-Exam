@@ -153,33 +153,33 @@ namespace MyProject.GamePlay.Controllers
             if (TryCatchGridView(out var gridView))
             {
 
-                switch (gridView.GridState)
-                {
-                    case GridState.Filled:
-                        if (_lastSelectedGrid)
-                        {
-                            if (Time.realtimeSinceStartup - _lastFingerDownTime < 0.5f
-                                && _lastSelectedGrid == gridView
-                                )
-                            {
-                                return;
-                            }
+                //switch (gridView.GridState)
+                //{
+                //    case GridState.Filled:
+                //        if (_lastSelectedGrid)
+                //        {
+                //            if (Time.realtimeSinceStartup - _lastFingerDownTime < 0.5f
+                //                && _lastSelectedGrid == gridView
+                //                )
+                //            {
+                //                return;
+                //            }
 
-                            _lastSelectedGrid.UnSelectGrid();
-                        }
+                //            _lastSelectedGrid.UnSelectGrid();
+                //        }
 
-                        _lastFingerDownTime = Time.realtimeSinceStartup;
-                        _selectedGrid = gridView;
-                        _selectedGrid.GridState = GridState.Free;
+                //        _lastFingerDownTime = Time.realtimeSinceStartup;
+                //        _selectedGrid = gridView;
+                //        _selectedGrid.GridState = GridState.Free;
 
                        
 
-                        _selectedGrid.SelectGrid(false);
-                        break;
+                //        _selectedGrid.SelectGrid(false);
+                //        break;
 
-                    case GridState.Free:
-                        break;
-                }
+                //    case GridState.Free:
+                //        break;
+                //}
             }
 
         }
@@ -218,25 +218,25 @@ namespace MyProject.GamePlay.Controllers
                     return;
                 }
 
-                switch (otherGrid.GridState)
-                {
-                    case GridState.Free:
-                        //LandSelectedItemToFreeGrid(otherGrid);
+                //switch (otherGrid.GridState)
+                //{
+                //    case GridState.Free:
+                //        //LandSelectedItemToFreeGrid(otherGrid);
                       
-                        otherGrid.SelectGrid(false);
-                        break;
-                    //case GridState.Filled when IsGridMergeable(otherGrid):
-                    //    MergeSelectedItemWith(otherGrid);
-                    //    otherGrid.SelectGrid(true);
-                    //    break;
-                    //case GridState.Filled when !IsGridMergeable(otherGrid):
-                    //    ResetSelectedItemPosition();
-                    //    otherGrid.SelectGrid(true);
-                    //    break;
-                    default:
+                //        otherGrid.SelectGrid(false);
+                //        break;
+                //    //case GridState.Filled when IsGridMergeable(otherGrid):
+                //    //    MergeSelectedItemWith(otherGrid);
+                //    //    otherGrid.SelectGrid(true);
+                //    //    break;
+                //    //case GridState.Filled when !IsGridMergeable(otherGrid):
+                //    //    ResetSelectedItemPosition();
+                //    //    otherGrid.SelectGrid(true);
+                //    //    break;
+                //    default:
                        
-                        break;
-                }
+                //        break;
+                //}
             }
 
         }
@@ -249,7 +249,7 @@ namespace MyProject.GamePlay.Controllers
                     !_isDragging) return;
              
 
-                _selectedGrid.UnSelectGrid();
+                //_selectedGrid.UnSelectGrid();
                 _isDragging = true;
                 _lastSelectedGrid = null;
             }

@@ -84,7 +84,7 @@ namespace MyProject.GamePlay.Characters
         {
             _moveTween?.Kill();
             _scaleTween?.Kill();
-            gridView.ChangeState(GridState.Filled);
+            //gridView.ChangeState(GridState.Filled);
             //transform.SetParent(gridView.ItemHolder);
             _sortings[GetID()].sortingOrder = GlobalConsts.SortingOrders.CharacterDefault;
             transform.localRotation = Quaternion.identity;

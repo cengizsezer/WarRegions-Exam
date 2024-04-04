@@ -10,6 +10,13 @@ namespace MyProject.Core.Enums
         Duration
     }
 
+    public enum MilitaryBaseType
+    {
+        
+        Land,
+        Sea
+    }
+
     public enum BuildType
     {
         DevelopmentBuild,

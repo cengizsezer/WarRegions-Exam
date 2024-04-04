@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e151764c90239bd4a9616316f63019b2, type: 3}
+  m_Name: Level_1
+  m_EditorClassIdentifier: 
+  gridViewData:
+    xSize: 6
+    zSize: 10
+    xOffset: 7.77
+    zOffset: 6.69
+  mountains:
+  - xIndex: 2
+    zIndex: 9
+  - xIndex: 3
+    zIndex: 9
+  - xIndex: 4
+    zIndex: 9
+  seas:
+  - xIndex: 0
+    zIndex: 0
+  - xIndex: 1
+    zIndex: 0
+  - xIndex: 2
+    zIndex: 0
+  - xIndex: 3
+    zIndex: 0
+  - xIndex: 4
+    zIndex: 0
+  - xIndex: 0
+    zIndex: 1
+  - xIndex: 6
+    zIndex: 1
+  - xIndex: 0
+    zIndex: 2
+  - xIndex: 2
+    zIndex: 2
+  - xIndex: 3
+    zIndex: 2
+  - xIndex: 4
+    zIndex: 2
+  - xIndex: 0
+    zIndex: 3
+  - xIndex: 1
+    zIndex: 3
+  - xIndex: 2
+    zIndex: 3
+  - xIndex: 3
+    zIndex: 3
+  - xIndex: 4
+    zIndex: 3
+  - xIndex: 6
+    zIndex: 3
+  - xIndex: 0
+    zIndex: 4
+  - xIndex: 1
+    zIndex: 4
+  - xIndex: 2
+    zIndex: 4
+  - xIndex: 6
+    zIndex: 4
+  - xIndex: 0
+    zIndex: 5
+  - xIndex: 1
+    zIndex: 5
+  - xIndex: 2
+    zIndex: 5
+  - xIndex: 3
+    zIndex: 5
+  - xIndex: 5
+    zIndex: 5
+  - xIndex: 6
+    zIndex: 5
+  - xIndex: 0
+    zIndex: 6
+  - xIndex: 1
+    zIndex: 6
+  - xIndex: 2
+    zIndex: 6
+  - xIndex: 3
+    zIndex: 6
+  - xIndex: 4
+    zIndex: 6
+  - xIndex: 6
+    zIndex: 6
+  - xIndex: 0
+    zIndex: 7
+  - xIndex: 1
+    zIndex: 7
+  - xIndex: 3
+    zIndex: 7
+  - xIndex: 5
+    zIndex: 7
+  - xIndex: 6
+    zIndex: 7
+  - xIndex: 0
+    zIndex: 8
+  - xIndex: 1
+    zIndex: 8
+  - xIndex: 6
+    zIndex: 8
+  - xIndex: 0
+    zIndex: 9
+  - xIndex: 6
+    zIndex: 9

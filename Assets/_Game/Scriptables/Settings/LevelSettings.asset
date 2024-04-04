@@ -1,0 +1,191 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 539271eb9f0038347b6c0257b12de026, type: 3}
+  m_Name: LevelSettings
+  m_EditorClassIdentifier: 
+  LevelData:
+  - {fileID: 11400000, guid: 7c124b6f392d8484386716fd9bd72dae, type: 2}
+  - {fileID: 11400000, guid: b688620e2d004dd4ba0c99b903d27a36, type: 2}
+  - {fileID: 11400000, guid: 5f12b26f4466d4e4d9bfb70a51f23be6, type: 2}
+  - {fileID: 11400000, guid: ae28c0d03b06c914da0a2d712b335eff, type: 2}
+  - {fileID: 11400000, guid: 0287640419c89d14b89e606011419837, type: 2}
+  levelGroundTypeSettings:
+    width: 5
+    height: 10
+    gridStartLayout:
+      BlockDatas:
+        Blocks:
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 91fd42e820d8e7f449a672ec15b2f236, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 91fd42e820d8e7f449a672ec15b2f236, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 91fd42e820d8e7f449a672ec15b2f236, type: 2}
+        - {fileID: 11400000, guid: 91fd42e820d8e7f449a672ec15b2f236, type: 2}
+        - {fileID: 11400000, guid: 91fd42e820d8e7f449a672ec15b2f236, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 171a6e3600b9f20449efa8ac0811ea57, type: 2}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 91fd42e820d8e7f449a672ec15b2f236, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 171a6e3600b9f20449efa8ac0811ea57, type: 2}
+        - {fileID: 11400000, guid: 171a6e3600b9f20449efa8ac0811ea57, type: 2}
+        - {fileID: 11400000, guid: 91fd42e820d8e7f449a672ec15b2f236, type: 2}
+        - {fileID: 11400000, guid: 91fd42e820d8e7f449a672ec15b2f236, type: 2}
+        - {fileID: 11400000, guid: 171a6e3600b9f20449efa8ac0811ea57, type: 2}
+        - {fileID: 11400000, guid: 171a6e3600b9f20449efa8ac0811ea57, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 171a6e3600b9f20449efa8ac0811ea57, type: 2}
+        - {fileID: 11400000, guid: 171a6e3600b9f20449efa8ac0811ea57, type: 2}
+      Width: 5
+      Height: 10
+  militaryBaseTypeSettings:
+    gridStartLayout:
+      BlockDatas:
+        Blocks:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 9c1216e794e5b0c42b2582fac2c78d56, type: 2}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 9c1216e794e5b0c42b2582fac2c78d56, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: ab2d3f67140d0804fabaa38319f9831a, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: ab2d3f67140d0804fabaa38319f9831a, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 9c1216e794e5b0c42b2582fac2c78d56, type: 2}
+        - {fileID: 0}
+      Width: 5
+      Height: 10
+  levelMountainSettings:
+    gridStartLayout:
+      BlockDatas:
+        Blocks:
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 9223c64b34bcd20458b7ef8e5cd537f3, type: 2}
+        - {fileID: 11400000, guid: 9223c64b34bcd20458b7ef8e5cd537f3, type: 2}
+        - {fileID: 11400000, guid: 9223c64b34bcd20458b7ef8e5cd537f3, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+      Width: 5
+      Height: 10
+    mountainIndex: 020000000100000002000000

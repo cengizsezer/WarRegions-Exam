@@ -12,6 +12,8 @@ namespace MyProject.Core.Const
             public const string ParentMenuName = "MyProject/";
             public const string INSTALLERS = ParentMenuName + "Installers/";
             public const string SETTINGS = ParentMenuName + "Settings/";
+            public const string DATA = ParentMenuName + "Data/";
+            public const string DEFINITION = ParentMenuName + "Definition/";
 
         }
         public  class CoroutineConsts
