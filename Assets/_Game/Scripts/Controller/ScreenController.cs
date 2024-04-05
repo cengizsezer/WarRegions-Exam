@@ -9,7 +9,7 @@ namespace MyProject.Core.Controllers
         #region Injection
 
         public MainScreenView MainScreen;
-        public MapScreenView MapScreen;
+        public GamePlayScreenView MapScreen;
         public BaseScreen currentScreen;
 
         public ScreenController
@@ -29,11 +29,6 @@ namespace MyProject.Core.Controllers
         public void ChangeState(ScreenState state)
         {
             CreateState(state);
-        }
-
-        public void SetCost()
-        {
-            MapScreen._attackButtonview.SetButtonView();
         }
 
         private void CreateState(ScreenState state)
@@ -74,7 +69,7 @@ namespace MyProject.Core.Controllers
 
         private void CreateMapScreen()
         {
-            MapScreen = (MapScreenView)_screenFactory.Create(_applicationControllerSettings.MapScreenPrefab);
+            MapScreen = (GamePlayScreenView)_screenFactory.Create(_applicationControllerSettings.MapScreenPrefab);
             currentScreen = MapScreen;
             MapScreen.Initialize();
         }

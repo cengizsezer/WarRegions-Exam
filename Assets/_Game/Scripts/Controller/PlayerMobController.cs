@@ -9,17 +9,17 @@ namespace MyProject.GamePlay.Controllers
 {
     public class PlayerMobController:IDisposable
     {
-        public List<PlayerMobView> LsPlayerMobViews = new();
+        public List<MobView> LsPlayerMobViews = new();
 
         #region Injection
 
 
-        private readonly PlayerMobView.Factory _playerMobFactory;
+        private readonly MobView.Factory _playerMobFactory;
         private readonly SignalBus _signalBus;
 
         [Inject]
         public PlayerMobController(
-            PlayerMobView.Factory playerMobFactory
+            MobView.Factory playerMobFactory
             ,SignalBus signalBus
             )
         {

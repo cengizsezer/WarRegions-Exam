@@ -30,8 +30,7 @@ namespace MyProject.GamePlay.Controllers
         private readonly GridViewSettings _gridViewSettings;
         private readonly LevelSettings _levelSettings;
         private readonly ApplicationPrefabSettings _applicationPrefabSettings;
-        private readonly EnemyBossView.Factory _enemyBossFactory;
-        private readonly PlayerBossView.Factory _playerBossFactory;
+       
 
         [Inject]
         public BoardCoordinateSystem
@@ -40,8 +39,6 @@ namespace MyProject.GamePlay.Controllers
             , GridView.Factory gridViewfactory
             , GridViewSettings gridViewSettings
             , ApplicationPrefabSettings applicationPrefabSettings
-            , PlayerBossView.Factory playerBossFactory
-            , EnemyBossView.Factory enemyBossFactory
             ,LevelSettings levelSettings
             , MillitaryBaseView.Factory millitaryBaseViewFactory
         )
@@ -50,8 +47,6 @@ namespace MyProject.GamePlay.Controllers
             _gridViewfactory = gridViewfactory;
             _gridViewSettings = gridViewSettings;
             _applicationPrefabSettings = applicationPrefabSettings;
-            _playerBossFactory = playerBossFactory;
-            _enemyBossFactory = enemyBossFactory;
             _levelSettings = levelSettings;
             _millitaryBaseViewFactory = millitaryBaseViewFactory;
         }

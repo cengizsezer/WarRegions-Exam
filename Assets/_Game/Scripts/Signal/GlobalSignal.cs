@@ -259,27 +259,8 @@ public readonly struct CurrencyGainSignal
     }
 }
 
-[Signal]
-public readonly struct CharacterItemSelectedSignal
-{
-    public readonly ItemGroupData ItemGroupData;
-    public readonly Vector2Int Coordinates;
-    public readonly int Level;
 
-    public CharacterItemSelectedSignal(ItemGroupData itemGroupData
-        , Vector2Int coordinates, int level)
-    {
-        ItemGroupData = itemGroupData;
-        Coordinates = coordinates;
-        Level = level;
-    }
-}
 
-[Signal]
-public struct MoveCountViewChangedSignal
-{
-   
-}
 
 
 

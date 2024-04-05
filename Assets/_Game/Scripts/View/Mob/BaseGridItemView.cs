@@ -12,28 +12,19 @@ using Zenject;
 
 namespace MyProject.GamePlay.Characters
 {
-    public abstract class BaseGridItemView : BaseView, IGridItem
+    public abstract class BaseGridItemView : BaseView
     {
-        public GameplayMobType GridItemType { get; private set; }
-        public CharMobType CharacterType { get; private set; }
-        public ItemName ItemName { get; private set; }
-        public int ItemLevel { get; set; }
+       
+        public MilitaryBaseType MilitaryBaseType { get; private set; }
         public Animator _currentAnimator;
-
         [SerializeField] protected DOTweener _doTweener;
-        [SerializeField] protected SortingGroup[] _sortings;
-        [SerializeField] protected CharacterRenderData[] _characterRender;
-
-        protected ItemGroupData _itemGroupData;
-        public ItemGroupData ItemGroupData => _itemGroupData;
-
         private DG.Tweening.Tween _moveTween;
         private DG.Tweening.Tween _scaleTween;
 
         #region Injection
 
         protected ItemTweenSettings _itemTweenSettings;
-        protected CharacterItemSettings _characterSettings;
+        protected MobGamePlaySettings _characterSettings;
         protected BoardFXController _boardFXController;
         protected SignalBus _signalBus;
 
@@ -41,7 +32,7 @@ namespace MyProject.GamePlay.Characters
         protected virtual void Construct
         (
             ItemTweenSettings itemTweenSettings
-            , CharacterItemSettings itemSettings
+            , MobGamePlaySettings itemSettings
             , BoardFXController boardFXController
             , SignalBus signalBus)
         {
@@ -53,18 +44,15 @@ namespace MyProject.GamePlay.Characters
 
         #endregion
 
-        public int GetID() => (int)CharacterType;
+
+        public int GetID() => (int)MilitaryBaseType;
+      
         public override void Initialize()
         {
-            _itemGroupData = _characterSettings.GetItemGroupData(ItemName);
             SetView();
         }
         public void Init(ItemData itemData)
         {
-            GridItemType = itemData.GridItemType;
-            CharacterType = itemData.CharacterType;
-            ItemLevel = itemData.ItemLevel;
-            ItemName = itemData.ItemName;
             Initialize();
         }
         protected void ResetAnimatorController()
@@ -84,9 +72,6 @@ namespace MyProject.GamePlay.Characters
         {
             _moveTween?.Kill();
             _scaleTween?.Kill();
-            //gridView.ChangeState(GridState.Filled);
-            //transform.SetParent(gridView.ItemHolder);
-            _sortings[GetID()].sortingOrder = GlobalConsts.SortingOrders.CharacterDefault;
             transform.localRotation = Quaternion.identity;
             transform.localScale = _characterSettings.characterLocalScale;
             transform.localPosition = new Vector3(0, 0, -1);
@@ -94,46 +79,12 @@ namespace MyProject.GamePlay.Characters
             _doTweener.PlayNamed(Tweens.SPAWN2);
         }
 
-        public virtual void OnSelected(GridView gridView)
-        {
-            _moveTween?.Kill();
-            _scaleTween?.Kill();
-            _sortings[GetID()].sortingOrder = GlobalConsts.SortingOrders.CharacterSelect;
-        }
-        public void OnDragged(Vector3 dragPosition)
-        {
-            transform.position = Vector3.Lerp(transform.position, dragPosition,
-                Time.deltaTime * _itemTweenSettings.DragSpeed);
-        }
-        public virtual void OnMerged(GridView gridView)
-        {
-            BondWithGrid(gridView);
-            ItemLevel++;
-            SetView();
-            OnSelected(gridView);
-        }
-
-        public void MoveToGrid(GridView gridView, float speed)
-        {
-            //_moveTween?.Kill();
-            //_scaleTween?.Kill();
-            //_moveTween = transform.DOMove(gridView.ItemHolder.position, speed)
-            //    .SetEase(_itemTweenSettings.MoveEase).OnComplete(() => { BondWithGrid(gridView); });
-        }
-
         public override void Dispose()
         {
-            ItemLevel = 1;
             _moveTween?.Kill();
             _scaleTween?.Kill();
             _doTweener.KillAll();
         }
-
-        public virtual bool IsMaxLevel()
-        {
-            return default;
-        }
-
         protected abstract void SetView();
         public abstract void Despawn();
     }
