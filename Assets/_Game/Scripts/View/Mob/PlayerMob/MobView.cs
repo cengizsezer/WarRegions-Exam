@@ -26,6 +26,7 @@ namespace MyProject.GamePlay.Characters
     {
         protected Damageable Damageable;
         public MobView TargetView;
+        public MillitaryBaseView TargetMilitaryBaseView;
         public int Amount;
 
         public delegate void OnUpdate();
@@ -45,8 +46,11 @@ namespace MyProject.GamePlay.Characters
         }
       
 
-        public bool isAlive = true;
+        public bool isAlive = false;
+        private Animator _currentAnimator;
+        private SkinnedMeshRenderer _skinnedMeshRenderer;
 
+        public SkinnedMeshRenderer GetSmr() => _skinnedMeshRenderer;
         public AnimStates AnimState
         {
             get => _animState;
@@ -67,8 +71,10 @@ namespace MyProject.GamePlay.Characters
 
         [SerializeField] private Animator[] LsAnimators;
         [SerializeField] private SkinnedMeshRenderer[] LsRenderer;
+        [SerializeField] private GameObject[] goParent;
         private AnimStates _animState = AnimStates.Idle;
         private IMemoryPool _pool;
+        private int _soldierCount;
         
 
         #region Injection
@@ -101,6 +107,7 @@ namespace MyProject.GamePlay.Characters
         public void OnSpawned(IMemoryPool pool)
         {
             _pool = pool;
+            isAlive = true;
             _signalBus.Subscribe<LevelFailSignal>(Despawn);
             _signalBus.Subscribe<LevelSuccessSignal>(Despawn);
             Damageable = GetComponent<Damageable>();
@@ -129,6 +136,22 @@ namespace MyProject.GamePlay.Characters
             }
         }
 
+        public override void Initialize()
+        {
+            base.Initialize();
+            SetAnimator();
+            RebindAnimator();
+            SetViewData();
+            SetAttackBase();
+        }
+        public void SetPropsView(SoldierWarData data)
+        {
+            transform.position = data.SpawnPosition;
+            _skinnedMeshRenderer.material.color = data.color;
+            TargetMilitaryBaseView = data.TargetMilitaryBase;
+            _soldierCount = data.SoldierCount;
+            
+        }
         private void Attack()
         {
             Damageable d = GetTarget().Damageable;
@@ -161,6 +184,18 @@ namespace MyProject.GamePlay.Characters
             StartCoroutine(MovementRoutine(lsGridView, time));
         }
 
+        protected void ResetAnimatorController()
+        {
+            if (_currentAnimator == null) return;
+
+            foreach (var parametre in _currentAnimator.parameters)
+            {
+                if (parametre.type == AnimatorControllerParameterType.Trigger)
+                {
+                    _currentAnimator.ResetTrigger(parametre.name);
+                }
+            }
+        }
         private IEnumerator MovementRoutine(List<GridView> lsGridView, float time)
         {
             ResetAnimatorController();
@@ -211,14 +246,7 @@ namespace MyProject.GamePlay.Characters
 
         }
 
-        protected override void SetView()
-        {
-            SetAnimator();
-            RebindAnimator();
-            SetViewData();
-            SetAttackBase();
-           
-        }
+      
 
         void SetAnimator()
         {
@@ -228,9 +256,10 @@ namespace MyProject.GamePlay.Characters
             {
                 if (i == _id)
                 {
-                    LsAnimators[i].gameObject.SetActive(i == _id);
+                    goParent[i].SetActive(i == _id);
 
                     _currentAnimator = LsAnimators[i];
+                    _skinnedMeshRenderer = LsRenderer[i];
                 }
             }
         }
@@ -244,7 +273,7 @@ namespace MyProject.GamePlay.Characters
 
         void SetViewData()
         {
-            
+           
         }
 
         void SetAttackBase()

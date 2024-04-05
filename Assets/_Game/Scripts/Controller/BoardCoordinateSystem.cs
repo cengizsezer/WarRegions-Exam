@@ -11,8 +11,6 @@ namespace MyProject.GamePlay.Controllers
     public class BoardCoordinateSystem
     {
         public List<GridView> LsAllGridViews = new();
-        public List<GridView> LsRoadGrids = new();
-        public List<GridView> LsGameplayGrids = new();
         public List<GridView> LsMountainViews = new();
 
         private int xSize, zSize;
@@ -209,8 +207,7 @@ namespace MyProject.GamePlay.Controllers
         public void Dispose()
         {
             LsAllGridViews.Clear();
-            LsGameplayGrids.Clear();
-            LsRoadGrids.Clear();
+            LsMountainViews.Clear();
         }
     }
 

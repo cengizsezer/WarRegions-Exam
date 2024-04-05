@@ -4116,6 +4116,7 @@ GameObject:
   - component: {fileID: 6376483566019624179}
   - component: {fileID: 2165107534646650136}
   - component: {fileID: 6075683241799634611}
+  - component: {fileID: 6984043423791677227}
   m_Layer: 0
   m_Name: Tank (1)
   m_TagString: Untagged
@@ -4251,6 +4252,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.6177392, y: 2.3324058, z: 2.940408}
   m_Center: {x: -0.020157, y: 0.04703328, z: -0.7854909}
+--- !u!114 &6984043423791677227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4863094252040133926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7568a34c0b87b944fb3179ad6b4e2c22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentMob: {fileID: 7732128490158977496}
 --- !u!1 &5218427782999531594
 GameObject:
   m_ObjectHideFlags: 0
@@ -5056,9 +5070,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fdf628896988d64d84ae79f83b3ea98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentAnimator: {fileID: 0}
   _doTweener: {fileID: 131907423543307510}
   TargetView: {fileID: 0}
+  TargetMilitaryBaseView: {fileID: 0}
   Amount: 0
   IsAlive: 0
   _attackSpeed: 0
@@ -5069,6 +5083,9 @@ MonoBehaviour:
   LsRenderer:
   - {fileID: 1569757512813312272}
   - {fileID: 8527302127572178111}
+  goParent:
+  - {fileID: 7509500828699316652}
+  - {fileID: 2617561859407082037}
 --- !u!114 &5061527737046034519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7029,7 +7046,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ecc53ce5d2d974c2d9a0f5b76ebecd74, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: ecc53ce5d2d974c2d9a0f5b76ebecd74, type: 3}
       propertyPath: m_Controller
@@ -7048,7 +7065,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1852576806548013000, guid: ecc53ce5d2d974c2d9a0f5b76ebecd74, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5908762310258050131}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ecc53ce5d2d974c2d9a0f5b76ebecd74, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1145804659125322174}
   m_SourcePrefab: {fileID: 100100000, guid: ecc53ce5d2d974c2d9a0f5b76ebecd74, type: 3}
 --- !u!137 &1569757512813312272 stripped
 SkinnedMeshRenderer:
@@ -7070,6 +7090,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 218308568862781394, guid: ecc53ce5d2d974c2d9a0f5b76ebecd74, type: 3}
   m_PrefabInstance: {fileID: 7275128582699150589}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7509500828699316652 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ecc53ce5d2d974c2d9a0f5b76ebecd74, type: 3}
+  m_PrefabInstance: {fileID: 7275128582699150589}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1145804659125322174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7509500828699316652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6404f33308edc8448ad10d607f211a7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentMob: {fileID: 7732128490158977496}
 --- !u!4 &9026302362405901109 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: ecc53ce5d2d974c2d9a0f5b76ebecd74, type: 3}

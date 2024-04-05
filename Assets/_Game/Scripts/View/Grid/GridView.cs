@@ -64,7 +64,7 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
 
     public SkinnedMeshRenderer GetSmr() => smr;
 
-
+    public BlockType GetTileType() => mType;
 
     #region Coloring
     public Color ToColorFromHex(string hexademical)

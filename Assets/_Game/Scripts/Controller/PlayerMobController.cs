@@ -14,17 +14,17 @@ namespace MyProject.GamePlay.Controllers
         #region Injection
 
 
-        private readonly MobView.Factory _playerMobFactory;
+        private readonly MobView.Factory _mobFactory;
         private readonly SignalBus _signalBus;
 
         [Inject]
         public PlayerMobController(
-            MobView.Factory playerMobFactory
+            MobView.Factory mobFactory
             ,SignalBus signalBus
             )
         {
 
-            _playerMobFactory = playerMobFactory;
+            _mobFactory = mobFactory;
             _signalBus = signalBus;
         }
 
@@ -35,28 +35,12 @@ namespace MyProject.GamePlay.Controllers
             _signalBus.Subscribe<LevelFailSignal>(Disable);
         }
        
-        public BaseGridItemView GetRandomCharacter()
+        public MobView CreateMobView()
         {
-            BaseGridItemView character = _playerMobFactory.Create();
-
-            character.Init(new ItemData
-            {
-                GridItemType = GameplayMobType.Player,
-                CharacterType = GetRandomCharacterType(),
-                ItemLevel = 1,
-                ItemName = ItemName.Player
-
-            }); ;
+            MobView mob = _mobFactory.Create();
+            
            
-            return character;
-        }
-
-        private CharMobType GetRandomCharacterType()
-        {
-            CharMobType[] allTypes = (CharMobType[])System.Enum.GetValues(typeof(CharMobType));
-
-            int randomIndex = UnityEngine.Random.Range(0, allTypes.Length);
-            return allTypes[randomIndex];
+            return mob;
         }
 
         public void Disable()

@@ -5,9 +5,30 @@ using Zenject;
 using MyProject.Core.Enums;
 using DG.Tweening;
 using TMPro;
+using MyProject.GamePlay.Controllers;
+using MyProject.GamePlay.Characters;
+using MyProject.Core.Data;
 
 public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMemoryPool>
 {
+    #region Injection
+
+    private SignalBus _signalBus;
+    private PlayerMobController _playerMobController;
+   
+
+    [Inject]
+    private void Construct
+    (     SignalBus signalBus,
+          PlayerMobController playerMobController)
+    {
+        _signalBus = signalBus;
+        _playerMobController = playerMobController;
+    }
+
+    #endregion
+
+
     [SerializeField] MeshRenderer[] arrMeshRenderer;
     [HideInInspector] public GridView Owner;
     private MeshRenderer currentRenderer;
@@ -37,22 +58,24 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
         }
     }
 
-    private int IncreaseValue = 5;
-    private int power;
-    public int Power
+  
+
+    private int soldierIncreaseValue = 5;
+    private int soldierCount;
+    public int SoldierCount
     {
-        get => power;
+        get => soldierCount;
 
         set
         {
-            power = value;
+            soldierCount = value;
 
-            if(power<0)
+            if(soldierCount<0)
             {
                 OnDeath();
                 return;
             }
-            txt.text = power.ToString();
+            txt.text = soldierCount.ToString();
 
 
         }
@@ -100,7 +123,7 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
         {
             
             tentSpawnTween = null;
-            Power += IncreaseValue;
+            SoldierCount += soldierIncreaseValue;
             StartTentCooldown();
            
 
@@ -109,9 +132,20 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
 
     }
 
-    public void Attack()
+    
+
+    public void Attack(MillitaryBaseView other)
     {
-       // type göre asker cıkar
+        MobView mob=_playerMobController.CreateMobView();
+        mob.Initialize();
+        mob.SetPropsView(new SoldierWarData
+        {
+            SpawnPosition = transform.position,
+            color = Owner.GetSmr().material.color,
+            SoldierCount = SoldierCount,
+            TargetMilitaryBase=other
+
+        });
     }
 
     public void OnDeath()
@@ -121,7 +155,7 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
 
     public void OnrHit(int HitValue)
     {
-        power -= HitValue;
+        soldierCount -= HitValue;
     }
 
     private void StopTentCooldown()
@@ -166,6 +200,8 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
     }
     public override void Initialize()
     {
+        if (Owner.GetTileType() == BlockType.Gray) return;
+
         OnTentWorking();
     }
     

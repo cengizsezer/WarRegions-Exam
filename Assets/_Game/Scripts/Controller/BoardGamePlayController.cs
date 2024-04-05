@@ -40,6 +40,7 @@ namespace MyProject.GamePlay.Controllers
         private readonly ItemTweenSettings _itemTweenSettings;
         private readonly PlayerMobController _playerMobController;
         private readonly UserController _userController;
+        
         public BoardGamePlayController
         (
             [Inject(Id = "uiCamera")] Camera uiCamera
@@ -58,6 +59,7 @@ namespace MyProject.GamePlay.Controllers
             , PlayerMobController playerMobController
             , FlagService flagService
             , UserController userController
+           
 
         )
         {
@@ -77,6 +79,7 @@ namespace MyProject.GamePlay.Controllers
             _playerMobController = playerMobController;
             _flagService = flagService;
             _userController = userController;
+          
         }
 
         #endregion
@@ -215,7 +218,7 @@ namespace MyProject.GamePlay.Controllers
                         Debug.Log("Player");
                         break;
                     case UserType.Enemy:
-                        _selectedView.Attack();
+                        _selectedView.Attack(other);
                         Debug.Log("Enemy");
                         break;
                     default:

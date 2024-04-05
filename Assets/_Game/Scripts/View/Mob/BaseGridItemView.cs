@@ -16,7 +16,7 @@ namespace MyProject.GamePlay.Characters
     {
        
         public MilitaryBaseType MilitaryBaseType { get; private set; }
-        public Animator _currentAnimator;
+       
         [SerializeField] protected DOTweener _doTweener;
         private DG.Tweening.Tween _moveTween;
         private DG.Tweening.Tween _scaleTween;
@@ -46,27 +46,15 @@ namespace MyProject.GamePlay.Characters
 
 
         public int GetID() => (int)MilitaryBaseType;
-      
+       
+
+
         public override void Initialize()
         {
-            SetView();
+            
         }
-        public void Init(ItemData itemData)
-        {
-            Initialize();
-        }
-        protected void ResetAnimatorController()
-        {
-            if (_currentAnimator == null) return;
-
-            foreach (var parametre in _currentAnimator.parameters)
-            {
-                if (parametre.type == AnimatorControllerParameterType.Trigger)
-                {
-                    _currentAnimator.ResetTrigger(parametre.name);
-                }
-            }
-        }
+       
+       
 
         public void BondWithGrid(GridView gridView)
         {
@@ -85,7 +73,7 @@ namespace MyProject.GamePlay.Characters
             _scaleTween?.Kill();
             _doTweener.KillAll();
         }
-        protected abstract void SetView();
+        
         public abstract void Despawn();
     }
 }
