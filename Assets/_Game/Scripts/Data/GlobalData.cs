@@ -11,6 +11,7 @@ namespace MyProject.Core.Data
     [Serializable]
     public class SoldierWarData
     {
+        public MilitaryBaseType MilitaryBaseType;
         public Color color;
         public BlockType MobBlockType;
         public Vector3 SpawnPosition;

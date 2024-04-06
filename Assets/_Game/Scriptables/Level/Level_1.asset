@@ -12,102 +12,186 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e151764c90239bd4a9616316f63019b2, type: 3}
   m_Name: Level_1
   m_EditorClassIdentifier: 
-  gridViewData:
-    xSize: 6
-    zSize: 10
+  levelGroundTypeSettings:
+    width: 5
+    height: 10
+    gridStartLayout:
+      BlockDatas:
+        Blocks:
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 11400000, guid: 8b4b5304fa2d1594aa2d0817821b1b18, type: 2}
+        - {fileID: 11400000, guid: 8b4b5304fa2d1594aa2d0817821b1b18, type: 2}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 11400000, guid: 8b4b5304fa2d1594aa2d0817821b1b18, type: 2}
+        - {fileID: 11400000, guid: 8b4b5304fa2d1594aa2d0817821b1b18, type: 2}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 8b4b5304fa2d1594aa2d0817821b1b18, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 91fd42e820d8e7f449a672ec15b2f236, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 91fd42e820d8e7f449a672ec15b2f236, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 91fd42e820d8e7f449a672ec15b2f236, type: 2}
+        - {fileID: 11400000, guid: 91fd42e820d8e7f449a672ec15b2f236, type: 2}
+        - {fileID: 11400000, guid: 91fd42e820d8e7f449a672ec15b2f236, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 171a6e3600b9f20449efa8ac0811ea57, type: 2}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 9870aa46cdf1c9146838024a5d6f7e08, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 171a6e3600b9f20449efa8ac0811ea57, type: 2}
+        - {fileID: 11400000, guid: 171a6e3600b9f20449efa8ac0811ea57, type: 2}
+        - {fileID: 11400000, guid: 9870aa46cdf1c9146838024a5d6f7e08, type: 2}
+        - {fileID: 11400000, guid: 9870aa46cdf1c9146838024a5d6f7e08, type: 2}
+        - {fileID: 11400000, guid: 171a6e3600b9f20449efa8ac0811ea57, type: 2}
+        - {fileID: 11400000, guid: 171a6e3600b9f20449efa8ac0811ea57, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 171a6e3600b9f20449efa8ac0811ea57, type: 2}
+        - {fileID: 11400000, guid: 171a6e3600b9f20449efa8ac0811ea57, type: 2}
+      Width: 5
+      Height: 10
     xOffset: 7.77
     zOffset: 6.69
-  mountains:
-  - xIndex: 2
-    zIndex: 9
-  - xIndex: 3
-    zIndex: 9
-  - xIndex: 4
-    zIndex: 9
-  seas:
-  - xIndex: 0
-    zIndex: 0
-  - xIndex: 1
-    zIndex: 0
-  - xIndex: 2
-    zIndex: 0
-  - xIndex: 3
-    zIndex: 0
-  - xIndex: 4
-    zIndex: 0
-  - xIndex: 0
-    zIndex: 1
-  - xIndex: 6
-    zIndex: 1
-  - xIndex: 0
-    zIndex: 2
-  - xIndex: 2
-    zIndex: 2
-  - xIndex: 3
-    zIndex: 2
-  - xIndex: 4
-    zIndex: 2
-  - xIndex: 0
-    zIndex: 3
-  - xIndex: 1
-    zIndex: 3
-  - xIndex: 2
-    zIndex: 3
-  - xIndex: 3
-    zIndex: 3
-  - xIndex: 4
-    zIndex: 3
-  - xIndex: 6
-    zIndex: 3
-  - xIndex: 0
-    zIndex: 4
-  - xIndex: 1
-    zIndex: 4
-  - xIndex: 2
-    zIndex: 4
-  - xIndex: 6
-    zIndex: 4
-  - xIndex: 0
-    zIndex: 5
-  - xIndex: 1
-    zIndex: 5
-  - xIndex: 2
-    zIndex: 5
-  - xIndex: 3
-    zIndex: 5
-  - xIndex: 5
-    zIndex: 5
-  - xIndex: 6
-    zIndex: 5
-  - xIndex: 0
-    zIndex: 6
-  - xIndex: 1
-    zIndex: 6
-  - xIndex: 2
-    zIndex: 6
-  - xIndex: 3
-    zIndex: 6
-  - xIndex: 4
-    zIndex: 6
-  - xIndex: 6
-    zIndex: 6
-  - xIndex: 0
-    zIndex: 7
-  - xIndex: 1
-    zIndex: 7
-  - xIndex: 3
-    zIndex: 7
-  - xIndex: 5
-    zIndex: 7
-  - xIndex: 6
-    zIndex: 7
-  - xIndex: 0
-    zIndex: 8
-  - xIndex: 1
-    zIndex: 8
-  - xIndex: 6
-    zIndex: 8
-  - xIndex: 0
-    zIndex: 9
-  - xIndex: 6
-    zIndex: 9
+  militaryBaseTypeSettings:
+    gridStartLayout:
+      BlockDatas:
+        Blocks:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 9c1216e794e5b0c42b2582fac2c78d56, type: 2}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 9c1216e794e5b0c42b2582fac2c78d56, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: ab2d3f67140d0804fabaa38319f9831a, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: ab2d3f67140d0804fabaa38319f9831a, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 9c1216e794e5b0c42b2582fac2c78d56, type: 2}
+        - {fileID: 0}
+      Width: 5
+      Height: 10
+    WaitingTimes:
+    - 10
+    - 10
+    - 20
+    - 20
+    - 20
+    DefaultCounts: 1e00000005000000050000000500000005000000
+    MaxSoldierCounts: 3200000032000000320000003200000032000000
+    SoldierIncreaseValue: 5
+  levelMountainSettings:
+    gridStartLayout:
+      BlockDatas:
+        Blocks:
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 9223c64b34bcd20458b7ef8e5cd537f3, type: 2}
+        - {fileID: 11400000, guid: 9223c64b34bcd20458b7ef8e5cd537f3, type: 2}
+        - {fileID: 11400000, guid: 9223c64b34bcd20458b7ef8e5cd537f3, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+      Width: 5
+      Height: 10
+    mountainIndex: 020000000100000002000000
+    hexColor: '#C08B5C'

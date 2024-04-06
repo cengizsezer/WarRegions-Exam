@@ -5,6 +5,7 @@ using MyProject.Core.Settings;
 using MyProject.GamePlay.Controllers;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -60,12 +61,24 @@ namespace MyProject.GamePlay.Characters
             }
         }
 
+        [SerializeField] TextMeshPro _soldierCountText;
         [SerializeField] private Animator[] LsAnimators;
         [SerializeField] private SkinnedMeshRenderer[] LsRenderer;
         [SerializeField] private GameObject[] goParent;
         private AnimStates _animState = AnimStates.Idle;
         private IMemoryPool _pool;
         private int _soldierCount;
+        public int SoldierCount
+        {
+            get => _soldierCount;
+
+            set
+            {
+                _soldierCount = value;
+                _soldierCountText.text = _soldierCount.ToString();
+
+            }
+        }
         private GridView _startGridView;
         private GridView _endGridView;
         public BlockType MobBlockType;
@@ -95,7 +108,7 @@ namespace MyProject.GamePlay.Characters
         #endregion
 
         public MobView GetTarget() => TargetView;
-        public int GetSoldierCount() => _soldierCount;
+        public int GetSoldierCount() => SoldierCount;
         public void OnSpawned(IMemoryPool pool)
         {
             _pool = pool;
@@ -135,15 +148,23 @@ namespace MyProject.GamePlay.Characters
         private List<GridView> _currentPath = new();
         public void SetPropsView(SoldierWarData data)
         {
+            MilitaryBaseType = data.MilitaryBaseType;
+            _animState = AnimStates.Idle;
+
             SetAnimator();
             RebindAnimator();
             SetAttackBase();
+            ResetAnimatorController();
 
-            transform.position = data.SpawnPosition+Vector3.up*3f;
+            transform.position = data.SpawnPosition + Vector3.up * 3f;
             _skinnedMeshRenderer.material.color = data.color;
             TargetMilitaryBaseView = data.TargetMilitaryBase;
-            _soldierCount = data.SoldierCount;
+            SoldierCount = data.SoldierCount;
             _currentPath = data.Path;
+            OwnerMilitaryBaseView = data.OwnerMilitaryBase;
+            MobBlockType = data.MobBlockType;
+            TargetMilitaryBaseView = data.TargetMilitaryBase;
+          
         }
        
         private void Death(Damageable.DamageMessage msg)
@@ -153,7 +174,7 @@ namespace MyProject.GamePlay.Characters
 
         private void ApplyDamage(Damageable.DamageMessage msg)
         {
-            _soldierCount -= msg.Damage;
+            SoldierCount -= msg.Damage;
         }
 
         public void StartMovementRoutine(List<GridView> lsGridView, float time)
@@ -191,7 +212,7 @@ namespace MyProject.GamePlay.Characters
                 if (TargetView)
                 {
                     AnimState = AnimStates.Idle;
-                    Damageable.currentHitPoints = TargetView._soldierCount;
+                    Damageable.currentHitPoints = TargetView.SoldierCount;
                     while (TargetView.IsAlive)
                     {
                         _currentAttackBase.Cast();
@@ -216,8 +237,9 @@ namespace MyProject.GamePlay.Characters
                 AnimState = AnimStates.Run;
             }
 
-            Debug.Log("buraya girmiyor mu?");
-            TargetMilitaryBaseView.TakeOver(_soldierCount,this);
+            
+            TargetMilitaryBaseView.TakeOver(this);
+            Despawn();
         }
      
 
@@ -248,13 +270,14 @@ namespace MyProject.GamePlay.Characters
         void SetAnimator()
         {
             int _id = GetID();
-
-            for (int i = 0; i < LsAnimators.Length; i++)
+           
+            for (int i = 0; i < goParent.Length; i++)
             {
+                goParent[i].SetActive(false);
+
                 if (i == _id)
                 {
                     goParent[i].SetActive(i == _id);
-
                     CurrentAnimator = LsAnimators[i];
                     _skinnedMeshRenderer = LsRenderer[i];
                 }

@@ -8,8 +8,7 @@ using static MyProject.Core.Const.GlobalConsts;
 
 public class BoardView : BaseView
 {
-    [SerializeField] private GridView[] _gridViews;
-    public GridView[] GridViews => _gridViews;
+    public List<ColorRegion> BoardRegion = new();
 
     public Transform _dragParent;
 
@@ -42,11 +41,11 @@ public class BoardView : BaseView
     public void Disable()
     {
        
-        foreach (var gridView in _gridViews)
-        {
-            if (!gridView) return;
-            gridView.DespawnItem();
-        }
+        //foreach (var gridView in _gridViews)
+        //{
+        //    if (!gridView) return;
+        //    gridView.DespawnItem();
+        //}
 
         gameObject.SetActive(false);
        

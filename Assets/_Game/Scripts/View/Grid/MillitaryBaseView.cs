@@ -8,8 +8,9 @@ using TMPro;
 using MyProject.GamePlay.Controllers;
 using MyProject.GamePlay.Characters;
 using MyProject.Core.Data;
+using MyProject.Core.Const;
 
-
+[System.Serializable]
 public class Region
 {
     public List<GridView> RegionPairs;
@@ -22,6 +23,7 @@ public class Region
 }
 public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMemoryPool>
 {
+    private IMemoryPool _pool;
     #region Injection
 
     private SignalBus _signalBus;
@@ -45,11 +47,10 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
 
     #endregion
 
+    #region ENUMS
+    private BlockType blockType;
+    public BlockType GetBlockType() => blockType;
 
-    [SerializeField] MeshRenderer[] arrMeshRenderer;
-    public GridView Owner;
-    private MeshRenderer currentRenderer;
-    public Region Region;
     private UserType userType;
     public UserType UserType
     {
@@ -61,6 +62,8 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
 
         }
     }
+    public UserType GetUserType() => userType;
+
     private MilitaryBaseType militaryBaseType;
     public MilitaryBaseType MilitaryBaseType
     {
@@ -70,27 +73,53 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
         {
             militaryBaseType = value;
             SetMeshRenderer((int)militaryBaseType);
+
+
+        }
+    }
+
+    #endregion
+
+    [SerializeField] MeshRenderer[] arrMeshRenderer;
+    private MeshRenderer currentRenderer;
+
+    public GridView Owner;
+    public Region Region;
+
+
+    private int _soldierIncreaseValue;
+    private float _soldierWaitingTime;
+    private int _soldierMaxCount;
+    private int _soldierCount;
+    public int SoldierCount
+    {
+        get => _soldierCount;
+
+        set
+        {
+            _soldierCount = value;
+            txt.text = _soldierCount.ToString();
+            if (_soldierCount < _soldierMaxCount)
+            {
+                StartTentCooldown();
+            }
            
 
         }
     }
-
-    private int soldierIncreaseValue = 5;
-    private int soldierCount;
-    public int SoldierCount
-    {
-        get => soldierCount;
-
-        set
-        {
-            soldierCount = value;
-            txt.text = soldierCount.ToString();
-        }
-    }
    
-    private IMemoryPool _pool;
-
-    public UserType GetUserType() => userType;
+   
+    private Color _currentColor;
+    public Color GetColor() => _currentColor;
+   
+    public void SetSettingsCountAndValues(int defaultCount,float waitingTime,int increaseValue,int maxCount)
+    {
+        SoldierCount = defaultCount;
+        _soldierWaitingTime = waitingTime;
+        _soldierIncreaseValue = increaseValue;
+        _soldierMaxCount = maxCount;
+       
+    }
     void SetMeshRenderer(int ID)
     {
         int _id = ID;
@@ -101,10 +130,12 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
             {
                 arrMeshRenderer[i].gameObject.SetActive(i == _id);
                 currentRenderer = arrMeshRenderer[i];
-                currentRenderer.material.color = Owner.GetSmr().material.color;
+                _currentColor = Owner.GetSmr().material.color;
+                currentRenderer.material.color = _currentColor;
             }
         }
     }
+
     #region TentControl
 
     Tween tentSpawnTween = null;
@@ -122,7 +153,7 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
         float fillAmount = 360f;
         tentSprite.material.SetFloat("_Arc2", fillAmount);
 
-        tentSpawnTween = DOTween.To(() => fillAmount, _x => fillAmount = _x, 0, 5f).OnUpdate(() =>
+        tentSpawnTween = DOTween.To(() => fillAmount, _x => fillAmount = _x, 0, _soldierWaitingTime).OnUpdate(() =>
         {
             
                 tentSprite.material.SetFloat("_Arc2", fillAmount);
@@ -130,80 +161,24 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
         {
             
             tentSpawnTween = null;
-            SoldierCount += soldierIncreaseValue;
-            StartTentCooldown();
+            SoldierCount += _soldierIncreaseValue;
+
+            if(_soldierCount<_soldierMaxCount)
+            {
+                StartTentCooldown();
+
+            }
+            else
+            {
+                StopTentCooldown();
+            }
+           
            
 
         }).SetEase(Ease.Linear);
 
 
     }
-    
-
-    public void Attack(MillitaryBaseView other)
-    {
-        var path = new List<GridView>();
-        path = _pathFinderController.FindGridPath(this.Owner,other.Owner);
-        MobView mob=_playerMobController.CreateMobView();
-        mob.SetPropsView(new SoldierWarData
-        {
-            SpawnPosition = transform.position,
-            color = Owner.GetSmr().material.color,
-            MobBlockType = Owner.mType,
-            SoldierCount = SoldierCount,
-            TargetMilitaryBase = other,
-            OwnerMilitaryBase=this,
-            Path = path
-
-        });
-        mob.Initialize();
-
-        SendingTroops();
-    }
-
-    public void SendingTroops()
-    {
-        SoldierCount = 0;
-    }
-    public void TakeOver(int count,MobView mob)
-    {
-        if(Owner.mType == BlockType.Gray)
-        {
-            soldierCount = mob.GetSoldierCount();
-
-            foreach (var grid in Region.RegionPairs)
-            {
-                grid.SetColorColor(mob.OwnerMilitaryBaseView.Owner.GetSmr().material.color);
-            }
-
-            currentRenderer.material.color = mob.OwnerMilitaryBaseView.Owner.GetSmr().material.color;
-            Debug.Log("girdi ama nerede");
-
-        }
-        else
-        {
-            Debug.Log("girdi ama nerede", Owner.gameObject);
-
-            SoldierCount -= count;
-
-            if (soldierCount < 0)
-            {
-                soldierCount = mob.GetSoldierCount();
-
-                foreach (var grid in Region.RegionPairs)
-                {
-                    grid.SetColorColor(mob.OwnerMilitaryBaseView.Owner.GetSmr().material.color);
-                }
-
-                currentRenderer.material.color = mob.OwnerMilitaryBaseView.Owner.GetSmr().material.color;
-
-            }
-        }
-
-       
-
-    }
-
     private void StopTentCooldown()
     {
         if (tentSpawnTween != null)
@@ -213,14 +188,7 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
         }
         tentSprite.material.SetFloat("_Arc2", 0f);
     }
-    void TentClosed()
-    {
-        txt.gameObject.SetActive(false);
-        currentRenderer.gameObject.SetActive(true);
-        tentSprite.gameObject.SetActive(false);
-       
-    }
-    void OnTentWorking()
+    private void OnTentWorking()
     {
         Vector3 localScale = currentRenderer.transform.localScale;
         float sclae = currentRenderer.transform.localScale.y;
@@ -236,6 +204,107 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
     }
 
     #endregion
+
+    public void SendingTroops(MillitaryBaseView other)
+    {
+        var path = new List<GridView>();
+
+        path = _pathFinderController.FindGridPath(this.Owner, other.Owner);
+        MobView mob = _playerMobController.CreateMobView();
+        mob.SetPropsView(new SoldierWarData
+        {
+            MilitaryBaseType = MilitaryBaseType,
+            SpawnPosition = transform.position,
+            color = Owner.GetSmr().material.color,
+            MobBlockType = Owner.mType,
+            SoldierCount = SoldierCount,
+            TargetMilitaryBase = other,
+            OwnerMilitaryBase = this,
+            Path = path
+
+        });
+        mob.Initialize();
+
+        SoldierCount = 0;
+        
+    }
+    public void TakeOver(MobView mob)
+    {
+        if (Owner.TypeDefinition.DefaultEntitySpriteName == GlobalConsts.RegionName.GRAY)
+        {
+
+            if(SoldierCount >= mob.GetSoldierCount())
+            {
+                SoldierCount -= mob.GetSoldierCount();
+                return;
+            }
+            else
+            {
+                var value=mob.GetSoldierCount() - SoldierCount;
+                Debug.Log("VALUE"+"-----------"+value);
+                SoldierCount = value;
+                OnTentWorking();
+
+                foreach (var grid in Region.RegionPairs)
+                {
+                    grid.SetColorColor(mob.OwnerMilitaryBaseView.GetColor());
+                }
+
+                if (mob.OwnerMilitaryBaseView.userType == UserType.Player)
+                    userType = UserType.Player;
+
+                _currentColor = mob.OwnerMilitaryBaseView.GetColor();
+                currentRenderer.material.color = _currentColor;
+                blockType = mob.OwnerMilitaryBaseView.Owner.mType;
+                
+            }
+
+           
+        }
+        else
+        {
+            if (SoldierCount >= mob.GetSoldierCount())
+            {
+                SoldierCount -= mob.GetSoldierCount();
+                return;
+            }
+            else
+            {
+                var value = mob.GetSoldierCount() - SoldierCount;
+                SoldierCount = value;
+                foreach (var grid in Region.RegionPairs)
+                {
+                    grid.SetColorColor(mob.OwnerMilitaryBaseView.GetColor());
+                }
+
+                if (mob.OwnerMilitaryBaseView.userType == UserType.Player)
+                    userType = UserType.Player;
+                _currentColor = mob.OwnerMilitaryBaseView.GetColor();
+                currentRenderer.material.color = _currentColor;
+                blockType = mob.OwnerMilitaryBaseView.Owner.mType;
+            }
+
+            
+
+            //if (_soldierCount < 0)
+            //{
+            //    _soldierCount = mob.GetSoldierCount();
+
+            //    foreach (var grid in Region.RegionPairs)
+            //    {
+            //        grid.SetColorColor(mob.OwnerMilitaryBaseView.GetColor());
+            //    }
+
+            //    if (mob.OwnerMilitaryBaseView.userType == UserType.Player)
+            //        userType = UserType.Player;
+
+               
+            //}
+        }
+
+
+
+    }
     public void SelectView()
     {
 
@@ -246,12 +315,10 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
     }
     public override void Initialize()
     {
-        if (Owner.GetTileType() == BlockType.Gray) return;
+        if (Owner.TypeDefinition.DefaultEntitySpriteName == GlobalConsts.RegionName.GRAY) return;
 
         OnTentWorking();
     }
-    
-
     public void OnSpawned(Args args, IMemoryPool pool)
     {
         _pool = pool;
@@ -259,7 +326,10 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
         transform.localScale=args.localScale;
         transform.position = args.Position;
         Owner = args.Owner;
-       
+        Region = args.Region;
+        blockType = Owner.mType;
+
+
     }
     public void OnDespawned()
     {

@@ -170,7 +170,7 @@ namespace MyProject.GamePlay.Controllers
 
                             
                         }
-                        Debug.Log(view.name,view.gameObject);
+                      
                         _lastFingerDownTime = Time.realtimeSinceStartup;
                         _selectedView = view;
                         _selectedView.SelectView();
@@ -178,7 +178,19 @@ namespace MyProject.GamePlay.Controllers
 
                     case MilitaryBaseType.Sea:
 
-                        Debug.Log(view.name, view.gameObject);
+                        if (_lastSelectedView)
+                        {
+                            if (Time.realtimeSinceStartup - _lastFingerDownTime < 0.5f)
+                            {
+                                return;
+                            }
+
+
+                        }
+                       
+                        _lastFingerDownTime = Time.realtimeSinceStartup;
+                        _selectedView = view;
+                        _selectedView.SelectView();
                         break;
                 }
             }
@@ -215,14 +227,18 @@ namespace MyProject.GamePlay.Controllers
                 switch (other.UserType)
                 {
                     case UserType.Player:
-                        Debug.Log("Player");
+                        Debug.Log("Player finger down");
                         break;
                     case UserType.Enemy:
-                        _selectedView.Attack(other);
-                        Debug.Log("Enemy");
+
+                        if (_selectedView.UserType != UserType.Player)
+                            return;
+
+                        _selectedView.SendingTroops(other);
+                        _selectedView = null;
+                        Debug.Log("Enemy finger down");
                         break;
                     default:
-
                         break;
                 }
             }

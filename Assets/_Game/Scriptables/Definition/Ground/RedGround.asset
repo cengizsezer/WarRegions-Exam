@@ -15,4 +15,4 @@ MonoBehaviour:
   defaultEntitySpriteName: Red
   helperSprite: {fileID: 21300000, guid: 0915af328bdb0104ab4497391f9e4649, type: 3}
   blockType: 1
-  rgbColor: '#FF0000'
+  rgbColor: '#FA7070'

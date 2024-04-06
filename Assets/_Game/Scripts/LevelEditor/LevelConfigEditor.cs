@@ -2,7 +2,7 @@ using MyProject.Core.Settings;
 using UnityEditor;
 
 #if UNITY_EDITOR
-[CustomEditor(typeof(LevelSettings))]
+[CustomEditor(typeof(LevelData))]
 public class LevelConfigEditor : Editor
 {
     public override void OnInspectorGUI()
@@ -10,25 +10,25 @@ public class LevelConfigEditor : Editor
         base.OnInspectorGUI();
 
         // Get the target LevelSettings scriptable object.
-        LevelSettings levelSettings = (LevelSettings)target;
+        LevelData levelData = (LevelData)target;
 
         // Get the grid start layout from the LevelGroundTypeSettings.
-        GridStartLayout gridStartLayout = levelSettings.LevelGroundTypeSettings.gridStartLayout;
-        GridStartLayout gridMillitaryStartLayout = levelSettings.MilitaryBaseTypeSettings.gridStartLayout;
+        GridStartLayout gridStartLayout = levelData.LevelGroundTypeSettings.gridStartLayout;
+        GridStartLayout gridMillitaryStartLayout = levelData.MilitaryBaseTypeSettings.gridStartLayout;
 
         // Check if the width or height of the grid start layout needs to be updated.
-        if (gridStartLayout.Width != levelSettings.LevelGroundTypeSettings.Width ||
-            gridStartLayout.Height != levelSettings.LevelGroundTypeSettings.Height)
+        if (gridStartLayout.Width != levelData.LevelGroundTypeSettings.Width ||
+            gridStartLayout.Height != levelData.LevelGroundTypeSettings.Height)
         {
             // Update the grid start layout with new dimensions based on LevelGroundTypeSettings.
-            levelSettings.LevelGroundTypeSettings.gridStartLayout =
-                new GridStartLayout((int)levelSettings.LevelGroundTypeSettings.Width,
-                                    (int)levelSettings.LevelGroundTypeSettings.Height);
-            levelSettings.MilitaryBaseTypeSettings.gridStartLayout= new GridStartLayout((int)levelSettings.LevelGroundTypeSettings.Width,
-                                    (int)levelSettings.LevelGroundTypeSettings.Height);
+            levelData.LevelGroundTypeSettings.gridStartLayout =
+                new GridStartLayout((int)levelData.LevelGroundTypeSettings.Width,
+                                    (int)levelData.LevelGroundTypeSettings.Height);
+            levelData.MilitaryBaseTypeSettings.gridStartLayout= new GridStartLayout((int)levelData.LevelGroundTypeSettings.Width,
+                                    (int)levelData.LevelGroundTypeSettings.Height);
 
-            levelSettings.LevelMountainSettings.gridStartLayout = new GridStartLayout((int)levelSettings.LevelGroundTypeSettings.Width,
-                                    (int)levelSettings.LevelGroundTypeSettings.Height);
+            levelData.LevelMountainSettings.gridStartLayout = new GridStartLayout((int)levelData.LevelGroundTypeSettings.Width,
+                                    (int)levelData.LevelGroundTypeSettings.Height);
         }
     }
 }

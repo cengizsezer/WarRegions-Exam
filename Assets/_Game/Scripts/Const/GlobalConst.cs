@@ -30,6 +30,14 @@ namespace MyProject.Core.Const
 
             public const string TIMER_TAG = "timer";
         }
+
+        public struct RegionName
+        {
+            public const string GRAY = "Gray";
+            public const string RED = "Red";
+            public const string BLUE = "Blue";
+            public const string YELLOW = "Yellow";
+        }
         public struct PopupName
         {
             public const string LevelUpPopup = "LevelUpPopup";

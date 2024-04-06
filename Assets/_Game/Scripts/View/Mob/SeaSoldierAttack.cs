@@ -7,7 +7,7 @@ public class SeaSoldierAttack : AttackBase
 {
     public override void Cast()
     {
-        //parentMob.crntAnim.SetTrigger("Attack");
+        //parentMob.crntAnim.SetTrigger("SendingTroops");
     }
 
     public void Attack()

@@ -6,12 +6,26 @@ using UnityEngine;
 using Zenject;
 using static MyProject.Core.Const.GlobalConsts.BoardConsts;
 
+[System.Serializable]
+public class ColorRegion
+{
+    public BlockType ColorType;
+    public List<GridView> RegionsGrids;
+
+    public ColorRegion()
+    {
+        RegionsGrids = new();
+    }
+}
+
 namespace MyProject.GamePlay.Controllers
 {
     public class BoardCoordinateSystem
     {
         public List<GridView> LsAllGridViews = new();
         public List<GridView> LsMountainViews = new();
+        public List<MillitaryBaseView> LsMilitaryBaseView = new();
+        public ColorRegion ColorRegions;
 
         private int xSize, zSize;
         private float xOffset, zOffset;
@@ -59,15 +73,15 @@ namespace MyProject.GamePlay.Controllers
         public void SpawnHexes(int levelIndex)
         {
            
-            startGroundLayout = _levelSettings.LevelGroundTypeSettings.gridStartLayout;
-            startMilitaryBaseLayout = _levelSettings.MilitaryBaseTypeSettings.gridStartLayout;
-            startMountainLayout = _levelSettings.LevelMountainSettings.gridStartLayout;
+            startGroundLayout = _levelSettings.LevelData[0].LevelGroundTypeSettings.gridStartLayout;
+            startMilitaryBaseLayout = _levelSettings.LevelData[0].MilitaryBaseTypeSettings.gridStartLayout;
+            startMountainLayout = _levelSettings.LevelData[0].LevelMountainSettings.gridStartLayout;
 
-            int xSize = _levelSettings.LevelGroundTypeSettings.gridStartLayout.Width;
-            int zSize = _levelSettings.LevelGroundTypeSettings.gridStartLayout.Height;
+            int xSize = _levelSettings.LevelData[0].LevelGroundTypeSettings.gridStartLayout.Width;
+            int zSize = _levelSettings.LevelData[0].LevelGroundTypeSettings.gridStartLayout.Height;
 
-            float xOffset = _levelSettings.LevelData[levelIndex].gridViewData.xOffset;
-            float zOffset = _levelSettings.LevelData[levelIndex].gridViewData.zOffset;
+            float xOffset = _levelSettings.LevelData[0].LevelGroundTypeSettings.xOffset;
+            float zOffset = _levelSettings.LevelData[0].LevelGroundTypeSettings.zOffset;
 
             if (xSize % 2 == 0)
                 xSize++;
@@ -113,55 +127,84 @@ namespace MyProject.GamePlay.Controllers
             }
         }
         
-        Dictionary<BlockType, List<GridView>> colorToGrids = new Dictionary<BlockType, List<GridView>>();
+        
 
+        private List<ColorRegion> lsColorRegions = new();
         void AddColorPair(GridView grid)
         {
             BlockType color = grid.mType;
+          
 
-            if (!colorToGrids.ContainsKey(color))
+            // Renk eşleşmesi kontrol edilecek ColorRegion nesnesi
+            ColorRegion region = null;
+
+            // lsColorRegions listesi boşsa veya renk eşleşmesi yoksa yeni bir ColorRegion oluştur ve listeye ekle
+            if (lsColorRegions.Count == 0)
             {
-                colorToGrids[color] = new List<GridView>();
+                region = new ColorRegion();
+                region.ColorType = color;
+                lsColorRegions.Add(region);
             }
-            colorToGrids[color].Add(grid);
+            else
+            {
+                // Renk eşleşmesi kontrol edilecek ColorRegion nesnesini bul
+                region = lsColorRegions.Find(r => r.ColorType == color);
+
+                // Eğer renk eşleşmesi yoksa yeni bir ColorRegion oluştur ve listeye ekle
+                if (region == null)
+                {
+                    region = new ColorRegion();
+                    region.ColorType = color;
+                    lsColorRegions.Add(region);
+                }
+            }
+
+            // İlgili ColorRegion'a gridi ekle
+            region.RegionsGrids.Add(grid);
         }
-                void SetLevelGroundDesign(int xSize, int zSize)
+
+
+        void SetLevelGroundDesign(int xSize, int zSize)
         {
             int gridIndex = 0;
+            ColorRegions = new();
+
+
             for (int z = zSize - 1; z >= 0; z--)
             {
                 for (int x = 0; x < xSize; x++)
                 {
                     int i = z * xSize + x;
-                   
+
                     if (startGroundLayout.BlockDatas.Blocks[i] != null)
                     {
                         //Editorde ki ground dizaynı set ediyorum -- LevelSettings scripti
                         entity = startGroundLayout.BlockDatas.Blocks[i];
                         GridView view = LsAllGridViews[gridIndex];
                         BlockType type = (entity as GroundTypeDefinition).BlockType;
-                      
-                       
+                        view.TypeDefinition = entity as GroundTypeDefinition;
+
 
                         view.mType = type;
                         view.name = $"grid---{entity.DefaultEntitySpriteName}";
                         view.SetColor((entity as GroundTypeDefinition).RGBColor);
+                        
                         AddColorPair(view);
                         //üzerine mountain gelecek hexagonları ekliyorum.
-                        if (startMountainLayout.BlockDatas.Blocks[i]!=null)
+                        if (startMountainLayout.BlockDatas.Blocks[i] != null)
                         {
                             entity = startMountainLayout.BlockDatas.Blocks[i];
                             LsMountainViews.Add(LsAllGridViews[gridIndex]);
 
-                            
+
                         }
 
                         //üzerine MillitaryBase
                         if (startMilitaryBaseLayout.BlockDatas.Blocks[i] != null)
                         {
                             IBlockEntityTypeDefinition entity = startMilitaryBaseLayout.BlockDatas.Blocks[i];
-                            var millitaryBaseView=CreateMilitaryBaseDesign(LsAllGridViews[gridIndex],entity);
-                           
+                            var millitaryBaseView = CreateMilitaryBaseDesign(LsAllGridViews[gridIndex], entity);
+                            LsMilitaryBaseView.Add(millitaryBaseView);
                         }
                     }
                     else if (startGroundLayout.BlockDatas.Blocks[i] == null)
@@ -172,18 +215,31 @@ namespace MyProject.GamePlay.Controllers
                 }
             }
 
-         
+            for (int i = 0; i < LsMilitaryBaseView.Count; i++)
+            {
+                var view = LsMilitaryBaseView[i];
+                var settings = _levelSettings.LevelData[0].MilitaryBaseTypeSettings;
+                view.SetSettingsCountAndValues(settings.DefaultCounts[i]
+                    , settings.WaitingTimes[i]
+                    , settings.SoldierIncreaseValue
+                    , settings.MaxSoldierCounts[i]);
+                view.Initialize();
+
+            }
+            _boardView.BoardRegion = lsColorRegions;
         }
 
         void SetMountains()
         {
             for (int i = 0; i < LsMountainViews.Count; i++)
             {
-                CreateMountain(LsMountainViews[i], _levelSettings.LevelMountainSettings.MountainIndex[i]);
+                CreateMountain(LsMountainViews[i],
+                    _levelSettings.LevelData[0].LevelMountainSettings.MountainIndex[i],
+                    _levelSettings.LevelData[0].LevelMountainSettings.HexColor);
             }
         }
 
-        void CreateMountain(GridView grid, int index)
+        void CreateMountain(GridView grid, int index,string HexColor)
         {
             for (int i = 0; i < index; i++)
             {
@@ -202,7 +258,7 @@ namespace MyProject.GamePlay.Controllers
                     mountainPosition.z));
 
                
-                mountainGrid.SetColor(grid.GetColor());
+                mountainGrid.SetColor(HexColor);
                 mountainGrid.name = $"grid--{grid.transform.position.x}-{grid.transform.position.z}";
 
                
@@ -214,18 +270,23 @@ namespace MyProject.GamePlay.Controllers
             MillitaryBaseView militaryBase = null;
             Vector3 MillitaryBasePosition = grid.transform.position
                 + Vector3.up * 2.5f + Vector3.forward * 1.2f;
+
+          
             var region = new Region();
-            region.RegionPairs = colorToGrids
-                                .Where(pair => pair.Key == grid.mType) 
-                                .Select(pair => pair.Value) 
+            region.RegionPairs = lsColorRegions
+                                .Where(n => n.ColorType == grid.mType)
+                                .Select(n=>n.RegionsGrids)
                                 .FirstOrDefault();
 
             militaryBase = _millitaryBaseViewFactory.Create(
                 new MillitaryBaseView.Args(_boardView.transform, Vector3.one*2f,MillitaryBasePosition,grid, region));
 
+           
             militaryBase.MilitaryBaseType = (entity as MilitaryBaseDefinition).MillitaryBaseType;
             militaryBase.UserType =grid.mType == BlockType.Blue ? militaryBase.UserType = UserType.Player : UserType.Enemy;
-            militaryBase.Initialize();
+           
+
+          
 
 
 

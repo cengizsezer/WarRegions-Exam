@@ -9,8 +9,8 @@ public class LevelGroundTypeSettings
     [SerializeField] private uint height = 4;
     public GridStartLayout gridStartLayout = new GridStartLayout(9, 9);
 
-   
-  
+    public float xOffset, zOffset;
+
     public uint Width => width;
     public uint Height => height;
 

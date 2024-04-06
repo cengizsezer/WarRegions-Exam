@@ -37,6 +37,7 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
     internal int value;
     [HideInInspector]
     internal BlockType mType;
+    public IBlockEntityTypeDefinition TypeDefinition;
 
     [Header("INITIAL VALUES")]
     [SerializeField] bool hasInitialOwner;
@@ -175,10 +176,7 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
   
     private IMemoryPool _pool;
 
-    public void Init(GridData gridData)
-    {
-        Initialize();
-    }
+   
     
     public override void Initialize()
     {

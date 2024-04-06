@@ -14,10 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelData:
   - {fileID: 11400000, guid: 7c124b6f392d8484386716fd9bd72dae, type: 2}
-  - {fileID: 11400000, guid: b688620e2d004dd4ba0c99b903d27a36, type: 2}
-  - {fileID: 11400000, guid: 5f12b26f4466d4e4d9bfb70a51f23be6, type: 2}
-  - {fileID: 11400000, guid: ae28c0d03b06c914da0a2d712b335eff, type: 2}
-  - {fileID: 11400000, guid: 0287640419c89d14b89e606011419837, type: 2}
   levelGroundTypeSettings:
     width: 5
     height: 10
@@ -27,17 +23,17 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
         - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
         - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
-        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
-        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 11400000, guid: 8b4b5304fa2d1594aa2d0817821b1b18, type: 2}
+        - {fileID: 11400000, guid: 8b4b5304fa2d1594aa2d0817821b1b18, type: 2}
         - {fileID: 0}
         - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
         - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
-        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
-        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 11400000, guid: 8b4b5304fa2d1594aa2d0817821b1b18, type: 2}
+        - {fileID: 11400000, guid: 8b4b5304fa2d1594aa2d0817821b1b18, type: 2}
         - {fileID: 0}
         - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
         - {fileID: 0}
-        - {fileID: 11400000, guid: 18193c9883261bb46896f8a5c508aa7d, type: 2}
+        - {fileID: 11400000, guid: 8b4b5304fa2d1594aa2d0817821b1b18, type: 2}
         - {fileID: 0}
         - {fileID: 0}
         - {fileID: 0}
@@ -76,6 +72,8 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 171a6e3600b9f20449efa8ac0811ea57, type: 2}
       Width: 5
       Height: 10
+    xOffset: 7.77
+    zOffset: 6.69
   militaryBaseTypeSettings:
     gridStartLayout:
       BlockDatas:
@@ -132,6 +130,15 @@ MonoBehaviour:
         - {fileID: 0}
       Width: 5
       Height: 10
+    WaitingTimes:
+    - 10
+    - 10
+    - 20
+    - 20
+    - 20
+    DefaultCounts: 1e00000005000000050000000500000005000000
+    MaxSoldierCounts: 3200000032000000320000003200000032000000
+    SoldierIncreaseValue: 5
   levelMountainSettings:
     gridStartLayout:
       BlockDatas:

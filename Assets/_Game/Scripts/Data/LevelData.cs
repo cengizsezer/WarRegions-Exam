@@ -6,28 +6,11 @@ using static MyProject.Core.Const.GlobalConsts;
 [CreateAssetMenu(fileName = nameof(LevelData), menuName = AssetMenuName.DATA + nameof(LevelData))]
 public class LevelData : ScriptableObject
 {
-    public GridData gridViewData;
-    public MountainData[] mountains;
-    public SeaData[] seas;
+    [SerializeField] private LevelGroundTypeSettings levelGroundTypeSettings;
+    [SerializeField] private LevelMilitaryBaseTypeSettings militaryBaseTypeSettings;
+    [SerializeField] private LevelMountainSettings levelMountainSettings;
+    public LevelGroundTypeSettings LevelGroundTypeSettings => levelGroundTypeSettings;
+    public LevelMilitaryBaseTypeSettings MilitaryBaseTypeSettings => militaryBaseTypeSettings;
+    public LevelMountainSettings LevelMountainSettings => levelMountainSettings;
 }
 
-[System.Serializable]
-public class GridData
-{
-    public int xSize, zSize;
-    public float xOffset, zOffset;
-}
-
-[System.Serializable]
-public class MountainData
-{
-    public int xIndex;
-    public int zIndex;
-}
-
-[System.Serializable]
-public class SeaData
-{
-    public int xIndex;
-    public int zIndex;
-}

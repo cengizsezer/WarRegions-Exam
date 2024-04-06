@@ -9,14 +9,7 @@ namespace MyProject.Core.Settings
     public class LevelSettings : ScriptableObject
     {
         public List<LevelData> LevelData;
-        [SerializeField] private LevelGroundTypeSettings levelGroundTypeSettings;
-        [SerializeField] private LevelMilitaryBaseTypeSettings militaryBaseTypeSettings;
-        [SerializeField] private LevelMountainSettings levelMountainSettings;
-
-
-        public LevelGroundTypeSettings LevelGroundTypeSettings => levelGroundTypeSettings;
-        public LevelMilitaryBaseTypeSettings MilitaryBaseTypeSettings => militaryBaseTypeSettings;
-        public LevelMountainSettings LevelMountainSettings => levelMountainSettings;
+      
     }
 
    

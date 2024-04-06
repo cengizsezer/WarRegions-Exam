@@ -15,7 +15,7 @@ namespace MyProject.GamePlay.Characters
     public abstract class BaseGridItemView : BaseView
     {
        
-        public MilitaryBaseType MilitaryBaseType { get; private set; }
+        public MilitaryBaseType MilitaryBaseType { get; set; }
        
         [SerializeField] protected DOTweener _doTweener;
         private DG.Tweening.Tween _moveTween;
@@ -46,8 +46,6 @@ namespace MyProject.GamePlay.Characters
 
 
         public int GetID() => (int)MilitaryBaseType;
-       
-
 
         public override void Initialize()
         {
