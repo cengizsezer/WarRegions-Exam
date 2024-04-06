@@ -4115,7 +4115,6 @@ GameObject:
   - component: {fileID: 9194421127007946809}
   - component: {fileID: 6376483566019624179}
   - component: {fileID: 2165107534646650136}
-  - component: {fileID: 6075683241799634611}
   - component: {fileID: 6984043423791677227}
   m_Layer: 0
   m_Name: Tank (1)
@@ -4123,7 +4122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5203626624224380828
 Transform:
   m_ObjectHideFlags: 0
@@ -4231,27 +4230,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!65 &6075683241799634611
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4863094252040133926}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 1.6177392, y: 2.3324058, z: 2.940408}
-  m_Center: {x: -0.020157, y: 0.04703328, z: -0.7854909}
 --- !u!114 &6984043423791677227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5032,6 +5010,7 @@ GameObject:
   - component: {fileID: 7275128584023932082}
   - component: {fileID: 7732128490158977496}
   - component: {fileID: 5061527737046034519}
+  - component: {fileID: 7234462633611872004}
   m_Layer: 11
   m_Name: MobView
   m_TagString: Soldier
@@ -5071,12 +5050,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _doTweener: {fileID: 131907423543307510}
+  Damageable: {fileID: 5061527737046034519}
   TargetView: {fileID: 0}
   TargetMilitaryBaseView: {fileID: 0}
-  Amount: 0
   IsAlive: 0
   _attackSpeed: 0
-  isAlive: 1
+  CurrentAnimator: {fileID: 0}
   LsAnimators:
   - {fileID: 3863216908624089452}
   - {fileID: 3863216908624089452}
@@ -5086,6 +5065,7 @@ MonoBehaviour:
   goParent:
   - {fileID: 7509500828699316652}
   - {fileID: 2617561859407082037}
+  MobBlockType: 0
 --- !u!114 &5061527737046034519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5104,8 +5084,28 @@ MonoBehaviour:
   OnReceiveDamage:
     m_PersistentCalls:
       m_Calls: []
-  onDamageMessageReceivers:
-  - {fileID: 7732128490158977496}
+  onDamageMessageReceivers: []
+--- !u!135 &7234462633611872004
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7275128584023932080}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.9665504
+  m_Center: {x: 0, y: 2.4665504, z: 0}
 --- !u!1 &7483786534771235023
 GameObject:
   m_ObjectHideFlags: 0

@@ -89,7 +89,7 @@ namespace MyProject.GamePlay.Controllers
                         zSize,
                         xSize,
                         xPos,
-                        -2.5f,
+                        0f,
                         zPos));
 
                     grid.name = $"grid--{x}-{z}";
@@ -99,9 +99,33 @@ namespace MyProject.GamePlay.Controllers
             }
             SetLevelGroundDesign(xSize,zSize);
             SetMountains();
+            CalculateNeigbor();
+
+
 
         }
-        void SetLevelGroundDesign(int xSize, int zSize)
+
+        private void CalculateNeigbor()
+        {
+            foreach (var view in LsAllGridViews)
+            {
+                view.FindNeigbor();
+            }
+        }
+        
+        Dictionary<BlockType, List<GridView>> colorToGrids = new Dictionary<BlockType, List<GridView>>();
+
+        void AddColorPair(GridView grid)
+        {
+            BlockType color = grid.mType;
+
+            if (!colorToGrids.ContainsKey(color))
+            {
+                colorToGrids[color] = new List<GridView>();
+            }
+            colorToGrids[color].Add(grid);
+        }
+                void SetLevelGroundDesign(int xSize, int zSize)
         {
             int gridIndex = 0;
             for (int z = zSize - 1; z >= 0; z--)
@@ -114,12 +138,17 @@ namespace MyProject.GamePlay.Controllers
                     {
                         //Editorde ki ground dizaynı set ediyorum -- LevelSettings scripti
                         entity = startGroundLayout.BlockDatas.Blocks[i];
-                        LsAllGridViews[gridIndex].mType = (entity as GroundTypeDefinition).BlockType;
-                        LsAllGridViews[gridIndex].name = $"grid---{entity.DefaultEntitySpriteName}";
-                        LsAllGridViews[gridIndex].SetColor((entity as GroundTypeDefinition).RGBColor);
+                        GridView view = LsAllGridViews[gridIndex];
+                        BlockType type = (entity as GroundTypeDefinition).BlockType;
+                      
+                       
 
+                        view.mType = type;
+                        view.name = $"grid---{entity.DefaultEntitySpriteName}";
+                        view.SetColor((entity as GroundTypeDefinition).RGBColor);
+                        AddColorPair(view);
                         //üzerine mountain gelecek hexagonları ekliyorum.
-                        if(startMountainLayout.BlockDatas.Blocks[i]!=null)
+                        if (startMountainLayout.BlockDatas.Blocks[i]!=null)
                         {
                             entity = startMountainLayout.BlockDatas.Blocks[i];
                             LsMountainViews.Add(LsAllGridViews[gridIndex]);
@@ -131,7 +160,8 @@ namespace MyProject.GamePlay.Controllers
                         if (startMilitaryBaseLayout.BlockDatas.Blocks[i] != null)
                         {
                             IBlockEntityTypeDefinition entity = startMilitaryBaseLayout.BlockDatas.Blocks[i];
-                            CreateMilitaryBaseDesign(LsAllGridViews[gridIndex],entity);
+                            var millitaryBaseView=CreateMilitaryBaseDesign(LsAllGridViews[gridIndex],entity);
+                           
                         }
                     }
                     else if (startGroundLayout.BlockDatas.Blocks[i] == null)
@@ -141,6 +171,8 @@ namespace MyProject.GamePlay.Controllers
                     gridIndex++;
                 }
             }
+
+         
         }
 
         void SetMountains()
@@ -177,17 +209,27 @@ namespace MyProject.GamePlay.Controllers
             }
         }
 
-        void CreateMilitaryBaseDesign(GridView grid, IBlockEntityTypeDefinition entity)
+        MillitaryBaseView CreateMilitaryBaseDesign(GridView grid, IBlockEntityTypeDefinition entity)
         {
-           
+            MillitaryBaseView militaryBase = null;
             Vector3 MillitaryBasePosition = grid.transform.position
                 + Vector3.up * 2.5f + Vector3.forward * 1.2f;
+            var region = new Region();
+            region.RegionPairs = colorToGrids
+                                .Where(pair => pair.Key == grid.mType) 
+                                .Select(pair => pair.Value) 
+                                .FirstOrDefault();
 
-            MillitaryBaseView MB = _millitaryBaseViewFactory.Create(
-                new MillitaryBaseView.Args(_boardView.transform, Vector3.one*2f,MillitaryBasePosition,grid));
-            MB.MilitaryBaseType = (entity as MilitaryBaseDefinition).MillitaryBaseType;
-            MB.UserType =grid.mType == BlockType.Blue ? MB.UserType = UserType.Player : UserType.Enemy;
-            MB.Initialize();
+            militaryBase = _millitaryBaseViewFactory.Create(
+                new MillitaryBaseView.Args(_boardView.transform, Vector3.one*2f,MillitaryBasePosition,grid, region));
+
+            militaryBase.MilitaryBaseType = (entity as MilitaryBaseDefinition).MillitaryBaseType;
+            militaryBase.UserType =grid.mType == BlockType.Blue ? militaryBase.UserType = UserType.Player : UserType.Enemy;
+            militaryBase.Initialize();
+
+
+
+            return militaryBase;
         }
 
 

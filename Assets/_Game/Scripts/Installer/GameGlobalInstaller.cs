@@ -68,6 +68,7 @@ namespace MyProject.Core.Installer
             Container.BindInterfacesAndSelfTo<BoardGamePlayController>().AsSingle();
             Container.BindInterfacesAndSelfTo<BoardDataController>().AsSingle();
             Container.BindInterfacesAndSelfTo<MobVFXController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PathFinderController>().AsSingle();
             
             ////Factory
             Container.BindFactory<Object, BaseScreen, BaseScreen.Factory>().FromFactory<PrefabFactory<BaseScreen>>();

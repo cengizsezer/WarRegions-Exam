@@ -9,30 +9,47 @@ using MyProject.GamePlay.Controllers;
 using MyProject.GamePlay.Characters;
 using MyProject.Core.Data;
 
+
+public class Region
+{
+    public List<GridView> RegionPairs;
+
+    public Region()
+    {
+        RegionPairs = new();
+    }
+
+}
 public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMemoryPool>
 {
     #region Injection
 
     private SignalBus _signalBus;
     private PlayerMobController _playerMobController;
-   
+    private PathFinderController _pathFinderController;
+    private BoardCoordinateSystem _boardCoordinateSystem;
+    
 
     [Inject]
     private void Construct
     (     SignalBus signalBus,
-          PlayerMobController playerMobController)
+          PlayerMobController playerMobController
+        , PathFinderController pathFinderController
+        , BoardCoordinateSystem boardCoordinateSystem)
     {
         _signalBus = signalBus;
         _playerMobController = playerMobController;
+        _pathFinderController = pathFinderController;
+        _boardCoordinateSystem = boardCoordinateSystem;
     }
 
     #endregion
 
 
     [SerializeField] MeshRenderer[] arrMeshRenderer;
-    [HideInInspector] public GridView Owner;
+    public GridView Owner;
     private MeshRenderer currentRenderer;
-   
+    public Region Region;
     private UserType userType;
     public UserType UserType
     {
@@ -58,8 +75,6 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
         }
     }
 
-  
-
     private int soldierIncreaseValue = 5;
     private int soldierCount;
     public int SoldierCount
@@ -69,15 +84,7 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
         set
         {
             soldierCount = value;
-
-            if(soldierCount<0)
-            {
-                OnDeath();
-                return;
-            }
             txt.text = soldierCount.ToString();
-
-
         }
     }
    
@@ -94,7 +101,7 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
             {
                 arrMeshRenderer[i].gameObject.SetActive(i == _id);
                 currentRenderer = arrMeshRenderer[i];
-                arrMeshRenderer[i].material.color = Owner.GetSmr().material.color;
+                currentRenderer.material.color = Owner.GetSmr().material.color;
             }
         }
     }
@@ -131,31 +138,70 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
 
 
     }
-
     
 
     public void Attack(MillitaryBaseView other)
     {
+        var path = new List<GridView>();
+        path = _pathFinderController.FindGridPath(this.Owner,other.Owner);
         MobView mob=_playerMobController.CreateMobView();
-        mob.Initialize();
         mob.SetPropsView(new SoldierWarData
         {
             SpawnPosition = transform.position,
             color = Owner.GetSmr().material.color,
+            MobBlockType = Owner.mType,
             SoldierCount = SoldierCount,
-            TargetMilitaryBase=other
+            TargetMilitaryBase = other,
+            OwnerMilitaryBase=this,
+            Path = path
 
         });
+        mob.Initialize();
+
+        SendingTroops();
     }
 
-    public void OnDeath()
+    public void SendingTroops()
     {
-        //renk Değişecek bunun ve tüm bölgenin
+        SoldierCount = 0;
     }
-
-    public void OnrHit(int HitValue)
+    public void TakeOver(int count,MobView mob)
     {
-        soldierCount -= HitValue;
+        if(Owner.mType == BlockType.Gray)
+        {
+            soldierCount = mob.GetSoldierCount();
+
+            foreach (var grid in Region.RegionPairs)
+            {
+                grid.SetColorColor(mob.OwnerMilitaryBaseView.Owner.GetSmr().material.color);
+            }
+
+            currentRenderer.material.color = mob.OwnerMilitaryBaseView.Owner.GetSmr().material.color;
+            Debug.Log("girdi ama nerede");
+
+        }
+        else
+        {
+            Debug.Log("girdi ama nerede", Owner.gameObject);
+
+            SoldierCount -= count;
+
+            if (soldierCount < 0)
+            {
+                soldierCount = mob.GetSoldierCount();
+
+                foreach (var grid in Region.RegionPairs)
+                {
+                    grid.SetColorColor(mob.OwnerMilitaryBaseView.Owner.GetSmr().material.color);
+                }
+
+                currentRenderer.material.color = mob.OwnerMilitaryBaseView.Owner.GetSmr().material.color;
+
+            }
+        }
+
+       
+
     }
 
     private void StopTentCooldown()
@@ -229,13 +275,15 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
         public readonly Vector3 localScale;
         public readonly Vector3 Position;
         public readonly GridView Owner;
+        public readonly Region Region;
 
-        public Args(Transform Parent, Vector3 LocalScale,Vector3 position,GridView owner) : this()
+        public Args(Transform Parent, Vector3 LocalScale,Vector3 position,GridView owner,Region region) : this()
         {
             parent = Parent;
             localScale = LocalScale;
             Position = position;
             Owner = owner;
+            Region = region;
            
         }
     }

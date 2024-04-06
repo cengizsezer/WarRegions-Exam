@@ -16,5 +16,9 @@ public enum BlockType
     Yellow,
     Red,
     Blue,
-    Gray
+    Gray,
+    Gray_1,
+    Yellow_1,
+    Red_1,
+    Blue_1
 }

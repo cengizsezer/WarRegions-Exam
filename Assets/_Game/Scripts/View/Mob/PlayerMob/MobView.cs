@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using MyProject.Core.Data;
 using MyProject.Core.Enums;
 using MyProject.Core.Settings;
@@ -11,10 +11,6 @@ using Zenject;
 
 namespace MyProject.GamePlay.Characters
 {
-    public class Paths
-    {
-        public Transform[] path;
-    }
     public partial class MobView : BaseGridItemView, IPoolable<IMemoryPool>
     {
         public class Factory : PlaceholderFactory<MobView> { }
@@ -24,18 +20,15 @@ namespace MyProject.GamePlay.Characters
 
     public partial class MobView : BaseGridItemView, IPoolable<IMemoryPool>, IMessageReceiver
     {
-        protected Damageable Damageable;
+        public Damageable Damageable;
         public MobView TargetView;
         public MillitaryBaseView TargetMilitaryBaseView;
-        public int Amount;
-
-        public delegate void OnUpdate();
-        public OnUpdate onUpdate;
-
-        public bool IsAlive;
+        public MillitaryBaseView OwnerMilitaryBaseView;
+      
+        public bool IsAlive = false;
         public float _attackSpeed = 0;
-        private float _damage;
-        public float Damage
+        private int _damage;
+        public int Damage
         {
             get => _damage;
 
@@ -44,12 +37,10 @@ namespace MyProject.GamePlay.Characters
                 _damage = value;
             }
         }
-      
-
-        public bool isAlive = false;
-        private Animator _currentAnimator;
+       
+        public Animator CurrentAnimator;
         private SkinnedMeshRenderer _skinnedMeshRenderer;
-
+        private AttackBase _currentAttackBase;
         public SkinnedMeshRenderer GetSmr() => _skinnedMeshRenderer;
         public AnimStates AnimState
         {
@@ -60,9 +51,9 @@ namespace MyProject.GamePlay.Characters
                 if (_animState != value)
                 {
                     _animState = value;
-                    if (_currentAnimator != null)
+                    if (CurrentAnimator != null)
                     {
-                        _currentAnimator.SetTrigger(_animState.ToString());
+                        CurrentAnimator.SetTrigger(_animState.ToString());
                     }
 
                 }
@@ -75,8 +66,9 @@ namespace MyProject.GamePlay.Characters
         private AnimStates _animState = AnimStates.Idle;
         private IMemoryPool _pool;
         private int _soldierCount;
-        
-
+        private GridView _startGridView;
+        private GridView _endGridView;
+        public BlockType MobBlockType;
         #region Injection
 
         private MobVFXController _weopanVFXController;
@@ -103,18 +95,17 @@ namespace MyProject.GamePlay.Characters
         #endregion
 
         public MobView GetTarget() => TargetView;
-
+        public int GetSoldierCount() => _soldierCount;
         public void OnSpawned(IMemoryPool pool)
         {
             _pool = pool;
-            isAlive = true;
+            IsAlive = true;
             _signalBus.Subscribe<LevelFailSignal>(Despawn);
             _signalBus.Subscribe<LevelSuccessSignal>(Despawn);
             Damageable = GetComponent<Damageable>();
             Damageable.onDamageMessageReceivers.Add(this);
             Damage = _characterSettings.PlayerGamingSettings.Damage;
             _attackSpeed = _characterSettings.PlayerGamingSettings.AttackSpeed;
-            StartFight();
         }
 
         public void OnReceiveMessage(MobMessageType type, object sender, object msg)
@@ -138,92 +129,101 @@ namespace MyProject.GamePlay.Characters
 
         public override void Initialize()
         {
-            base.Initialize();
-            SetAnimator();
-            RebindAnimator();
-            SetViewData();
-            SetAttackBase();
+            StartMovementRoutine(_currentPath,1f);
         }
+
+        private List<GridView> _currentPath = new();
         public void SetPropsView(SoldierWarData data)
         {
-            transform.position = data.SpawnPosition;
+            SetAnimator();
+            RebindAnimator();
+            SetAttackBase();
+
+            transform.position = data.SpawnPosition+Vector3.up*3f;
             _skinnedMeshRenderer.material.color = data.color;
             TargetMilitaryBaseView = data.TargetMilitaryBase;
             _soldierCount = data.SoldierCount;
-            
+            _currentPath = data.Path;
         }
-        private void Attack()
-        {
-            Damageable d = GetTarget().Damageable;
-
-            if (d != null)
-            {
-
-                Damageable.DamageMessage message = new Damageable.DamageMessage
-                {
-                    damager = this,
-                    amount = Amount,
-                };
-
-                d.ApplyDamage(message);
-            }
-        }
+       
         private void Death(Damageable.DamageMessage msg)
         {
-
+            Despawn();
         }
-
 
         private void ApplyDamage(Damageable.DamageMessage msg)
         {
-
+            _soldierCount -= msg.Damage;
         }
 
         public void StartMovementRoutine(List<GridView> lsGridView, float time)
         {
-            StartCoroutine(MovementRoutine(lsGridView, time));
+            StartCoroutine(MovementAndAttackRoutine(lsGridView, time,3f));
         }
 
         protected void ResetAnimatorController()
         {
-            if (_currentAnimator == null) return;
+            if (CurrentAnimator == null) return;
 
-            foreach (var parametre in _currentAnimator.parameters)
+            foreach (var parametre in CurrentAnimator.parameters)
             {
                 if (parametre.type == AnimatorControllerParameterType.Trigger)
                 {
-                    _currentAnimator.ResetTrigger(parametre.name);
+                    CurrentAnimator.ResetTrigger(parametre.name);
                 }
             }
         }
-        private IEnumerator MovementRoutine(List<GridView> lsGridView, float time)
+        IEnumerator MovementAndAttackRoutine(List<GridView> lsGridView, float moveTime, float attackInterval)
         {
             ResetAnimatorController();
             AnimState = AnimStates.Run;
-            Paths paths = new Paths();
-            paths.path = new Transform[lsGridView.Count];
-
+           
             for (int i = 0; i < lsGridView.Count; i++)
             {
-                paths.path[i] = lsGridView[i].transform;
+                GridView targetGrid = lsGridView[i];
+                Vector3 targetPosition = targetGrid.transform.position+Vector3.up*3f;
+               
+                yield return transform.DOLookAt(targetPosition,.2f).WaitForCompletion();
+                yield return transform.DOMove(targetPosition, moveTime).WaitForCompletion();
 
+                // Eğer hedef grid üzerinde düşman varsa, ateş et
+                TargetView = SearchForEnemy();
+                if (TargetView)
+                {
+                    AnimState = AnimStates.Idle;
+                    Damageable.currentHitPoints = TargetView._soldierCount;
+                    while (TargetView.IsAlive)
+                    {
+                        _currentAttackBase.Cast();
+                        Debug.Log(TargetView.name, TargetView.gameObject);
+                        yield return new WaitForSeconds(attackInterval);
+
+                        if(!TargetView.IsAlive)
+                        {
+                            TargetView = null;
+                            TargetView = SearchForEnemy();
+
+                            if (TargetView == null)
+                            {
+                                yield break;
+                            }
+                        }
+                       
+                    }
+                   
+                }
+
+                AnimState = AnimStates.Run;
             }
 
-            yield return transform.DOMove(paths.path[0].position, 0.1f).WaitForCompletion();
-
-            Vector3[] _path = new Vector3[paths.path.Length];
-
-            for (int i = 0; i < paths.path.Length; i++)
-            {
-                _path[i] = paths.path[i].position;
-            }
-
-            transform.DOPath(_path, time).SetEase(Ease.Linear).OnComplete(() => Debug.Log("sona geldim"));
+            Debug.Log("buraya girmiyor mu?");
+            TargetMilitaryBaseView.TakeOver(_soldierCount,this);
         }
+     
 
         private MobView SearchForEnemy()
         {
-            RaycastHit[] hits = Physics.SphereCastAll(transform.position, 10f, Vector3.up);
+            RaycastHit[] hits = Physics.SphereCastAll(transform.position, 3f, Vector3.up);
             MobView target = null;
             if (hits.Length > 0)
             {
@@ -232,22 +232,19 @@ namespace MyProject.GamePlay.Characters
                     if (hits[i].collider.TryGetComponent<MobView>(out target))
                     {
                         target = hits[i].collider.gameObject.GetComponent<MobView>();
-                        if (target)
+                        if (target && target.MobBlockType!=BlockType.Blue&&target!=this)
                         {
-                          
+                            return target;
                         }
                     }
                 }
 
             }
 
-            return target;
 
+            return null;
 
         }
-
-      
-
         void SetAnimator()
         {
             int _id = GetID();
@@ -258,27 +255,22 @@ namespace MyProject.GamePlay.Characters
                 {
                     goParent[i].SetActive(i == _id);
 
-                    _currentAnimator = LsAnimators[i];
+                    CurrentAnimator = LsAnimators[i];
                     _skinnedMeshRenderer = LsRenderer[i];
                 }
             }
         }
         void RebindAnimator()
         {
-            _currentAnimator.enabled = false;
-            _currentAnimator.enabled = true;
-            _currentAnimator.Rebind();
-            _currentAnimator.Update(0f);
+            CurrentAnimator.enabled = false;
+            CurrentAnimator.enabled = true;
+            CurrentAnimator.Rebind();
+            CurrentAnimator.Update(0f);
         }
-
-        void SetViewData()
-        {
-           
-        }
-
         void SetAttackBase()
         {
-            //AttackBaseView = LsAnimators[GetID()].GetComponent<AttackBaseView>();
+            _currentAttackBase = LsAnimators[GetID()].GetComponent<AttackBase>();
+            _currentAttackBase.parentMob = this;
         }
       
         public override void Despawn()
@@ -288,132 +280,15 @@ namespace MyProject.GamePlay.Characters
             {
                 return;
             }
-            ClosedObjects();
+           
             _signalBus.TryUnsubscribe<LevelSuccessSignal>(Despawn);
             _signalBus.TryUnsubscribe<LevelFailSignal>(Despawn);
             _pool.Despawn(this);
         }
-
-        private void ClosedObjects()
-        {
-            foreach (var obj in LsAnimators)
-            {
-                obj.gameObject.SetActive(false);
-            }
-        }
+      
         public void OnDespawned()
         {
            
-        }
-
-        public virtual void StartFight()
-        {
-            if (onUpdate != null)
-            {
-                return;
-            }
-
-            onUpdate = null;
-
-            ResetAnimatorController();
-
-            MobView enemyView = SearchForEnemy();
-
-            //if (!_boardGameplayController.IsRunning)
-            //{
-            //    StopFight();
-            //    return;
-            //}
-
-            //if (enemyView == null && _boardGameplayController.IsRunning && !_enemySpawnController.IsWaveComplate)
-            //{
-            //    StartFight();
-
-            //    return;
-            //}
-
-            if (enemyView != null && !enemyView.IsAlive)
-            {
-                StopFight();
-                StartFight();
-                return;
-            }
-
-            TargetView = enemyView;
-            onUpdate = FollowTarget;
-        }
-
-        public void StopFight()
-        {
-            ResetAnimatorController();
-            _animState = AnimStates.Idle;
-            onUpdate = null;
-        }
-
-        void FollowTarget()
-        {
-            //if (!_boardGameplayController.IsRunning || !_enemySpawnController.IsWaveComplate)
-            //{
-            //    onUpdate = null;
-            //    StopFight();
-            //    return;
-            //}
-
-            if (TargetView == null || !TargetView.IsAlive)
-            {
-                onUpdate = null;
-                StartFight();
-                return;
-            }
-
-            StopFight();
-
-            _characterSettings.PlayerGamingSettings.AttackTimer = _characterSettings.PlayerGamingSettings.AttackInterval / 1.2f;
-            onUpdate = AttackRoutine;
-        }
-        void AttackRoutine()
-        {
-            //if (!_boardGameplayController.IsRunning)
-            //{
-            //    StopFight();
-            //    onUpdate = null;
-            //    return;
-            //}
-
-            if (TargetView == null)
-            {
-                onUpdate = null;
-                StartFight();
-                return;
-            }
-
-            if (!TargetView.IsAlive)
-            {
-                onUpdate = null;
-                TargetView = null;
-                StartFight();
-                return;
-            }
-
-            _characterSettings.PlayerGamingSettings.AttackTimer += Time.deltaTime;
-
-            if (_characterSettings.PlayerGamingSettings.AttackTimer >= _characterSettings.PlayerGamingSettings.AttackInterval)
-            {
-
-                _characterSettings.PlayerGamingSettings.AttackTimer = 0f;
-                //AttackBaseView.Cast();
-            }
-        }
-
-        private void Update()
-        {
-            _OnUpdate();
-        }
-
-        public virtual void _OnUpdate()
-        {
-            //if (_boardGameplayController.IsRunning)
-            //    onUpdate?.Invoke();
         }
 
         public override void Dispose()
@@ -423,6 +298,7 @@ namespace MyProject.GamePlay.Characters
 
        
     }
+   
 }
 
 

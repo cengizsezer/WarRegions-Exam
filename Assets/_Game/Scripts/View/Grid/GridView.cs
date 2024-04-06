@@ -66,6 +66,71 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
 
     public BlockType GetTileType() => mType;
 
+
+    #region Injection
+
+    private SignalBus _signalBus;
+    private PlayerMobController _playerMobController;
+    private BoardFXController _boardFXController;
+    private BoardCoordinateSystem _boardCoordinateSystem;
+
+    [Inject]
+    private void Construct(SignalBus signalBus
+        , PlayerMobController playerMobController
+        , BoardFXController boardFXController
+        ,BoardCoordinateSystem boardCoordinateSystem)
+    {
+        _signalBus = signalBus;
+        _playerMobController = playerMobController;
+        _boardFXController = boardFXController;
+        _boardCoordinateSystem = boardCoordinateSystem;
+    }
+
+    #endregion
+
+    #region PathFinder
+    public List<GridView> neighborList = new List<GridView>();
+    public bool IsSea;
+    public int gridX; // Grid koordinatı X
+    public int gridZ; // Grid koordinatı Y
+    public int gCost; // Başlangıç düğümüne olan maliyet
+    public int hCost; // Hedef düğüme olan tah
+    public GridView parent;
+    public int fCost // gCost + hCost
+    {
+        get { return gCost + hCost; }
+    }
+    
+
+    public bool IsMountain()
+    {
+        return false;
+    }
+
+
+    public void FindNeigbor()
+    {
+        if (IsSea) return;
+
+        foreach (GridView neighbor in _boardCoordinateSystem.LsAllGridViews)
+        {
+            if (neighbor == this || !neighbor.gameObject.activeInHierarchy || neighbor.IsSea)
+            {
+                continue;
+            }
+
+            float distance = Vector3.Distance(transform.position, neighbor.transform.position);
+
+            if (distance >= 8)
+            {
+                continue;
+            }
+
+            neighborList.Add(neighbor);
+        }
+    }
+    #endregion
+
     #region Coloring
     public Color ToColorFromHex(string hexademical)
     {
@@ -98,6 +163,11 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
         smr.material.color = ToColorFromHex(s);
     }
 
+    public void SetColorColor(Color c)
+    {
+        smr.material.color = c;
+    }
+
     public string GetColor() => ToHexFromColor(smr.material.color);
 
     #endregion
@@ -105,29 +175,10 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
   
     private IMemoryPool _pool;
 
-    #region Injection
-
-    private SignalBus _signalBus;
-    private PlayerMobController _playerMobController;
-    private BoardFXController _boardFXController;
-
-    [Inject]
-    private void Construct(SignalBus signalBus
-        , PlayerMobController playerMobController
-        , BoardFXController boardFXController)
-    {
-        _signalBus = signalBus;
-        _playerMobController = playerMobController;
-        _boardFXController = boardFXController;
-    }
-
-    #endregion
-
     public void Init(GridData gridData)
     {
         Initialize();
     }
-
     
     public override void Initialize()
     {
@@ -153,14 +204,10 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
         transform.localPosition = new Vector3(xPos, yPos, zPos);
        
     }
-
-  
-
     public void PlayVFX(VFXType vfxType)
     {
         _boardFXController.PlayVFX(new VFXArgs(vfxType, transform, 2f));
     }
-
 
     public class Factory : PlaceholderFactory<Args, GridView> { }
     public class Pool : MonoPoolableMemoryPool<Args, IMemoryPool, GridView> { }

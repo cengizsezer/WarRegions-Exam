@@ -8,15 +8,15 @@ public partial class Damageable : MonoBehaviour
 {
     public struct DamageMessage
     {
-        public MonoBehaviour damager;
-        public int amount;
+        public MonoBehaviour Damager;
+        public int Damage;
        
     }
 
 }
 public partial class Damageable : MonoBehaviour
 {
-    public int currentHitPoints { get; private set; }
+    public int currentHitPoints { get; set; }
 
     public UnityEvent OnDeath, OnReceiveDamage;
     public List<MonoBehaviour> onDamageMessageReceivers;
@@ -30,7 +30,7 @@ public partial class Damageable : MonoBehaviour
             return;
         }
        
-        currentHitPoints -= data.amount;
+        currentHitPoints -= data.Damage;
 
         if (currentHitPoints <= 0)
         {

@@ -25,10 +25,8 @@ namespace MyProject.Core.Settings
     [Serializable]
     public class MobAttackSettings
     {
-        public float Damage;
+        public int Damage;
         public float AttackSpeed;
-        public float AttackInterval;
-        public float AttackTimer;
     }
 
     [Serializable]
