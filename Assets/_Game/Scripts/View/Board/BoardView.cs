@@ -9,20 +9,22 @@ using static MyProject.Core.Const.GlobalConsts;
 public class BoardView : BaseView
 {
     public List<ColorRegion> BoardRegion = new();
-
-    public Transform _dragParent;
+    public List<GridView> lsAllGridView = new();
 
     #region Injection
 
     private Camera _uiCamera;
     private FlagService _flagService;
+    private BoardDataController _boardDataController;
 
     [Inject]
     private void Construct([Inject(Id = "uiCamera")] Camera uiCamera
-        , FlagService flagService)
+        , FlagService flagService
+        , BoardDataController boardDataController)
     {
         _uiCamera = uiCamera;
         _flagService = flagService;
+        _boardDataController = boardDataController;
     }
 
     #endregion
@@ -35,20 +37,12 @@ public class BoardView : BaseView
     public void Init()
     {
         gameObject.SetActive(true);
-        _flagService.SetFlag(Flags.BoardFlag, FlagState.Available);
+       
     }
 
     public void Disable()
     {
-       
-        //foreach (var gridView in _gridViews)
-        //{
-        //    if (!gridView) return;
-        //    gridView.DespawnItem();
-        //}
-
-        gameObject.SetActive(false);
-       
+        BoardRegion.Clear();
     }
 
     public override void Dispose()

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,7 +16,7 @@ public partial class Damageable : MonoBehaviour
 }
 public partial class Damageable : MonoBehaviour
 {
-    public int currentHitPoints { get; set; }
+    public int SoldierCount { get; set; }
 
     public UnityEvent OnDeath, OnReceiveDamage;
     public List<MonoBehaviour> onDamageMessageReceivers;
@@ -25,15 +25,16 @@ public partial class Damageable : MonoBehaviour
    
     public void ApplyDamage(DamageMessage data)
     {
-        if (currentHitPoints <= 0)
+        if (SoldierCount <= 0)
         {
             return;
         }
-       
-        currentHitPoints -= data.Damage;
 
-        if (currentHitPoints <= 0)
+        SoldierCount -= data.Damage;
+        Debug.Log("vurulma hakkı"+"="+SoldierCount);
+        if (SoldierCount <= 0)
         {
+            Debug.Log("öldü", gameObject);
             schedule += OnDeath.Invoke;
         }
         else
@@ -41,7 +42,7 @@ public partial class Damageable : MonoBehaviour
             OnReceiveDamage.Invoke();
         }
 
-        var messageType = currentHitPoints <= 0 ? MobMessageType.DEAD : MobMessageType.DAMAGED;
+        var messageType = SoldierCount <= 0 ? MobMessageType.DEAD : MobMessageType.DAMAGED;
 
         for (var i = 0; i < onDamageMessageReceivers.Count; ++i)
         {

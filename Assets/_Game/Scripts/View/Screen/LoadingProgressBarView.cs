@@ -22,7 +22,7 @@ public class LoadingProgressBarView : BaseView
 
         var newSize = new Vector2(signal.ProgressValue / 100f * 1108, 58f);
 
-        _fillRect.DOSizeDelta(newSize, 0.25f).SetEase(Ease.OutQuad).OnComplete(() =>
+        _fillRect.DOSizeDelta(newSize, 1f).SetEase(Ease.OutQuad).OnComplete(() =>
         {
             if (signal.ProgressValue >= 100)
             {

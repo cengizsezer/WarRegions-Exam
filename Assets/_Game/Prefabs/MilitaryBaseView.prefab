@@ -9813,7 +9813,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7459670976669100224
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9904,8 +9904,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 3374654975
-  m_fontColor: {r: 1, g: 0.1462264, b: 0.1462264, a: 0.7882353}
+    rgba: 3374710679
+  m_fontColor: {r: 0.59402746, g: 1, b: 0.14509803, a: 0.7882353}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -9922,7 +9922,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47.05
+  m_fontSize: 26.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -14826,10 +14826,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2a4d74b4bbffd4d8356fcd3d9c530b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _resourceTypeData:
+    ColorType: 0
+    ConfigureType: 0
+    HexColor: 
+  _colorType: 0
+  ConfigureType: 0
+  _userType: 0
   arrMeshRenderer:
   - {fileID: 5265774246868740129}
   - {fileID: 5890476563632377432}
   Owner: {fileID: 0}
+  Region:
+    RegionPairs: []
   tentSprite: {fileID: 8126227115784064692}
   txt: {fileID: 5094719820559926673}
 --- !u!65 &6920121529885008393

@@ -31,6 +31,8 @@ public class GamePlayScreenView : BaseScreen
     private ScreenController _screenController;
     private BoardGamePlayController _boardGamePlayController;
     private CurrencyController _currencyController;
+    private EnemyMobController _enemyMobController;
+    private EnemySpawnController _enemySpawnController;
 
     [Inject]
     private void Construct
@@ -42,6 +44,8 @@ public class GamePlayScreenView : BaseScreen
         FlagService flagService
         ,BoardGamePlayController boardGamePlayController
         , CurrencyController currencyController
+         , EnemyMobController enemyMobController
+        , EnemySpawnController enemySpawnController
         )
     {
         _signalBus = signalBus;
@@ -50,6 +54,8 @@ public class GamePlayScreenView : BaseScreen
         _popupService = popupService;
         _boardGamePlayController = boardGamePlayController;
         _currencyController = currencyController;
+        _enemyMobController = enemyMobController;
+        _enemySpawnController = enemySpawnController;
     }
 
     #endregion
@@ -59,8 +65,11 @@ public class GamePlayScreenView : BaseScreen
         _signalBus.Subscribe<SettingsPopupClosedSignal>(OnSettingsPopupClosed);
         safeAreaSetter.FitScreenSizeToSafeArea();
         coinCurrencyView.Initialize();
-        _currencyController.ResetCurrency(CurrencyType.Mana);
+        //_currencyController.ResetCurrency(CurrencyType.Mana);
         _boardGamePlayController.Init();
+        _enemyMobController.ManuelInit();
+        _enemySpawnController.ManuelInit();
+
         currencies.sortingOrder = 195;
     }
 

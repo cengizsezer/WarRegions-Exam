@@ -8,64 +8,34 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Zenject;
-public enum HexTypes
-{
-    None,
-    Addition,
-    Substract,
-    Multiply,
-    Divide,
-    Health,
-    Merge,
-    Upgrade,
-    Tent,
-    Speed,
-    Empty
-}
-
-public enum InitialMobType
-{
-    None = -1,
-    Player = 0,
-    Enemy = 1
-}
 
 public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
 {
-    [Header("VALUES AND TEXT")]
-    [HideInInspector]
-    internal int value;
-    [HideInInspector]
-    internal BlockType mType;
+    [Header("RESOURCE DATA")]
+    [SerializeField] private ResourceTypeData _resourceTypeData;
+    public ResourceTypeData ResourceTypeData
+    {
+        get => _resourceTypeData;
+        set
+        {
+            _resourceTypeData = value;
+            SetProps();
+        }
+    }
+    private IMemoryPool _pool;
+    public ColorType ColorType;
     public IBlockEntityTypeDefinition TypeDefinition;
-
-    [Header("INITIAL VALUES")]
-    [SerializeField] bool hasInitialOwner;
-    
-    [SerializeField] InitialMobType initialMob;
+    public int ConfigureType;
 
 
     [Header("PROPS")]
     [SerializeField] SkinnedMeshRenderer smr;
-    [SerializeField] TextMeshPro txt;
-    [SerializeField] ParticleSystem psConvert;
-    public GameObject[] borders;
-    [SerializeField] GameObject goUpgrade, goSpeed;
     [SerializeField] SpriteRenderer tentSprite;
     [SerializeField] MeshRenderer tentRenderer;
-    [SerializeField] Collider colTrigger;
-
-    //[HideInInspector]
-    public int x, z;
-
-    delegate void OnCollected();
-    OnCollected onCollected = null;
-
-    bool hasCollectedBefore = false;
-
+  
     public SkinnedMeshRenderer GetSmr() => smr;
 
-    public BlockType GetTileType() => mType;
+    public ColorType GetTileType() => ColorType;
 
 
     #region Injection
@@ -132,63 +102,30 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
     }
     #endregion
 
-    #region Coloring
-    public Color ToColorFromHex(string hexademical)
-    {
-        string s =hexademical;
-        Color newCol = Color.white;
-        if (ColorUtility.TryParseHtmlString(s, out newCol))
-        {
-            return newCol;
-        }
-
-        return newCol;
-    }
-
-    public string ToHexFromColor(Color color)
-    {
-        // Renk değerlerini [0, 1] aralığından [0, 255] aralığına dönüştür
-        int r = Mathf.RoundToInt(color.r * 255f);
-        int g = Mathf.RoundToInt(color.g * 255f);
-        int b = Mathf.RoundToInt(color.b * 255f);
-        int a = Mathf.RoundToInt(color.a * 255f);
-
-        // Renk değerlerini hexadecimal formatına dönüştür ve birleştir
-        string hex = "#" + r.ToString("X2") + g.ToString("X2") + b.ToString("X2") + a.ToString("X2");
-
-        return hex;
-    }
-
     public void SetColor(string s)
     {
         smr.material.color = ToColorFromHex(s);
     }
-
-    public void SetColorColor(Color c)
-    {
-        smr.material.color = c;
-    }
-
-    public string GetColor() => ToHexFromColor(smr.material.color);
-
-    #endregion
-
-  
-    private IMemoryPool _pool;
-
-   
     
     public override void Initialize()
     {
         
     }
+
+    public void SetProps()
+    {
+        SetColor(ResourceTypeData.HexColor);
+        ColorType = ResourceTypeData.ColorType;
+        ConfigureType = ResourceTypeData.ConfigureType;
+
+    }
     public void DespawnItem()
     {
-        
+        _pool.Despawn(this);
     }
     public void OnDespawned()
     {
-        
+       
     }
     public void OnSpawned(Args args, IMemoryPool pool)
     {
@@ -206,7 +143,6 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
     {
         _boardFXController.PlayVFX(new VFXArgs(vfxType, transform, 2f));
     }
-
     public class Factory : PlaceholderFactory<Args, GridView> { }
     public class Pool : MonoPoolableMemoryPool<Args, IMemoryPool, GridView> { }
     public readonly struct Args

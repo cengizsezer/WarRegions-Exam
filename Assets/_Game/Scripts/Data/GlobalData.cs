@@ -12,11 +12,10 @@ namespace MyProject.Core.Data
     public class SoldierWarData
     {
         public MilitaryBaseType MilitaryBaseType;
-        public Color color;
-        public BlockType MobBlockType;
+        public ResourceTypeData ResourceTypeData;
         public Vector3 SpawnPosition;
-        public MillitaryBaseView TargetMilitaryBase;
-        public MillitaryBaseView OwnerMilitaryBase;
+        public MilitaryBaseView TargetMilitaryBase;
+        public MilitaryBaseView OwnerMilitaryBase;
         public int SoldierCount;
         public List<GridView> Path;
        

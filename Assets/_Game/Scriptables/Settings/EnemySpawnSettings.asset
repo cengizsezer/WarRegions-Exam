@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c697ae66dcfd0a54a92784e489a2573c, type: 3}
+  m_Script: {fileID: 11500000, guid: 77558143488619e4fa9b84ad4919b97e, type: 3}
   m_Name: EnemySpawnSettings
   m_EditorClassIdentifier: 
-  WaveDelay: 2
-  UnitSpawnDelay: 2
-  MaxSpawnWaveCount: 5
-  SingleWaveEnemyCount: 5
+  SpawnDelay: 10
+  UnitDelay: 3

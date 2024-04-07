@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultEntitySpriteName: Gray
   helperSprite: {fileID: 21300000, guid: 3cfa580149fb742d7a2f6adaab0a2b51, type: 3}
-  blockType: 3
-  rgbColor: '#808080'
+  resourceTypeData:
+    ColorType: 3
+    ConfigureType: 0
+    HexColor: EEEDEB

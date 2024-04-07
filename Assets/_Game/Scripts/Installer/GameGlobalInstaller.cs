@@ -69,6 +69,9 @@ namespace MyProject.Core.Installer
             Container.BindInterfacesAndSelfTo<BoardDataController>().AsSingle();
             Container.BindInterfacesAndSelfTo<MobVFXController>().AsSingle();
             Container.BindInterfacesAndSelfTo<PathFinderController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<LevelController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<EnemyMobController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<EnemySpawnController>().AsSingle();
             
             ////Factory
             Container.BindFactory<Object, BaseScreen, BaseScreen.Factory>().FromFactory<PrefabFactory<BaseScreen>>();
@@ -101,8 +104,8 @@ namespace MyProject.Core.Installer
 
         private void InstallMilitaryBaseViews()
         {
-            Container.BindFactory<MillitaryBaseView.Args, MillitaryBaseView, MillitaryBaseView.Factory>()
-              .FromPoolableMemoryPool<MillitaryBaseView.Args, MillitaryBaseView, MillitaryBaseView.Pool>(poolbinder => poolbinder
+            Container.BindFactory<MilitaryBaseView.Args, MilitaryBaseView, MilitaryBaseView.Factory>()
+              .FromPoolableMemoryPool<MilitaryBaseView.Args, MilitaryBaseView, MilitaryBaseView.Pool>(poolbinder => poolbinder
                   .WithInitialSize(10)
                   .FromComponentInNewPrefab(_applicationPrefabSettings.MilitaryBaseViewPrefab)
                   .UnderTransformGroup("MilitaryBaseViews"));

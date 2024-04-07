@@ -8,15 +8,18 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 using static MyProject.Core.Const.GlobalConsts;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MyProject.GamePlay.Controllers
 {
     public class BoardGamePlayController : BaseController
     {
+        
         public bool IsRunning = false;
 
-        private MillitaryBaseView _selectedView;
-        private MillitaryBaseView _lastSelectedView;
+        private HashSet<MilitaryBaseView> _selectedView = new();
+        private MilitaryBaseView _lastSelectedView;
         private Vector3 _lastClickPoint;
         private bool _isDragging;
         private bool _boardDataLoaded;
@@ -24,61 +27,37 @@ namespace MyProject.GamePlay.Controllers
 
         #region Injecion
 
-        private readonly Camera _uiCamera;
         private readonly Camera _mainCamera;
         private readonly BoardView _boardView;
         private readonly InputController _inputController;
-        private readonly CurrencyModel _currencyModel;
-        private readonly TaskService _taskService;
         private readonly FlagService _flagService;
         private readonly BoardCoordinateSystem _boardCoordinateSystem;
-        private readonly ScreenController _screenController;
         private readonly SignalBus _signalBus;
-        private readonly UserModel _userModel;
-        private readonly CurrencyController _currencyController;
         private readonly BoardDataController _boardDataController;
         private readonly ItemTweenSettings _itemTweenSettings;
-        private readonly PlayerMobController _playerMobController;
-        private readonly UserController _userController;
+       
         
         public BoardGamePlayController
         (
-            [Inject(Id = "uiCamera")] Camera uiCamera
-            , Camera mainCamera
+            Camera mainCamera
             , BoardView boardView
             , InputController inputController
-            , CurrencyModel currencyModel
-            , TaskService taskService
             , BoardCoordinateSystem boardCoordinateSystem
-            , ScreenController screenController
-            , UserModel userModel
-            , CurrencyController currencyController
             , SignalBus signalBus
             , BoardDataController boardDataController
             , ItemTweenSettings itemTweenSettings
-            , PlayerMobController playerMobController
             , FlagService flagService
-            , UserController userController
-           
 
         )
         {
-            _uiCamera = uiCamera;
             _boardView = boardView;
             _inputController = inputController;
-            _currencyModel = currencyModel;
-            _taskService = taskService;
             _boardCoordinateSystem = boardCoordinateSystem;
-            _screenController = screenController;
-            _userModel = userModel;
-            _currencyController = currencyController;
             _signalBus = signalBus;
             _mainCamera = mainCamera;
             _boardDataController = boardDataController;
             _itemTweenSettings = itemTweenSettings;
-            _playerMobController = playerMobController;
             _flagService = flagService;
-            _userController = userController;
           
         }
 
@@ -102,7 +81,8 @@ namespace MyProject.GamePlay.Controllers
             RegisterBoardEvents();
             _mainCamera.gameObject.SetActive(true);
             _boardDataController.BoardState = BoardState.Active;
-           
+            _flagService.SetFlag(Flags.BoardFlag, FlagState.Available);
+
         }
 
         public void DisposeBoard(ContinueButtonClickSignal signal)
@@ -151,133 +131,104 @@ namespace MyProject.GamePlay.Controllers
 
         private void OnFingerDown()
         {
-          
+            Debug.Log("fingerDown");
             if (!_flagService.IsFlagAvailable(Flags.BoardFlag)) return;
 
             if (TryCatchGridView(out var view))
             {
+               
+                if (view.SoldierCount <= 0) return;
+               
 
-                switch (view.MilitaryBaseType)
+                // Eğer daha önce seçili bir asker yoksa veya son tıklamadan sonra geçen süre 0.5 saniyeden fazlaysa
+                if (_selectedView.Count == 0 || Time.realtimeSinceStartup - _lastFingerDownTime >= 0.5f)
                 {
-                    case MilitaryBaseType.Land:
-
-                        if (_lastSelectedView)
-                        {
-                            if (Time.realtimeSinceStartup - _lastFingerDownTime < 0.5f)
-                            {
-                                return;
-                            }
-
-                            
-                        }
-                      
-                        _lastFingerDownTime = Time.realtimeSinceStartup;
-                        _selectedView = view;
-                        _selectedView.SelectView();
-                        break;
-
-                    case MilitaryBaseType.Sea:
-
-                        if (_lastSelectedView)
-                        {
-                            if (Time.realtimeSinceStartup - _lastFingerDownTime < 0.5f)
-                            {
-                                return;
-                            }
-
-
-                        }
-                       
-                        _lastFingerDownTime = Time.realtimeSinceStartup;
-                        _selectedView = view;
-                        _selectedView.SelectView();
-                        break;
+                    _lastFingerDownTime = Time.realtimeSinceStartup;
+                    _selectedView.Add(view);
+                    view.SelectView();
+                    Debug.Log(view,view.gameObject);
+                    Debug.Log(_selectedView.Count+"---count---");
                 }
             }
-
         }
-       
+
+
         private void OnFingerUp()
         {
-            if (!_selectedView)
+            Debug.Log(_selectedView.Count);
+            if (_selectedView.Count == 0)
             {
                 return;
             }
-
+            Debug.Log(_selectedView.Count);
             _isDragging = false;
-            _lastSelectedView = _selectedView;
+            _lastSelectedView = _selectedView.Last();
             TryReleaseItem();
         }
-       
+
+
         private void TryReleaseItem()
         {
-            if (_selectedView == null)
+            if (_selectedView == null || _selectedView.Count == 0) return;
+            Debug.Log("TryRelease");
+            if (TryCatchGridView(out MilitaryBaseView other))
             {
-                return;
-            }
-
-            if (TryCatchGridView(out MillitaryBaseView other))
-            {
-
-                if (other == _selectedView)
+                foreach (var view in _selectedView)
                 {
-                    return;
-                }
+                    if (view == other) continue; // Aynı askere iki kez tıklama durumunu önle
+                    if (other.SoldierCount <= 0) return; // Hedef askerinin asker sayısı 0 veya daha azsa işlem yapma
 
-                switch (other.UserType)
-                {
-                    case UserType.Player:
-                        Debug.Log("Player finger down");
-                        break;
-                    case UserType.Enemy:
-
-                        if (_selectedView.UserType != UserType.Player)
-                            return;
-
-                        _selectedView.SendingTroops(other);
-                        _selectedView = null;
-                        Debug.Log("Enemy finger down");
-                        break;
-                    default:
-                        break;
+                    view.SendingTroops(other);
                 }
             }
 
+            // Seçili askerleri temizle
+            foreach (var view in _selectedView)
+            {
+                view.UnSelectView();
+            }
+            _selectedView.Clear();
         }
         private void TryDragSelectedItem()
         {
-            if (Physics.Raycast(_mainCamera.ScreenPointToRay(_inputController.FingerPosition), out var hit, 100,
-                    LayerMasks.COLLIDER))
+            if (Physics.Raycast(_mainCamera.ScreenPointToRay(_inputController.FingerPosition), out var hit, 100, LayerMasks.COLLIDER))
             {
-                if (Vector3.Distance(_lastClickPoint, hit.point) < _itemTweenSettings.DragDeadZone &&
-                    !_isDragging) return;
-             
+                if (Vector3.Distance(_lastClickPoint, hit.point) < _itemTweenSettings.DragDeadZone && !_isDragging) return;
 
-                _selectedView.UnSelectView();
+                if(hit.collider.TryGetComponent(out MilitaryBaseView other))
+                {
+                    if(other.GetUserType()==UserType.Player)
+                    {
+                        _selectedView.Add(other);
+                    }
+                }
+                // Seçili askerlerin seçimlerini kaldır
+                foreach (var view in _selectedView)
+                {
+                    view.UnSelectView();
+                }
+
                 _isDragging = true;
                 _lastSelectedView = null;
             }
-
         }
         private void OnFingerUpdate()
         {
-            if (_selectedView)
+            if (_selectedView.Count > 0)
             {
                 TryDragSelectedItem();
             }
         }
-       
-        private bool TryCatchGridView(out MillitaryBaseView millitaryBaseView)
+
+        private bool TryCatchGridView(out MilitaryBaseView militaryBaseView)
         {
-            millitaryBaseView = null;
+            militaryBaseView = null;
 
-            if (Physics.Raycast(_mainCamera.ScreenPointToRay(_inputController.FingerPosition), out var hit, 100,
-                    LayerMasks.COLLIDER))
+            if (Physics.Raycast(_mainCamera.ScreenPointToRay(_inputController.FingerPosition), out var hit, 100, LayerMasks.COLLIDER))
             {
-                if (hit.collider.TryGetComponent(out MillitaryBaseView view))
+                if (hit.collider.TryGetComponent(out MilitaryBaseView view))
                 {
-
-                    millitaryBaseView = view;
+                    militaryBaseView = view;
                     _lastClickPoint = hit.point;
                     return true;
                 }
@@ -285,8 +236,6 @@ namespace MyProject.GamePlay.Controllers
 
             return false;
         }
-       
-
         protected override void OnInitialize()
         {
 

@@ -21,8 +21,6 @@ public class PlayButtonView : BaseButtonView
 
     protected override void OnButtonClicked()
     {
-        if (!_flagService.IsFlagAvailable(Flags.BoardFlag)) return;
-        _flagService.SetFlag(Flags.BoardFlag, FlagState.Unavailable);
         _signalBus.Fire<PlayButtonClickSignal>();
     }
 

@@ -34,13 +34,12 @@ public class LevelUpPopup : BasePopup<LevelUpPopupParameters>
     public override void Show()
     {
         base.Show();
+        if (!_flagService.IsFlagAvailable(Flags.BoardFlag)) return;
+        _flagService.SetFlag(Flags.BoardFlag, FlagState.Unavailable);
     }
    
     public override void ClosePopup()
     {
-      
-        if (!_flagService.IsFlagAvailable(Flags.BoardFlag)) return;
-        _flagService.SetFlag(Flags.BoardFlag, FlagState.Unavailable);
         _screenController.ChangeState(ScreenState.MainMenu);
         _signalBus.Fire<ContinueButtonClickSignal>();
         base.ClosePopup();

@@ -10,6 +10,14 @@ namespace MyProject.Core.Enums
         Duration
     }
 
+    public enum ColorType
+    {
+        Yellow,
+        Red,
+        Blue,
+        Gray
+    }
+
     public enum MilitaryBaseType
     {
         
@@ -20,7 +28,8 @@ namespace MyProject.Core.Enums
     public enum UserType
     {
         Player,
-        Enemy
+        Enemy,
+        Nötr
     }
 
     public enum BuildType
@@ -56,29 +65,7 @@ namespace MyProject.Core.Enums
         Dead,
         Spawn
     }
-
-    public enum GridState
-    {
-      Filled=0,
-      Free=1
-    }
-
-    public enum GameplayMobType
-    {
-        None = 0,
-        Player = 1,
-        Enemy=2
-       
-    }
-
-    public enum CharMobType
-    {
-        Char_0 = 0,
-        Char_1 = 1,
-        Char_2 = 2,
-        Char_3 = 3,
-        Char_4 = 4
-    }
+    
    
     public struct Tweens
     {

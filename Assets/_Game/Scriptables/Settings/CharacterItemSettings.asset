@@ -17,9 +17,7 @@ MonoBehaviour:
   characterGridItemPoolName: MobViews
   characterLocalScale: {x: 1, y: 1, z: 1}
   PlayerGamingSettings:
-    Damage: 10
+    Damage: 1
     AttackSpeed: 0.5
-    AttackInterval: 0.1
-    AttackTimer: 0.0692425
   EnemyGamingSettings:
     MovementSpeed: 30

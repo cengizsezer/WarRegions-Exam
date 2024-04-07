@@ -21,13 +21,24 @@ public class Region
     }
 
 }
-public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMemoryPool>
+public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemoryPool>
 {
     private IMemoryPool _pool;
+    [SerializeField] private ResourceTypeData _resourceTypeData;
+    public ResourceTypeData ResourceTypeData
+    {
+        get => _resourceTypeData;
+        set
+        {
+            _resourceTypeData = value;
+            SetProps();
+        }
+    }
+
     #region Injection
 
     private SignalBus _signalBus;
-    private PlayerMobController _playerMobController;
+    private PlayerMobController _MobController;
     private PathFinderController _pathFinderController;
     private BoardCoordinateSystem _boardCoordinateSystem;
     
@@ -40,7 +51,7 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
         , BoardCoordinateSystem boardCoordinateSystem)
     {
         _signalBus = signalBus;
-        _playerMobController = playerMobController;
+        _MobController = playerMobController;
         _pathFinderController = pathFinderController;
         _boardCoordinateSystem = boardCoordinateSystem;
     }
@@ -48,21 +59,23 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
     #endregion
 
     #region ENUMS
-    private BlockType blockType;
-    public BlockType GetBlockType() => blockType;
+    [SerializeField]private ColorType _colorType;
+    public int ConfigureType;
+    public ColorType GetColorType() => _colorType;
 
-    private UserType userType;
+    [SerializeField]private UserType _userType;
     public UserType UserType
     {
-        get => userType;
+        get => _userType;
 
         set
         {
-            userType = value;
+            _userType = value;
+            _boardCoordinateSystem.AddGamePlayList(this);
 
         }
     }
-    public UserType GetUserType() => userType;
+    public UserType GetUserType() => _userType;
 
     private MilitaryBaseType militaryBaseType;
     public MilitaryBaseType MilitaryBaseType
@@ -86,7 +99,6 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
     public GridView Owner;
     public Region Region;
 
-
     private int _soldierIncreaseValue;
     private float _soldierWaitingTime;
     private int _soldierMaxCount;
@@ -99,7 +111,7 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
         {
             _soldierCount = value;
             txt.text = _soldierCount.ToString();
-            if (_soldierCount < _soldierMaxCount)
+            if (_soldierCount < _soldierMaxCount && GetUserType()!=UserType.Nötr)
             {
                 StartTentCooldown();
             }
@@ -107,10 +119,6 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
 
         }
     }
-   
-   
-    private Color _currentColor;
-    public Color GetColor() => _currentColor;
    
     public void SetSettingsCountAndValues(int defaultCount,float waitingTime,int increaseValue,int maxCount)
     {
@@ -130,11 +138,24 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
             {
                 arrMeshRenderer[i].gameObject.SetActive(i == _id);
                 currentRenderer = arrMeshRenderer[i];
-                _currentColor = Owner.GetSmr().material.color;
-                currentRenderer.material.color = _currentColor;
+               
             }
         }
     }
+
+    private void SetProps()
+    {
+        foreach (var material in currentRenderer.materials)
+        {
+            material.color = ToColorFromHex(ResourceTypeData.HexColor);
+        }
+
+        txt.color = ToColorFromHex(ResourceTypeData.HexColor);
+        Debug.Log("this"+name,gameObject);
+        _colorType = ResourceTypeData.ColorType;
+        ConfigureType = ResourceTypeData.ConfigureType;
+    }
+
 
     #region TentControl
 
@@ -193,8 +214,6 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
         Vector3 localScale = currentRenderer.transform.localScale;
         float sclae = currentRenderer.transform.localScale.y;
         tentSprite.gameObject.SetActive(true);
-        txt.gameObject.SetActive(true);
-        //currentRenderer.material.DOColor((UserType==UserType.Player ? Color.blue : Color.red), .3f);
         currentRenderer.transform.DOScale(sclae * 1.12f, .18f).SetEase(Ease.OutBounce).OnComplete(() =>
         {
             currentRenderer.transform.DOScale(localScale, .2f).SetEase(Ease.InBounce);
@@ -205,24 +224,26 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
 
     #endregion
 
-    public void SendingTroops(MillitaryBaseView other)
+    public void SendingTroops(MilitaryBaseView other)
     {
         var path = new List<GridView>();
 
         path = _pathFinderController.FindGridPath(this.Owner, other.Owner);
-        MobView mob = _playerMobController.CreateMobView();
+        MobView mob = _MobController.CreateMobView();
+
+
         mob.SetPropsView(new SoldierWarData
         {
             MilitaryBaseType = MilitaryBaseType,
             SpawnPosition = transform.position,
-            color = Owner.GetSmr().material.color,
-            MobBlockType = Owner.mType,
+            ResourceTypeData = ResourceTypeData,
             SoldierCount = SoldierCount,
             TargetMilitaryBase = other,
             OwnerMilitaryBase = this,
             Path = path
 
         });
+        _MobController.LsPlayerMobViews.Add(mob);
         mob.Initialize();
 
         SoldierCount = 0;
@@ -230,80 +251,67 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
     }
     public void TakeOver(MobView mob)
     {
-        if (Owner.TypeDefinition.DefaultEntitySpriteName == GlobalConsts.RegionName.GRAY)
+        switch (GetUserType())
         {
-
-            if(SoldierCount >= mob.GetSoldierCount())
-            {
-                SoldierCount -= mob.GetSoldierCount();
-                return;
-            }
-            else
-            {
-                var value=mob.GetSoldierCount() - SoldierCount;
-                Debug.Log("VALUE"+"-----------"+value);
-                SoldierCount = value;
-                OnTentWorking();
-
-                foreach (var grid in Region.RegionPairs)
+            case UserType.Player:
+                if (SoldierCount >= mob.GetSoldierCount())
                 {
-                    grid.SetColorColor(mob.OwnerMilitaryBaseView.GetColor());
+                    SoldierCount -= mob.GetSoldierCount();
+                    return;
                 }
-
-                if (mob.OwnerMilitaryBaseView.userType == UserType.Player)
-                    userType = UserType.Player;
-
-                _currentColor = mob.OwnerMilitaryBaseView.GetColor();
-                currentRenderer.material.color = _currentColor;
-                blockType = mob.OwnerMilitaryBaseView.Owner.mType;
-                
-            }
-
-           
-        }
-        else
-        {
-            if (SoldierCount >= mob.GetSoldierCount())
-            {
-                SoldierCount -= mob.GetSoldierCount();
-                return;
-            }
-            else
-            {
-                var value = mob.GetSoldierCount() - SoldierCount;
-                SoldierCount = value;
-                foreach (var grid in Region.RegionPairs)
+                else
                 {
-                    grid.SetColorColor(mob.OwnerMilitaryBaseView.GetColor());
+                    var value = mob.GetSoldierCount() - SoldierCount;
+                    SoldierCount = value;
+                    Region.RegionPairs.ForEach(n => n.ResourceTypeData = mob.OwnerMilitaryBaseView.ResourceTypeData);
+                    ResourceTypeData = mob.OwnerMilitaryBaseView.ResourceTypeData;
+                    UserType = mob.OwnerMilitaryBaseView.UserType;
+                    _boardCoordinateSystem.lsEnemyMilitaryBaseView.Remove(this);
+
                 }
+                break;
+            case UserType.Enemy:
+                if (SoldierCount >= mob.GetSoldierCount())
+                {
+                    SoldierCount -= mob.GetSoldierCount();
+                    return;
+                }
+                else
+                {
+                    var value = mob.GetSoldierCount() - SoldierCount;
+                    SoldierCount = value;
+                    Region.RegionPairs.ForEach(n => n.ResourceTypeData = mob.OwnerMilitaryBaseView.ResourceTypeData);
+                    ResourceTypeData = mob.OwnerMilitaryBaseView.ResourceTypeData;
+                    UserType = mob.OwnerMilitaryBaseView.UserType;
+                    _boardCoordinateSystem.lsEnemyMilitaryBaseView.Remove(this);
 
-                if (mob.OwnerMilitaryBaseView.userType == UserType.Player)
-                    userType = UserType.Player;
-                _currentColor = mob.OwnerMilitaryBaseView.GetColor();
-                currentRenderer.material.color = _currentColor;
-                blockType = mob.OwnerMilitaryBaseView.Owner.mType;
-            }
+                }
+                break;
+            case UserType.Nötr:
+                if (SoldierCount >= mob.GetSoldierCount())
+                {
+                    SoldierCount -= mob.GetSoldierCount();
+                    Debug.Log(SoldierCount);
+                    return;
+                }
+                else
+                {
+                    var value = mob.GetSoldierCount() - SoldierCount;
 
-            
+                    SoldierCount = value;
+                    OnTentWorking();
+                    Region.RegionPairs.ForEach(n => n.ResourceTypeData = mob.OwnerMilitaryBaseView.ResourceTypeData);
+                    ResourceTypeData = mob.OwnerMilitaryBaseView.ResourceTypeData;
+                    UserType = mob.OwnerMilitaryBaseView.UserType;
+                   
+                }
+                break;
+            default:
+                break;
 
-            //if (_soldierCount < 0)
-            //{
-            //    _soldierCount = mob.GetSoldierCount();
-
-            //    foreach (var grid in Region.RegionPairs)
-            //    {
-            //        grid.SetColorColor(mob.OwnerMilitaryBaseView.GetColor());
-            //    }
-
-            //    if (mob.OwnerMilitaryBaseView.userType == UserType.Player)
-            //        userType = UserType.Player;
-
-               
-            //}
+              
         }
-
-
-
+       
     }
     public void SelectView()
     {
@@ -325,20 +333,24 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
         transform.SetParent(args.parent);
         transform.localScale=args.localScale;
         transform.position = args.Position;
+        MilitaryBaseType = args.MilitaryBaseType;
         Owner = args.Owner;
         Region = args.Region;
-        blockType = Owner.mType;
+        ResourceTypeData = Owner.ResourceTypeData;
 
 
     }
-    public void OnDespawned()
+    public void DespawnItem()
     {
         _pool.Despawn(this);
     }
+    public void OnDespawned()
+    {
+       
+    }
 
-
-    public class Factory : PlaceholderFactory<Args, MillitaryBaseView> { }
-    public class Pool : MonoPoolableMemoryPool<Args, IMemoryPool, MillitaryBaseView> { }
+    public class Factory : PlaceholderFactory<Args, MilitaryBaseView> { }
+    public class Pool : MonoPoolableMemoryPool<Args, IMemoryPool, MilitaryBaseView> { }
     public readonly struct Args
     {
         public readonly Transform parent;
@@ -346,15 +358,18 @@ public class MillitaryBaseView : BaseView, IPoolable<MillitaryBaseView.Args, IMe
         public readonly Vector3 Position;
         public readonly GridView Owner;
         public readonly Region Region;
+        public readonly MilitaryBaseType MilitaryBaseType;
 
-        public Args(Transform Parent, Vector3 LocalScale,Vector3 position,GridView owner,Region region) : this()
+        public Args(Transform Parent, Vector3 LocalScale,Vector3 position, MilitaryBaseType militaryBaseType, GridView owner,Region region) : this()
         {
             parent = Parent;
             localScale = LocalScale;
             Position = position;
             Owner = owner;
             Region = region;
-           
+            MilitaryBaseType = militaryBaseType;
+
+
         }
     }
 

@@ -80,6 +80,12 @@ public class MainScreenView : BaseScreen
         _settingsButton.SetActive(true);
 
     }
+
+    private void OnPlayButtonClicked()
+    {
+        DisposeMainMenu().Forget();
+    }
+
     private async UniTaskVoid DisposeMainMenu()
     {
         await UniTask.Delay(10);
@@ -89,19 +95,16 @@ public class MainScreenView : BaseScreen
     }
     public void Disable()
     {
+        
         gameObject.SetActive(false);
         _screenController.ChangeState(ScreenState.Map);
-        _flagService.SetFlag(Flags.BoardFlag, FlagState.Available);
+       
     }
-    private void OnPlayButtonClicked()
-    {
-        DisposeMainMenu().Forget();
-    }
-
+  
     public override void Dispose()
     {
-        _signalBus.Unsubscribe<PlayButtonClickSignal>(OnPlayButtonClicked);
-        _signalBus.Unsubscribe<SettingsPopupClosedSignal>(OnSettingsPopupClosed);
+        _signalBus.TryUnsubscribe<PlayButtonClickSignal>(OnPlayButtonClicked);
+        _signalBus.TryUnsubscribe<SettingsPopupClosedSignal>(OnSettingsPopupClosed);
     }
 }
 

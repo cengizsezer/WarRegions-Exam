@@ -88,7 +88,7 @@ namespace MyProject.Core.Controllers
 
         public void CloseMapScreen()
         {
-            MapScreen.gameObject.SetActive(false);
+            ClearScreens();
         }
 
         public void ManuelInit()
@@ -97,8 +97,8 @@ namespace MyProject.Core.Controllers
         }
         protected override void OnInitialize()
         {
-            _signalBus.Subscribe<LevelFailSignal>(CloseMapScreen);
-            _signalBus.Subscribe<LevelSuccessSignal>(CloseMapScreen);
+            _signalBus.Subscribe<LevelFailSignal>(ClearScreens);
+            _signalBus.Subscribe<LevelSuccessSignal>(ClearScreens);
         }
 
         protected override void OnApplicationReadyToStart()
@@ -107,8 +107,8 @@ namespace MyProject.Core.Controllers
         }
         protected override void OnDispose()
         {
-            _signalBus.TryUnsubscribe<LevelFailSignal>(CloseMapScreen);
-            _signalBus.TryUnsubscribe<LevelSuccessSignal>(CloseMapScreen);
+            _signalBus.TryUnsubscribe<LevelFailSignal>(ClearScreens);
+            _signalBus.TryUnsubscribe<LevelSuccessSignal>(ClearScreens);
         }
     }
 }

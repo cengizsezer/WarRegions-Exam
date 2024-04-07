@@ -10,6 +10,7 @@ namespace MyProject.GamePlay.Controllers
     public class PlayerMobController:IDisposable
     {
         public List<MobView> LsPlayerMobViews = new();
+        
 
         #region Injection
 
@@ -45,7 +46,12 @@ namespace MyProject.GamePlay.Controllers
 
         public void Disable()
         {
+            foreach (var mob in LsPlayerMobViews)
+            {
+                mob.Despawn();
+            }
             LsPlayerMobViews.Clear();
+          
         }
 
         public void Dispose()

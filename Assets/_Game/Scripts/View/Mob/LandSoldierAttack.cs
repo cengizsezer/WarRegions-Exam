@@ -7,7 +7,7 @@ public class LandSoldierAttack : AttackBase
 {
     public override void Cast()
     {
-        parentMob.CurrentAnimator.SetTrigger("SendingTroops");
+        parentMob.CurrentAnimator.SetTrigger("Attack");
     }
 
     public void Attack()
