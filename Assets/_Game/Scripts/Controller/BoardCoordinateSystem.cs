@@ -124,17 +124,30 @@ namespace MyProject.GamePlay.Controllers
             }
             SetLevelGroundDesign(xSize,zSize);
             SetMountains();
-            CalculateNeigbor();
+            //CalculateNeigbor(false);
 
 
 
         }
-        private void CalculateNeigbor()
+        public void CalculateNeigbor(bool IsSea)
         {
-            foreach (var view in LsAllGridViews)
+            switch (IsSea)
             {
-                view.FindNeigbor();
+                case true:
+
+                    foreach (var view in LsAllGridViews)
+                    {
+                        view.FindSeaNeighbor();
+                    }
+                    break;
+                case false:
+                    foreach (var view in LsAllGridViews)
+                    {
+                        view.FindLandNeighbor();
+                    }
+                    break;
             }
+           
         }
 
         private void AddColorPair(GridView grid)
@@ -226,7 +239,7 @@ namespace MyProject.GamePlay.Controllers
             {
                 CreateMountain(LsPrevMountainViews[i],
                    _levelData.LevelMountainSettings.MountainIndex[i],
-                    _levelData.LevelMountainSettings.HexColor);
+                    _levelData.LevelMountainSettings.MountainHexColor);
             }
         }
 
@@ -317,7 +330,10 @@ namespace MyProject.GamePlay.Controllers
         }
         private void AddSea(GridView grid)
         {
-            grid.gameObject.SetActive(false);
+            var resourceData = new ResourceTypeData();
+            resourceData.HexColor = _levelData.LevelMountainSettings.SeaHexColor;
+            grid.ResourceTypeData=resourceData;
+            grid.IsSea = true;
         }
 
         public void Dispose()
@@ -344,6 +360,8 @@ namespace MyProject.GamePlay.Controllers
             LsMilitaryBaseView.Clear();
             lsEnemyMilitaryBaseView.Clear();
             LsPlayerMilitaryBaseView.Clear();
+            _levelData = null;
+            ColorRegions = null;
         }
     }
 

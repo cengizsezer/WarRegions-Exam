@@ -87,22 +87,22 @@ MonoBehaviour:
         - {fileID: 0}
         - {fileID: 11400000, guid: 9c1216e794e5b0c42b2582fac2c78d56, type: 2}
         - {fileID: 0}
-        - {fileID: 11400000, guid: 9c1216e794e5b0c42b2582fac2c78d56, type: 2}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
         - {fileID: 11400000, guid: ab2d3f67140d0804fabaa38319f9831a, type: 2}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 11400000, guid: 9c1216e794e5b0c42b2582fac2c78d56, type: 2}
         - {fileID: 0}
         - {fileID: 0}
         - {fileID: 0}
@@ -194,4 +194,5 @@ MonoBehaviour:
       Width: 5
       Height: 10
     mountainIndex: 020000000100000002000000
-    hexColor: F3B95F
+    mountainHexColor: 76453B
+    seaHexColor: 00FFF6

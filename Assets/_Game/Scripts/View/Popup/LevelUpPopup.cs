@@ -36,6 +36,7 @@ public class LevelUpPopup : BasePopup<LevelUpPopupParameters>
         base.Show();
         if (!_flagService.IsFlagAvailable(Flags.BoardFlag)) return;
         _flagService.SetFlag(Flags.BoardFlag, FlagState.Unavailable);
+        Debug.Log(_flagService.IsFlagAvailable(Flags.BoardFlag)+"boolllflag");
     }
    
     public override void ClosePopup()

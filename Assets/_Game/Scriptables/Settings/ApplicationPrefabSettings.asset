@@ -18,10 +18,5 @@ MonoBehaviour:
   MapScreenPrefab: {fileID: 6586496343563005865, guid: fb29051ef2882ec4dbacf5a862bbc578, type: 3}
   GridViewPrefab: {fileID: 4074753006421738520, guid: 23b10591cfa144b12ae8f3de44d04e6d, type: 3}
   MilitaryBaseViewPrefab: {fileID: 8852800754733235534, guid: 019d4123ec5f8bd4fad83017faba3ccd, type: 3}
-  BoardVFXView: {fileID: 6800607852340839048, guid: f1e1ce960bbf4244ca684931dbb64eb4, type: 3}
-  BombWeopanVFXViewPrefab: {fileID: 430418913394417021, guid: cd7ab74f66dd5d5438caf108c62f8259, type: 3}
-  AxeWeopanVFXViewPrefab: {fileID: 9220505910175217873, guid: 8b4c8162aaf354c45806ec84c918f1b6, type: 3}
-  ArrowWeopanVFXViewPrefab: {fileID: 7623135342805753691, guid: cdd573e36bd9c1745ac56f62a8a06ba2, type: 3}
+  MobVFXView: {fileID: 5959828001666205696, guid: 28eae28ad09a72c4d99970155f9a6375, type: 3}
   DamageTextPrefab: {fileID: 8714819557763660437, guid: 41f025c81431559458ac557570934663, type: 3}
-  PlayerBossPrefab: {fileID: 8807938679511224883, guid: e76c574ccb65f1549bbb47f9d41dd106, type: 3}
-  EnemyBossPrefab: {fileID: 4696410393734328559, guid: 3d3cd1dac569fb6418eb646f0e1053ac, type: 3}

@@ -42,18 +42,17 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
 
     private SignalBus _signalBus;
     private PlayerMobController _playerMobController;
-    private BoardFXController _boardFXController;
+   
     private BoardCoordinateSystem _boardCoordinateSystem;
 
     [Inject]
     private void Construct(SignalBus signalBus
         , PlayerMobController playerMobController
-        , BoardFXController boardFXController
+       
         ,BoardCoordinateSystem boardCoordinateSystem)
     {
         _signalBus = signalBus;
         _playerMobController = playerMobController;
-        _boardFXController = boardFXController;
         _boardCoordinateSystem = boardCoordinateSystem;
     }
 
@@ -61,7 +60,7 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
 
     #region PathFinder
     public List<GridView> neighborList = new List<GridView>();
-    public bool IsSea;
+    public bool IsSea = false;
     public int gridX; // Grid koordinatı X
     public int gridZ; // Grid koordinatı Y
     public int gCost; // Başlangıç düğümüne olan maliyet
@@ -79,10 +78,69 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
     }
 
 
-    public void FindNeigbor()
+    //public void FindNeigbor(bool IsSea)
+    //{
+    //    foreach (GridView neighbor in _boardCoordinateSystem.LsAllGridViews)
+    //    {
+    //        if (neighbor == this || !neighbor.gameObject.activeInHierarchy)
+    //        {
+    //            continue;
+    //        }
+
+    //        // Eğer deniz askeriyse veya komşu deniz askeriyse devam et
+    //        if (IsSea || neighbor.IsSea)
+    //        {
+    //            float distance = Vector3.Distance(transform.position, neighbor.transform.position);
+    //            if (distance >= 8)
+    //            {
+    //                continue;
+    //            }
+
+    //            neighborList.Add(neighbor);
+    //        }
+    //        else // Karada olan askerler için sadece karadaki komşuları ekle
+    //        {
+    //            if (neighbor.IsSea)
+    //            {
+    //                continue;
+    //            }
+
+    //            float distance = Vector3.Distance(transform.position, neighbor.transform.position);
+    //            if (distance >= 8)
+    //            {
+    //                continue;
+    //            }
+
+    //            neighborList.Add(neighbor);
+    //        }
+    //    }
+    //}
+
+    public void FindSeaNeighbor()
+    {
+        neighborList.Clear();
+        foreach (GridView neighbor in _boardCoordinateSystem.LsAllGridViews)
+        {
+            if (neighbor == this || !neighbor.gameObject.activeInHierarchy)
+            {
+                continue;
+            }
+
+            float distance = Vector3.Distance(transform.position, neighbor.transform.position);
+
+            if (distance >= 8)
+            {
+                continue;
+            }
+
+            neighborList.Add(neighbor);
+        }
+    }
+    public void FindLandNeighbor()
     {
         if (IsSea) return;
 
+        neighborList.Clear();
         foreach (GridView neighbor in _boardCoordinateSystem.LsAllGridViews)
         {
             if (neighbor == this || !neighbor.gameObject.activeInHierarchy || neighbor.IsSea)
@@ -139,10 +197,7 @@ public  class GridView : BaseView, IPoolable<GridView.Args, IMemoryPool>
         transform.localPosition = new Vector3(xPos, yPos, zPos);
        
     }
-    public void PlayVFX(VFXType vfxType)
-    {
-        _boardFXController.PlayVFX(new VFXArgs(vfxType, transform, 2f));
-    }
+    
     public class Factory : PlaceholderFactory<Args, GridView> { }
     public class Pool : MonoPoolableMemoryPool<Args, IMemoryPool, GridView> { }
     public readonly struct Args

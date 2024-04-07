@@ -1,8 +1,7 @@
 using MyProject.Core.Enums;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+
 
 namespace MyProject.GamePlay.Controllers
 {
@@ -10,33 +9,33 @@ namespace MyProject.GamePlay.Controllers
     {
         #region Injection
 
-        private readonly SeaSoldierVFXView.Factory _seaSoldierVFXViewFactory;
-        private readonly LandSoldierVFXView.Factory _landSoldierVFXViewFactory;
+        private MobVFXView.Factory _mobVFXFactory;
 
         [Inject]
-        public MobVFXController
-            (
-            SeaSoldierVFXView.Factory seaSoldierVFXViewFactory
-            , LandSoldierVFXView.Factory landSoldierVFXViewFactory
-
-            )
+        private MobVFXController(MobVFXView.Factory mobVFXfactory)
         {
-
-            _seaSoldierVFXViewFactory = seaSoldierVFXViewFactory;
-            _landSoldierVFXViewFactory = landSoldierVFXViewFactory;
-           
+            _mobVFXFactory = mobVFXfactory;
         }
 
         #endregion
 
-        public BaseMobVFXView GetWeopanElement(MilitaryBaseType attackType)
+        public void PlayVFX(VFXArgs args)
         {
-            return attackType switch
-            {
-                MilitaryBaseType.Sea => _seaSoldierVFXViewFactory.Create(),
-                MilitaryBaseType.Land => _landSoldierVFXViewFactory.Create(),
-                _ => null
-            };
+            _mobVFXFactory.Create(args);
+        }
+    }
+
+    public  struct VFXArgs
+    {
+        public  VFXType VFXType;
+        public  Transform Parent;
+        public  float Time;
+
+        public VFXArgs(VFXType vfxType, Transform parent, float time) : this()
+        {
+            VFXType = vfxType;
+            Parent = parent;
+            Time = time;
         }
     }
 }

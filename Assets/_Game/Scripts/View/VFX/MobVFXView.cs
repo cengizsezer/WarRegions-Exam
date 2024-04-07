@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class BoardVFXView : BaseView, IVFX, IPoolable<VFXArgs, IMemoryPool>
+public class MobVFXView : BaseView, IVFX, IPoolable<VFXArgs, IMemoryPool>
 {
     [SerializeField] private List<VFXTuple> _vfxTuples;
 
@@ -39,8 +39,9 @@ public class BoardVFXView : BaseView, IVFX, IPoolable<VFXArgs, IMemoryPool>
     {
         SetTuple(_args.VFXType);
         transform.SetParent(_args.Parent);
-        transform.localScale = Vector3.one;
+        transform.localScale = Vector3.one*2f;
         transform.localPosition = Vector3.zero;
+        transform.localPosition += Vector3.up * 2.5f;
         _coroutineHandle = _coroutineService.StartCoroutine(Despawn());
     }
 
@@ -68,11 +69,11 @@ public class BoardVFXView : BaseView, IVFX, IPoolable<VFXArgs, IMemoryPool>
         if (_coroutineHandle.IsRunning) _coroutineService.StopCoroutine(_coroutineHandle);
     }
 
-    public class Factory : PlaceholderFactory<VFXArgs, BoardVFXView>
+    public class Factory : PlaceholderFactory<VFXArgs, MobVFXView>
     {
     }
 
-    public class Pool : MonoPoolableMemoryPool<VFXArgs, IMemoryPool, BoardVFXView>
+    public class Pool : MonoPoolableMemoryPool<VFXArgs, IMemoryPool, MobVFXView>
     {
     }
 }

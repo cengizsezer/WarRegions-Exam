@@ -16,13 +16,9 @@ namespace MyProject.Core.Settings
         [FoldoutGroup("MainView")] public GameObject MapScreenPrefab;
         [FoldoutGroup("GridView")] public GameObject GridViewPrefab;
         [FoldoutGroup("MilitaryBaseView")] public GameObject MilitaryBaseViewPrefab;
-        [FoldoutGroup("VFX")] public GameObject BoardVFXView;
-        [FoldoutGroup("VFX")] public GameObject BombWeopanVFXViewPrefab;
-        [FoldoutGroup("VFX")] public GameObject AxeWeopanVFXViewPrefab;
-        [FoldoutGroup("VFX")] public GameObject ArrowWeopanVFXViewPrefab;
+        [FoldoutGroup("VFX")] public GameObject MobVFXView;
         [FoldoutGroup("FeedBacks")] public GameObject DamageTextPrefab;
-        [FoldoutGroup("Boss")] public GameObject PlayerBossPrefab;
-        [FoldoutGroup("Boss")] public GameObject EnemyBossPrefab;
+     
 
 
     }

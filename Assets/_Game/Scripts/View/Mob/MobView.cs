@@ -98,14 +98,17 @@ namespace MyProject.GamePlay.Characters
         #region Injection
         
         private SignalBus _signalBus;
+        private MobVFXController _mobVfxController;
 
         [Inject]
         protected virtual void Construct
         (
-              SignalBus signalBus
+              SignalBus signalBus,
+              MobVFXController mobVFXController
         )
         {
             _signalBus = signalBus;
+            _mobVfxController = mobVFXController;
         }
         #endregion
 
@@ -132,6 +135,10 @@ namespace MyProject.GamePlay.Characters
             }
         }
 
+        public void PlayParticle(VFXType vfxType)
+        {
+            _mobVfxController.PlayVFX(new VFXArgs(vfxType, transform, 2f));
+        }
         public override void Initialize()
         {
             StartMovementRoutine(_currentPath,1f);
@@ -191,7 +198,6 @@ namespace MyProject.GamePlay.Characters
                 }
             }
         }
-
         private IEnumerator MovementAndAttackRoutine(List<GridView> lsGridView, float moveTime, float attackInterval)
         {
             ResetAnimatorController();
@@ -204,40 +210,153 @@ namespace MyProject.GamePlay.Characters
                 GridView targetGrid = lsGridView[startIndex];
                 Vector3 targetPosition = targetGrid.transform.position + Vector3.up * 3f;
 
-                yield return transform.DOLookAt(targetPosition, .2f).WaitForCompletion();
-                yield return transform.DOMove(targetPosition, moveTime).SetEase(Ease.Linear).WaitForCompletion();
-
-                // Eğer hedef grid üzerinde düşman varsa, ateş et
-                TargetView = null;
+                // Düşmanı ara
                 TargetView = SearchForEnemy();
-               
+
                 if (TargetView)
                 {
+                    // Düşman bulundu, hareketi iptal et ve ateş et
                     AnimState = AnimStates.Idle;
                     Damageable.SoldierCount = SoldierCount;
-
-                    while (TargetView.IsAlive)
-                    {
-                        _currentAttackBase.Cast();
-
-                        yield return new WaitForSeconds(attackInterval);
-                    }
+                    _currentAttackBase.Cast();
+                    yield return new WaitForSeconds(attackInterval);
+                    AnimState = AnimStates.Run; // Animasyonu tekrar koşuya geçir
 
                     // Hedef öldüğünde TargetView'i null olarak ayarla ve yeni bir hedef ara
                     TargetView = null;
-                    startIndex++;
-                    AnimState = AnimStates.Run;
-                    continue;
+                    continue; // Hedef ölmediği için bir sonraki adıma geçme
+                }
+                else
+                {
+                    // Düşman bulunamadı, hedefe doğru hareket et
+                    transform.DOLookAt(targetPosition, .2f).WaitForCompletion();
+                    yield return transform.DOMove(targetPosition, moveTime).SetEase(Ease.Linear).WaitForCompletion();
                 }
 
-               
-                AnimState = AnimStates.Run;
                 startIndex++; // Index'i bir sonraki hedefe taşı
             }
 
             TargetMilitaryBaseView.TakeOver(this);
             Despawn();
         }
+
+        //private IEnumerator MovementAndAttackRoutine(List<GridView> lsGridView, float moveTime, float attackInterval)
+        //{
+        //    ResetAnimatorController();
+        //    AnimState = AnimStates.Run;
+
+        //    int startIndex = 0; // Başlangıç indexi
+
+        //    while (startIndex < lsGridView.Count)
+        //    {
+        //        GridView targetGrid = lsGridView[startIndex];
+        //        Vector3 targetPosition = targetGrid.transform.position + Vector3.up * 3f;
+
+        //        transform.DOLookAt(targetPosition, .2f).WaitForCompletion();
+        //        yield return transform.DOMove(targetPosition, moveTime).SetEase(Ease.Linear).WaitForCompletion();
+
+        //        // Eğer hedef grid üzerinde düşman varsa, ateş et
+        //        TargetView = null;
+        //        TargetView = SearchForEnemy();
+
+        //        if (TargetView)
+        //        {
+        //            AnimState = AnimStates.Idle;
+        //            Damageable.SoldierCount = SoldierCount;
+
+        //            while (TargetView.IsAlive)
+        //            {
+        //                _currentAttackBase.Cast();
+
+        //                yield return new WaitForSeconds(attackInterval);
+        //            }
+
+        //            // Hedef öldüğünde TargetView'i null olarak ayarla ve yeni bir hedef ara
+        //            TargetView = null;
+        //            AnimState = AnimStates.Run;
+        //        }
+        //        else
+        //        {
+        //            // Etrafı tarayıp, düşman bulmaya çalış
+        //            MobView newTarget = SearchForEnemy();
+        //            if (newTarget)
+        //            {
+        //                // Yeni hedef bulundu, hedefe yönel ve ateş et
+        //                TargetView = newTarget;
+        //                AnimState = AnimStates.Idle;
+        //                Damageable.SoldierCount = SoldierCount;
+
+        //                while (TargetView.IsAlive)
+        //                {
+        //                    _currentAttackBase.Cast();
+
+        //                    yield return new WaitForSeconds(attackInterval);
+        //                }
+
+        //                // Hedef öldüğünde TargetView'i null olarak ayarla ve yeni bir hedef ara
+        //                TargetView = null;
+        //                AnimState = AnimStates.Run;
+        //            }
+        //            else
+        //            {
+        //                // Hiç düşman yok, yoluna devam et
+        //                AnimState = AnimStates.Run;
+        //            }
+        //        }
+
+        //        startIndex++; // Index'i bir sonraki hedefe taşı
+        //    }
+
+        //    TargetMilitaryBaseView.TakeOver(this);
+        //    Despawn();
+        //}
+
+        //private IEnumerator MovementAndAttackRoutine(List<GridView> lsGridView, float moveTime, float attackInterval)
+        //{
+        //    ResetAnimatorController();
+        //    AnimState = AnimStates.Run;
+
+        //    int startIndex = 0; // Başlangıç indexi
+
+        //    while (startIndex < lsGridView.Count)
+        //    {
+        //        GridView targetGrid = lsGridView[startIndex];
+        //        Vector3 targetPosition = targetGrid.transform.position + Vector3.up * 3f;
+
+        //        transform.DOLookAt(targetPosition, .2f).WaitForCompletion();
+        //        yield return transform.DOMove(targetPosition, moveTime).SetEase(Ease.Linear).WaitForCompletion();
+
+        //        // Eğer hedef grid üzerinde düşman varsa, ateş et
+        //        TargetView = null;
+        //        TargetView = SearchForEnemy();
+               
+        //        if (TargetView)
+        //        {
+        //            AnimState = AnimStates.Idle;
+        //            Damageable.SoldierCount = SoldierCount;
+
+        //            while (TargetView.IsAlive)
+        //            {
+        //                _currentAttackBase.Cast();
+
+        //                yield return new WaitForSeconds(attackInterval);
+        //            }
+
+        //            // Hedef öldüğünde TargetView'i null olarak ayarla ve yeni bir hedef ara
+        //            TargetView = null;
+        //            startIndex++;
+        //            AnimState = AnimStates.Run;
+        //            continue;
+        //        }
+
+               
+        //        AnimState = AnimStates.Run;
+        //        startIndex++; // Index'i bir sonraki hedefe taşı
+        //    }
+
+        //    TargetMilitaryBaseView.TakeOver(this);
+        //    Despawn();
+        //}
 
         private MobView SearchForEnemy()
         {

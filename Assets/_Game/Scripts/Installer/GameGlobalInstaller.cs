@@ -63,11 +63,10 @@ namespace MyProject.Core.Installer
             Container.BindInterfacesAndSelfTo<InputController>().AsSingle();
             Container.BindInterfacesAndSelfTo<UserController>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerMobController>().AsSingle();
-            Container.BindInterfacesAndSelfTo<BoardFXController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MobVFXController>().AsSingle();
             Container.BindInterfacesAndSelfTo<BoardCoordinateSystem>().AsSingle();
             Container.BindInterfacesAndSelfTo<BoardGamePlayController>().AsSingle();
             Container.BindInterfacesAndSelfTo<BoardDataController>().AsSingle();
-            Container.BindInterfacesAndSelfTo<MobVFXController>().AsSingle();
             Container.BindInterfacesAndSelfTo<PathFinderController>().AsSingle();
             Container.BindInterfacesAndSelfTo<LevelController>().AsSingle();
             Container.BindInterfacesAndSelfTo<EnemyMobController>().AsSingle();
@@ -78,9 +77,8 @@ namespace MyProject.Core.Installer
 
             ////VFX
             InstallCurrencyVfx();
-            InstallBoardVFX();
-            InstallSeaSoldierVFXView();
-            InstallLandSoldierVFXView();
+            InstallMobVFX();
+          
 
             ////GAMEOBJECT
             InstallGridViews();
@@ -119,13 +117,13 @@ namespace MyProject.Core.Installer
                     .UnderTransformGroup("CurrencyAnimViews"));
         }
 
-        private void InstallBoardVFX()
+        private void InstallMobVFX()
         {
-            Container.BindFactory<VFXArgs, BoardVFXView, BoardVFXView.Factory>()
-                .FromPoolableMemoryPool<VFXArgs, BoardVFXView, BoardVFXView.Pool>(poolBinder => poolBinder
+            Container.BindFactory<VFXArgs, MobVFXView, MobVFXView.Factory>()
+                .FromPoolableMemoryPool<VFXArgs, MobVFXView, MobVFXView.Pool>(poolBinder => poolBinder
                     .WithInitialSize(3)
-                    .FromComponentInNewPrefab(_applicationPrefabSettings.BoardVFXView)
-                    .UnderTransformGroup("BoardVFXs"));
+                    .FromComponentInNewPrefab(_applicationPrefabSettings.MobVFXView)
+                    .UnderTransformGroup("MobVFXs"));
         }
 
         private void InstallMobView()
@@ -146,25 +144,7 @@ namespace MyProject.Core.Installer
                 .FromComponentInNewPrefab(_applicationPrefabSettings.DamageTextPrefab)
                 .UnderTransformGroup("DamageTexts"));
         }
-
-        private void InstallSeaSoldierVFXView()
-        {
-            Container.BindFactory<SeaSoldierVFXView, SeaSoldierVFXView.Factory>()
-                .FromPoolableMemoryPool<SeaSoldierVFXView, SeaSoldierVFXView.Pool>(poolBinder => poolBinder
-                .WithInitialSize(20)
-                .FromComponentInNewPrefab(_applicationPrefabSettings.BombWeopanVFXViewPrefab)
-                .UnderTransformGroup("SeaSoldierVFXViews"));
-        }
        
-
-        private void InstallLandSoldierVFXView()
-        {
-            Container.BindFactory<LandSoldierVFXView, LandSoldierVFXView.Factory>()
-                .FromPoolableMemoryPool<LandSoldierVFXView, LandSoldierVFXView.Pool>(poolBinder => poolBinder
-                .WithInitialSize(20)
-                .FromComponentInNewPrefab(_applicationPrefabSettings.AxeWeopanVFXViewPrefab)
-                .UnderTransformGroup("AxeWeopanVFXViews"));
-        }
 
     }
 }

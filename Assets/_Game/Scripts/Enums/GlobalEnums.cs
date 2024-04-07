@@ -61,9 +61,8 @@ namespace MyProject.Core.Enums
 
     public enum VFXType
     {
-        TakeDamage,
-        Dead,
-        Spawn
+       Land,
+       Sea
     }
     
    

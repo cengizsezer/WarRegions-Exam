@@ -49,7 +49,7 @@ public class LevelFailPopup : BasePopup<LevelFailPopupParameters>
 }
 public class LevelFailPopupParameters : BasePopupParameters
 {
-    public UserLevelData PlayerLevelData;
+   
     public int Level;
 
     public override bool IsBundleRequired()

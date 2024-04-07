@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class LevelUpPopupParameters : BasePopupParameters
 {
-    public UserLevelData PlayerLevelData;
+    
     public int Level;
 
     public override bool IsBundleRequired()

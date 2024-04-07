@@ -1,3 +1,4 @@
+using MyProject.Core.Controllers;
 using MyProject.Core.Data;
 using MyProject.Core.Enums;
 using MyProject.GamePlay.Characters;
@@ -7,7 +8,7 @@ using Zenject;
 
 namespace MyProject.GamePlay.Controllers
 {
-    public class PlayerMobController:IDisposable
+    public class PlayerMobController:BaseController
     {
         public List<MobView> LsMobViews = new();
         
@@ -31,11 +32,7 @@ namespace MyProject.GamePlay.Controllers
 
         #endregion
 
-        public void Init()
-        {
-            _signalBus.Subscribe<LevelFailSignal>(Disable);
-            _signalBus.Subscribe<LevelSuccessSignal>(Disable);
-        }
+       
        
         public MobView CreateMobView()
         {
@@ -54,8 +51,18 @@ namespace MyProject.GamePlay.Controllers
             LsMobViews.Clear();
           
         }
+        protected override void OnInitialize()
+        {
+            _signalBus.Subscribe<LevelFailSignal>(Disable);
+            _signalBus.Subscribe<LevelSuccessSignal>(Disable);
+        }
 
-        public void Dispose()
+        protected override void OnApplicationReadyToStart()
+        {
+            
+        }
+
+        protected override void OnDispose()
         {
             _signalBus.TryUnsubscribe<LevelFailSignal>(Disable);
             _signalBus.TryUnsubscribe<LevelSuccessSignal>(Disable);

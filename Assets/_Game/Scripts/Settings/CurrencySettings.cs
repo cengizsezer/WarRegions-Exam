@@ -20,8 +20,6 @@ namespace MyProject.Core.Settings
             {
                 case CurrencyType.Coin:
                     return CurrencyPairData[0];
-                case CurrencyType.Mana:
-                    return CurrencyPairData[1];
                 default:
                     return CurrencyPairData[0];
             }

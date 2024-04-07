@@ -25,7 +25,6 @@ namespace MyProject.GamePlay.Characters
 
         protected ItemTweenSettings _itemTweenSettings;
         protected MobGamePlaySettings _characterSettings;
-        protected BoardFXController _boardFXController;
         protected SignalBus _signalBus;
 
         [Inject]
@@ -33,12 +32,11 @@ namespace MyProject.GamePlay.Characters
         (
             ItemTweenSettings itemTweenSettings
             , MobGamePlaySettings itemSettings
-            , BoardFXController boardFXController
+           
             , SignalBus signalBus)
         {
             _itemTweenSettings = itemTweenSettings;
             _characterSettings = itemSettings;
-            _boardFXController = boardFXController;
             _signalBus = signalBus;
         }
 

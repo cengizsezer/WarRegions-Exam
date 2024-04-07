@@ -7,7 +7,6 @@ namespace MyProject.Core.Models
 {
     public class UserModel
     {
-        public UserLevelData PlayerLevelData;
         public int Level { get; private set; }
 
         public void UpdateLevel(int newValue)

@@ -20,7 +20,6 @@ namespace MyProject.Core.Controllers
         private TaskService _taskService;
         private SignalBus _signalBus;
         private CurrencySettings _currencySettings;
-
         private ScreenController _screenController;
         [Inject]
         private void Construct(CurrencyModel currencyModel
@@ -43,25 +42,10 @@ namespace MyProject.Core.Controllers
 
         public void Init()
         {
-            CurrencyData currencyData = new CurrencyData
-            {
-                CurrencyType = CurrencyType.Mana,
-                CurrencyValue = 100
-            };
-
-            AddCurrency(currencyData);
-            CurrentCostManaValue = _currencySettings.GetCurrencyPairData(CurrencyType.Mana).ManaCostSettings.DefaultCost;
+            
+           
         }
        
-        public long GetCurrentManaCost()
-        {
-            return CurrentCostManaValue;
-        }
-
-        public void IncreaseCurrentManaCost()
-        {
-            CurrentCostManaValue = CurrentCostManaValue + _currencySettings.GetCurrencyPairData(CurrencyType.Mana).ManaCostSettings.PerEnemyKillingMana;
-        }
         public void AddCurrency(CurrencyData currencyData)
         {
             var newValue = GetCurrency(currencyData.CurrencyType) + currencyData.CurrencyValue;
@@ -69,7 +53,7 @@ namespace MyProject.Core.Controllers
         }
         public void ResetCurrency(CurrencyType currencyType)
         {
-            CurrentCostManaValue = _currencySettings.GetCurrencyPairData(CurrencyType.Mana).ManaCostSettings.DefaultCost;
+            
             UpdateCurrencyGameTask gameTask = new UpdateCurrencyGameTask();
 
             CurrencyData currencyData;
@@ -78,13 +62,6 @@ namespace MyProject.Core.Controllers
             {
                 case CurrencyType.Coin:
                     currencyData = new CurrencyData { CurrencyType = CurrencyType.Coin, CurrencyValue = _currencyModel.CoinValue };
-                    break;
-                case CurrencyType.Mana:
-                    currencyData = new CurrencyData
-                    { 
-                         CurrencyType = CurrencyType.Mana
-                        ,CurrencyValue = _currencySettings.GetCurrencyPairData(currencyType).ManaCostSettings.DefaultManaValue 
-                    };
                     break;
                 default:
                     currencyData = new CurrencyData();

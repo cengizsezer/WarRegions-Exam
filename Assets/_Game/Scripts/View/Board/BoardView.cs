@@ -43,6 +43,7 @@ public class BoardView : BaseView
     public void Disable()
     {
         BoardRegion.Clear();
+        lsAllGridView.Clear();
     }
 
     public override void Dispose()

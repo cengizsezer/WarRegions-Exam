@@ -17,28 +17,13 @@ namespace MyProject.Core.Data
             CurrencyValue = currencyValue;
         }
     }
-
-    [Serializable]
-    public struct CurrencySaveData
-    {
-        public long DefaultCoinAmount;
-        public long DefaultManaAmount;
-     
-    }
-
+   
     [Serializable]
     public struct CurrencyPairData
     {
         public CurrencyType CurrencyType;
         public Sprite Sprite;
-        public ManaCostSettings ManaCostSettings;
-    }
-    [Serializable]
-    public struct ManaCostSettings
-    {
-        public int DefaultCost;
-        public int PerEnemyKillingMana;
-        public int DefaultManaValue;
+       
     }
    
 

@@ -137,6 +137,7 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
 
         for (int i = 0; i < arrMeshRenderer.Length; i++)
         {
+            arrMeshRenderer[i].gameObject.SetActive(false);
             if (i == _id)
             {
                 arrMeshRenderer[i].gameObject.SetActive(i == _id);
@@ -225,10 +226,28 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
         StartTentCooldown();
     }
 
+    private void CloseTent()
+    {
+        txt.gameObject.SetActive(false);
+        StopTentCooldown();
+        tentSpawnTween.Kill(false);
+        tentSpawnTween = null;
+        tentSprite.gameObject.SetActive(false);
+    }
+
     #endregion
 
     public void SendingTroops(MilitaryBaseView other)
     {
+        if(MilitaryBaseType==MilitaryBaseType.Sea)
+        {
+            _boardCoordinateSystem.CalculateNeigbor(true);
+        }
+        else
+        {
+            _boardCoordinateSystem.CalculateNeigbor(false);
+        }
+      
         var path = new List<GridView>();
 
         path = _pathFinderController.FindGridPath(this.Owner, other.Owner);
@@ -258,6 +277,13 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
         switch (GetUserType())
         {
             case UserType.Player:
+
+                if(mob.OwnerMilitaryBaseView.GetUserType()==UserType.Player)
+                {
+                    SoldierCount += mob.GetSoldierCount();
+                    return;
+                }
+               
                 if (SoldierCount >= mob.GetSoldierCount())
                 {
                     SoldierCount -= mob.GetSoldierCount();
@@ -275,6 +301,13 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
                 }
                 break;
             case UserType.Enemy:
+
+                if (mob.OwnerMilitaryBaseView.GetUserType() == UserType.Enemy)
+                {
+                    SoldierCount += mob.GetSoldierCount();
+                    return;
+                }
+
                 if (SoldierCount >= mob.GetSoldierCount())
                 {
                     SoldierCount -= mob.GetSoldierCount();
@@ -327,12 +360,15 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
     }
     public override void Initialize()
     {
+       
         if (Owner.TypeDefinition.DefaultEntitySpriteName == GlobalConsts.RegionName.GRAY) return;
 
         OnTentWorking();
     }
     public void OnSpawned(Args args, IMemoryPool pool)
     {
+        _signalBus.Subscribe<LevelFailSignal>(CloseTent);
+        _signalBus.Subscribe<LevelSuccessSignal>(CloseTent);
         _pool = pool;
         transform.SetParent(args.parent);
         transform.localScale=args.localScale;
@@ -346,6 +382,11 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
     }
     public void DespawnItem()
     {
+        if (!this.gameObject.activeInHierarchy)
+            return;
+       
+        _signalBus.TryUnsubscribe<LevelFailSignal>(CloseTent);
+        _signalBus.TryUnsubscribe<LevelSuccessSignal>(CloseTent);
         _pool.Despawn(this);
     }
     public void OnDespawned()

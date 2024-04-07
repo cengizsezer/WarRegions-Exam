@@ -1,3 +1,4 @@
+using MyProject.Core.Enums;
 using MyProject.GamePlay.Characters;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ public class SeaSoldierAttack : AttackBase
                 Damager = parentMob,
                 Damage = parentMob.Damage,
             };
-
+            parentMob.PlayParticle(VFXType.Sea);
             d.ApplyDamage(message);
         }
     }

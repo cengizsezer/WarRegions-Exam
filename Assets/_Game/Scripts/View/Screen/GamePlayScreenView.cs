@@ -70,7 +70,6 @@ public class GamePlayScreenView : BaseScreen
         _boardGamePlayController.Init();
         _enemyMobController.ManuelInit();
         _enemySpawnController.ManuelInit();
-        _playerMobController.Init();
         currencies.sortingOrder = 195;
     }
 

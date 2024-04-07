@@ -76,18 +76,20 @@ public class EnemyMobController : BaseController
       
         for (int i = 0; i < _boardCoordinateSystem.lsEnemyMilitaryBaseView.Count; i++)
         {
-           
-            if (randomValue <= 0.3f&& lsNötr.Count>0) // %30 şans ile nötr
+            if(_boardCoordinateSystem.lsEnemyMilitaryBaseView[i].SoldierCount>0)
             {
-                int randomIndex = Random.Range(0, lsNötr.Count);
-                _boardCoordinateSystem.lsEnemyMilitaryBaseView[i].SendingTroops(lsNötr[randomIndex]);
-               
-            }
-            else
-            {
-                int randomIndex = Random.Range(0, lsPlayer.Count);
-                _boardCoordinateSystem.lsEnemyMilitaryBaseView[i].SendingTroops(lsPlayer[randomIndex]);
-              
+                if (randomValue <= 0.3f && lsNötr.Count > 0) // %30 şans ile nötr
+                {
+                    int randomIndex = Random.Range(0, lsNötr.Count);
+                    _boardCoordinateSystem.lsEnemyMilitaryBaseView[i].SendingTroops(lsNötr[randomIndex]);
+
+                }
+                else
+                {
+                    int randomIndex = Random.Range(0, lsPlayer.Count);
+                    _boardCoordinateSystem.lsEnemyMilitaryBaseView[i].SendingTroops(lsPlayer[randomIndex]);
+
+                }
             }
 
             yield return Timing.WaitForSeconds(_enemySpawnSettings.UnitDelay);

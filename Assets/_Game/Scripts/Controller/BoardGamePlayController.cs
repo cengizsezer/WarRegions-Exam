@@ -92,30 +92,19 @@ namespace MyProject.GamePlay.Controllers
         {
             ResetGame().Forget();
         }
-
-        public async UniTaskVoid DisposeBoardView()
+        public async UniTaskVoid ResetGame()
         {
             if (_boardDataController.BoardState != BoardState.Active) return;
-
-            _boardCoordinateSystem.Dispose();
+            _boardDataController.BoardState = BoardState.Idle;
+            IsRunning = false;
             await UniTask.Delay(10);
+            _boardCoordinateSystem.Dispose();
+            _boardView.Disable();
+            UnRegisterBoardEvents();
             _mainCamera.gameObject.SetActive(false);
-            _boardView.Disable();
-            UnRegisterBoardEvents();
-            _boardDataController.BoardState = BoardState.Idle;
-        }
 
-        public async UniTaskVoid ResetBoard()
-        {
-            if (_boardDataController.BoardState != BoardState.Active) return;
-
-            _boardCoordinateSystem.Dispose();
-            _boardView.Disable();
-            UnRegisterBoardEvents();
-
-            _boardDataController.BoardState = BoardState.Idle;
-
-            await UniTask.Delay(10);
+            OnDispose();
+           
         }
 
         private void RegisterBoardEvents()
@@ -134,9 +123,15 @@ namespace MyProject.GamePlay.Controllers
 
         private void OnFingerDown()
         {
+           
             Debug.Log("fingerDown");
             if (!_flagService.IsFlagAvailable(Flags.BoardFlag)) return;
-
+            if (_boardDataController.BoardState == BoardState.Idle) return;
+            _selectedView.Clear();
+            if (Input.touchCount > 1)
+            {
+                return;
+            }
             if (TryCatchGridView(out var view))
             {
                
@@ -198,7 +193,7 @@ namespace MyProject.GamePlay.Controllers
 
                 if(hit.collider.TryGetComponent(out MilitaryBaseView other))
                 {
-                    if(other.GetUserType()==UserType.Player)
+                    if(other.GetUserType()==UserType.Player && other.SoldierCount>0)
                     {
                         _selectedView.Add(other);
                     }
@@ -251,19 +246,7 @@ namespace MyProject.GamePlay.Controllers
             _signalBus.TryUnsubscribe<ContinueButtonClickSignal>(DisposeBoard);
             UnRegisterBoardEvents();
         }
-        public async UniTaskVoid ResetGame()
-        {
-            if (_boardDataController.BoardState != BoardState.Active) return;
-            _boardDataController.BoardState = BoardState.Idle;
-            IsRunning = false;
-            _boardCoordinateSystem.Dispose();
-            _boardView.Disable();
-            UnRegisterBoardEvents();
-            _mainCamera.gameObject.SetActive(false);
-
-            OnDispose();
-            await UniTask.Delay(10);
-        }
+       
 
         public void CheckLevelControl()
         {
