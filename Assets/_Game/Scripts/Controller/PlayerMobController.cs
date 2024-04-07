@@ -9,7 +9,7 @@ namespace MyProject.GamePlay.Controllers
 {
     public class PlayerMobController:IDisposable
     {
-        public List<MobView> LsPlayerMobViews = new();
+        public List<MobView> LsMobViews = new();
         
 
         #region Injection
@@ -34,6 +34,7 @@ namespace MyProject.GamePlay.Controllers
         public void Init()
         {
             _signalBus.Subscribe<LevelFailSignal>(Disable);
+            _signalBus.Subscribe<LevelSuccessSignal>(Disable);
         }
        
         public MobView CreateMobView()
@@ -46,17 +47,18 @@ namespace MyProject.GamePlay.Controllers
 
         public void Disable()
         {
-            foreach (var mob in LsPlayerMobViews)
+            foreach (var mob in LsMobViews)
             {
                 mob.Despawn();
             }
-            LsPlayerMobViews.Clear();
+            LsMobViews.Clear();
           
         }
 
         public void Dispose()
         {
             _signalBus.TryUnsubscribe<LevelFailSignal>(Disable);
+            _signalBus.TryUnsubscribe<LevelSuccessSignal>(Disable);
         }
     }
 }

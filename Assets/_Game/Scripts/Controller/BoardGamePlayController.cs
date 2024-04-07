@@ -35,8 +35,9 @@ namespace MyProject.GamePlay.Controllers
         private readonly SignalBus _signalBus;
         private readonly BoardDataController _boardDataController;
         private readonly ItemTweenSettings _itemTweenSettings;
-       
-        
+        private readonly UserController _userController;
+
+
         public BoardGamePlayController
         (
             Camera mainCamera
@@ -47,6 +48,7 @@ namespace MyProject.GamePlay.Controllers
             , BoardDataController boardDataController
             , ItemTweenSettings itemTweenSettings
             , FlagService flagService
+            , UserController userController
 
         )
         {
@@ -58,6 +60,7 @@ namespace MyProject.GamePlay.Controllers
             _boardDataController = boardDataController;
             _itemTweenSettings = itemTweenSettings;
             _flagService = flagService;
+            _userController = userController;
           
         }
 
@@ -176,13 +179,11 @@ namespace MyProject.GamePlay.Controllers
                 foreach (var view in _selectedView)
                 {
                     if (view == other) continue; // Aynı askere iki kez tıklama durumunu önle
-                    if (other.SoldierCount <= 0) return; // Hedef askerinin asker sayısı 0 veya daha azsa işlem yapma
 
                     view.SendingTroops(other);
                 }
             }
-
-            // Seçili askerleri temizle
+           
             foreach (var view in _selectedView)
             {
                 view.UnSelectView();
@@ -264,6 +265,20 @@ namespace MyProject.GamePlay.Controllers
             await UniTask.Delay(10);
         }
 
+        public void CheckLevelControl()
+        {
+            bool win = _boardCoordinateSystem.LsMilitaryBaseView.TrueForAll(n=>n.GetUserType()==UserType.Player);
+            bool lose= _boardCoordinateSystem.LsMilitaryBaseView.TrueForAll(n => n.GetUserType() == UserType.Enemy);
+
+            if(win)
+            {
+                _userController.LevelWin();
+            }
+            else if(lose)
+            {
+                _userController.LevelFail();
+            }
+        }
     }
 
 }

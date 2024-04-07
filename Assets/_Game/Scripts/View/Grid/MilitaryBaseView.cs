@@ -41,6 +41,7 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
     private PlayerMobController _MobController;
     private PathFinderController _pathFinderController;
     private BoardCoordinateSystem _boardCoordinateSystem;
+    private BoardGamePlayController _boardGamePlayController;
     
 
     [Inject]
@@ -48,12 +49,14 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
     (     SignalBus signalBus,
           PlayerMobController playerMobController
         , PathFinderController pathFinderController
-        , BoardCoordinateSystem boardCoordinateSystem)
+        , BoardCoordinateSystem boardCoordinateSystem
+        ,BoardGamePlayController boardGamePlayController)
     {
         _signalBus = signalBus;
         _MobController = playerMobController;
         _pathFinderController = pathFinderController;
         _boardCoordinateSystem = boardCoordinateSystem;
+        _boardGamePlayController = boardGamePlayController;
     }
 
     #endregion
@@ -151,7 +154,7 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
         }
 
         txt.color = ToColorFromHex(ResourceTypeData.HexColor);
-        Debug.Log("this"+name,gameObject);
+        
         _colorType = ResourceTypeData.ColorType;
         ConfigureType = ResourceTypeData.ConfigureType;
     }
@@ -243,7 +246,8 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
             Path = path
 
         });
-        _MobController.LsPlayerMobViews.Add(mob);
+
+        _MobController.LsMobViews.Add(mob);
         mob.Initialize();
 
         SoldierCount = 0;
@@ -308,10 +312,10 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
                 break;
             default:
                 break;
-
               
         }
-       
+
+        _boardGamePlayController.CheckLevelControl();
     }
     public void SelectView()
     {

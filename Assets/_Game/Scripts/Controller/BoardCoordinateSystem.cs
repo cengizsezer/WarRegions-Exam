@@ -24,6 +24,7 @@ namespace MyProject.GamePlay.Controllers
     public class BoardCoordinateSystem
     {
         private LevelData _levelData { get; set; }
+
         private List<ColorRegion> lsColorRegions = new();
         public List<GridView> LsAllGridViews = new();
         public List<GridView> LsPrevMountainViews = new();
@@ -335,11 +336,14 @@ namespace MyProject.GamePlay.Controllers
             {
                 MilitaryBase.DespawnItem();
             }
+
             LsAllGridViews.Clear();
             lsColorRegions.Clear();
             LsPrevMountainViews.Clear();
             LsMountainViews.Clear();
             LsMilitaryBaseView.Clear();
+            lsEnemyMilitaryBaseView.Clear();
+            LsPlayerMilitaryBaseView.Clear();
         }
     }
 

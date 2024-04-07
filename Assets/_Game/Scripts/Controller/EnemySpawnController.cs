@@ -84,7 +84,7 @@ public class EnemySpawnController : IInitializable, IDisposable, ITimerOwner
         switch (_counter)
         {
             case > 0:
-                Debug.Log(_counter);
+               
                 _counter--;
                 break;
             case 0:

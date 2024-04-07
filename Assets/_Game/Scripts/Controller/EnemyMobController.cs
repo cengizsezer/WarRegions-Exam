@@ -67,11 +67,7 @@ public class EnemyMobController : BaseController
 
     private IEnumerator<float> Spawn()
     {
-        if(_boardCoordinateSystem.lsEnemyMilitaryBaseView.Count==0)
-        {
-            _userController.LevelWin();
-            yield break;
-        }
+       
 
         yield return Timing.WaitForSeconds(_enemySpawnSettings.SpawnDelay);
         var lsNötr = _boardCoordinateSystem.GetNötrMilitaryBase();
