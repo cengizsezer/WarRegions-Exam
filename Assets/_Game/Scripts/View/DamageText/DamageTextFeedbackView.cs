@@ -9,7 +9,7 @@ using Zenject;
 
 public class DamageTextFeedbackView : BaseView, IPoolable<IMemoryPool>
 {
-    [SerializeField] private TextMeshProUGUI infoText;
+    [SerializeField] private TextMeshPro infoText;
 
     private IMemoryPool _pool;
     private CoroutineHandle _coroutineHandle;
@@ -38,10 +38,7 @@ public class DamageTextFeedbackView : BaseView, IPoolable<IMemoryPool>
         Initialize();
     }
 
-    private void LateUpdate()
-    {
-        transform.LookAt(_mainCamera.transform);
-    }
+    
     public override void Initialize()
     {
         _coroutineHandle = _coroutineService.StartCoroutine(Despawn());
@@ -57,15 +54,16 @@ public class DamageTextFeedbackView : BaseView, IPoolable<IMemoryPool>
     {
         transform.SetParent(parent);
         transform.localScale = Vector3.one*3f;
-        transform.localPosition = new Vector3(0f,1f,0f);
+        transform.localPosition = new Vector3(0f,3f,0f);
 
         infoText.text = (f).ToString("0");
         infoText.color = color;
 
         if (DOTween.IsTweening(this)) DOTween.Complete(this);
+        transform.DOLookAt(_mainCamera.transform.position,0.1f);
         infoText.DOFade(1f, .1f);
         transform.DOShakePosition(.4f);
-        transform.DOLocalMoveY(2, .1f)
+        transform.DOLocalMoveY(20f, .1f)
             .OnComplete(() => infoText.DOFade(0, 1f).SetEase(Ease.InQuad));
     }
 

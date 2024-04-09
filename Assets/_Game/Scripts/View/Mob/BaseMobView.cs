@@ -2,17 +2,15 @@ using MyProject.Core.Const;
 using MyProject.Core.Data;
 using MyProject.Core.Enums;
 using MyProject.Core.Settings;
-using MyProject.GamePlay.Controllers;
 using DG.Tweening;
 using MyProject.Tween;
 using UnityEngine;
-using UnityEngine.Rendering;
 using Zenject;
 
 
-namespace MyProject.GamePlay.Characters
+namespace MyProject.GamePlay.Views
 {
-    public abstract class BaseGridItemView : BaseView
+    public abstract class BaseMobView : BaseView
     {
        
         public MilitaryBaseType MilitaryBaseType { get; set; }

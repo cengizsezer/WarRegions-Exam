@@ -32,10 +32,6 @@ public readonly struct LoadingProgressBarSignal
     }
 }
 
-[Signal]
-public struct ButtonDeactivateSignal
-{
-}
 
 [Signal]
 public struct ParticleHitSignal
@@ -46,11 +42,6 @@ public struct ParticleHitSignal
     {
         ParticleSystemForceField = particleSystemForceField;
     }
-}
-
-[Signal]
-public struct ButtonActivateSignal
-{
 }
 
 
@@ -66,20 +57,6 @@ public readonly struct CoinUpdatedSignal
         StartPosition = startPosition;
         Animate = animate;
         Reset = reset;
-    }
-}
-
-[Signal]
-public readonly struct ManaUpdatedSignal
-{
-    public readonly Vector2 StartPosition;
-    public readonly bool Animate;
-
-    public ManaUpdatedSignal(Vector2 startPosition, bool animate = false
-      )
-    {
-        StartPosition = startPosition;
-        Animate = animate;
     }
 }
 
@@ -144,12 +121,6 @@ public readonly struct FingerPinchSignal
 
 
 
-
-[Signal]
-public readonly struct BoardReadySignal
-{
-}
-
 [Signal]
 public readonly struct LevelSuccessSignal
 {
@@ -161,11 +132,6 @@ public readonly struct LevelSuccessSignal
     }
 }
 
-[Signal]
-public readonly struct WaveComplateSignal
-{
-
-}
 
 [Signal]
 public readonly struct LevelFailSignal
@@ -178,21 +144,6 @@ public readonly struct LevelFailSignal
     }
 }
 
-[Signal]
-public readonly struct XPUpdatedSignal
-{
-    public readonly int Count;
-
-    public XPUpdatedSignal(int count)
-    {
-        Count = count;
-    }
-}
-
-[Signal]
-public readonly struct EnergyTimerUpdatedSignal
-{
-}
 
 [Signal]
 public readonly struct StartTransitionSignal
@@ -205,19 +156,12 @@ public readonly struct StartTransitionSignal
     }
 }
 
-[Signal]
-public readonly struct ItemTakenFromBoardRewardAreaSignal
-{
-}
+
 [Signal]
 public readonly struct PlayButtonClickSignal
 {
 }
-[Signal]
-public readonly struct AttackButtonClickSignal
-{
-    
-}
+
 [Signal]
 public readonly struct ContinueButtonClickSignal
 {
@@ -227,23 +171,7 @@ public readonly struct ContinueButtonClickSignal
 public readonly struct StartEnemySpawnTimerSignal
 {
 }
-[Signal]
-public readonly struct StopEnemySpawnTimerSignal
-{
-}
 
-[Signal]
-public readonly struct BoardInfoSignal
-{
-    public readonly string Info;
-    public readonly Vector3 Position;
-
-    public BoardInfoSignal(string info, Vector3 position)
-    {
-        Info = info;
-        Position = position;
-    }
-}
 [Signal]
 public readonly struct CurrencyGainSignal
 {

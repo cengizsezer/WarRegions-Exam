@@ -31,10 +31,10 @@ public partial class Damageable : MonoBehaviour
         }
 
         SoldierCount -= data.Damage;
-        Debug.Log("vurulma hakkı"+"="+SoldierCount);
+       
         if (SoldierCount <= 0)
         {
-            Debug.Log("öldü", gameObject);
+            
             schedule += OnDeath.Invoke;
         }
         else

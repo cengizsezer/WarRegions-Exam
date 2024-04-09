@@ -1,6 +1,6 @@
 using MyProject.Core.Data;
 using MyProject.Core.Enums;
-using MyProject.GamePlay.Characters;
+using MyProject.GamePlay.Views;
 using System;
 using UnityEngine;
 using static MyProject.Core.Const.GlobalConsts;

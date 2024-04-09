@@ -9,17 +9,12 @@ namespace MyProject.Core.Settings
     [CreateAssetMenu(fileName = nameof(ApplicationPrefabSettings), menuName = AssetMenuName.SETTINGS + nameof(ApplicationPrefabSettings))]
     public class ApplicationPrefabSettings : ScriptableObject
     {
-        public BuildType buildType;
-        public bool runInBackground;
-
-        [FoldoutGroup("MainView")] public GameObject MainScreenPrefab;
-        [FoldoutGroup("MainView")] public GameObject MapScreenPrefab;
-        [FoldoutGroup("GridView")] public GameObject GridViewPrefab;
-        [FoldoutGroup("MilitaryBaseView")] public GameObject MilitaryBaseViewPrefab;
-        [FoldoutGroup("VFX")] public GameObject MobVFXView;
-        [FoldoutGroup("FeedBacks")] public GameObject DamageTextPrefab;
-     
-
+        public GameObject MainScreenPrefab;
+        public GameObject MapScreenPrefab;
+        public GameObject GridViewPrefab;
+        public GameObject MilitaryBaseViewPrefab;
+        public GameObject MobVFXView;
+        public GameObject DamageTextPrefab;
 
     }
 

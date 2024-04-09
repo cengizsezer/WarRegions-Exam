@@ -66,9 +66,6 @@ public class UpdateCurrencyGameTask : GameTask
             case CurrencyType.Coin:
                 _signalBus.Fire<CoinUpdatedSignal>();
                 break;
-            case CurrencyType.Mana:
-                _signalBus.Fire<ManaUpdatedSignal>();
-                break;
         }
 
         CompleteTask();

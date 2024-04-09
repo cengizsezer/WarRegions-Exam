@@ -4,10 +4,9 @@ using MyProject.Core.Services;
 using MyProject.Core.Settings;
 using MyProject.Core.Const;
 using MyProject.GamePlay.Controllers;
-using MyProject.GamePlay.Characters;
+using MyProject.GamePlay.Views;
 using UnityEngine;
 using Zenject;
-
 
 namespace MyProject.Core.Installer
 {

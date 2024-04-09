@@ -1,3 +1,4 @@
+using MyProject.Core.Settings;
 using System;
 
 [Serializable]

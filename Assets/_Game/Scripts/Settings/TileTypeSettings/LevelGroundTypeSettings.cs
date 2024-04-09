@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class LevelGroundTypeSettings
+namespace MyProject.Core.Settings
 {
-    [SerializeField] private uint width = 4;
-    [SerializeField] private uint height = 4;
-    public GridStartLayout gridStartLayout = new GridStartLayout(9, 9);
+    [System.Serializable]
+    public class LevelGroundTypeSettings
+    {
+        [SerializeField] private uint width = 4;
+        [SerializeField] private uint height = 4;
+        public GridStartLayout gridStartLayout = new GridStartLayout(9, 9);
 
-    public float xOffset, zOffset;
+        public float xOffset, zOffset;
 
-    public uint Width => width;
-    public uint Height => height;
+        public uint Width => width;
+        public uint Height => height;
+
+    }
 
 }

@@ -77,9 +77,6 @@ namespace MyProject.Core.Controllers
                 case CurrencyType.Coin:
                     currencyData = new CurrencyData { CurrencyType = CurrencyType.Coin, CurrencyValue = _currencyModel.CoinValue };
                     break;
-                case CurrencyType.Mana:
-                    currencyData = new CurrencyData { CurrencyType = CurrencyType.Mana, CurrencyValue = _currencyModel.ManaValue };
-                    break;
                 default:
                     currencyData = new CurrencyData();
                     break;

@@ -3,13 +3,14 @@ using MyProject.Core.Enums;
 using MyProject.Core.Models;
 using MyProject.Core.Services;
 using MyProject.Core.Settings;
-using MyProject.GamePlay.Characters;
+using MyProject.GamePlay.Views;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 using static MyProject.Core.Const.GlobalConsts;
 using System.Collections.Generic;
 using System.Linq;
+using MyProject.Core.Data;
 
 namespace MyProject.GamePlay.Controllers
 {
@@ -36,6 +37,7 @@ namespace MyProject.GamePlay.Controllers
         private readonly BoardDataController _boardDataController;
         private readonly ItemTweenSettings _itemTweenSettings;
         private readonly UserController _userController;
+        private readonly CurrencyController _currencyController;
 
 
         public BoardGamePlayController
@@ -49,6 +51,7 @@ namespace MyProject.GamePlay.Controllers
             , ItemTweenSettings itemTweenSettings
             , FlagService flagService
             , UserController userController
+            ,CurrencyController currencyController
 
         )
         {
@@ -61,6 +64,7 @@ namespace MyProject.GamePlay.Controllers
             _itemTweenSettings = itemTweenSettings;
             _flagService = flagService;
             _userController = userController;
+            _currencyController = currencyController;
           
         }
 
@@ -68,7 +72,7 @@ namespace MyProject.GamePlay.Controllers
 
         public void Init()
         {
-            Debug.Log("Init");
+           
             InitBoardView().Forget();
             _signalBus.Subscribe<ContinueButtonClickSignal>(DisposeBoard);
             _signalBus.Fire<StartEnemySpawnTimerSignal>();
@@ -124,7 +128,7 @@ namespace MyProject.GamePlay.Controllers
         private void OnFingerDown()
         {
            
-            Debug.Log("fingerDown");
+          
             if (!_flagService.IsFlagAvailable(Flags.BoardFlag)) return;
             if (_boardDataController.BoardState == BoardState.Idle) return;
             _selectedView.Clear();
@@ -144,8 +148,7 @@ namespace MyProject.GamePlay.Controllers
                     _lastFingerDownTime = Time.realtimeSinceStartup;
                     _selectedView.Add(view);
                     view.SelectView();
-                    Debug.Log(view,view.gameObject);
-                    Debug.Log(_selectedView.Count+"---count---");
+                  
                 }
             }
         }
@@ -153,12 +156,12 @@ namespace MyProject.GamePlay.Controllers
 
         private void OnFingerUp()
         {
-            Debug.Log(_selectedView.Count);
+            
             if (_selectedView.Count == 0)
             {
                 return;
             }
-            Debug.Log(_selectedView.Count);
+           
             _isDragging = false;
             _lastSelectedView = _selectedView.Last();
             TryReleaseItem();
@@ -168,7 +171,7 @@ namespace MyProject.GamePlay.Controllers
         private void TryReleaseItem()
         {
             if (_selectedView == null || _selectedView.Count == 0) return;
-            Debug.Log("TryRelease");
+           
             if (TryCatchGridView(out MilitaryBaseView other))
             {
                 foreach (var view in _selectedView)
@@ -255,6 +258,14 @@ namespace MyProject.GamePlay.Controllers
 
             if(win)
             {
+                CurrencyData currencyData = new CurrencyData
+                {
+                    CurrencyType = CurrencyType.Coin,
+                    CurrencyValue = 100
+                };
+
+                _signalBus.Fire<CurrencyGainSignal>(new CurrencyGainSignal(ItemName.Coin, 100, Vector3.zero));
+                
                 _userController.LevelWin();
             }
             else if(lose)

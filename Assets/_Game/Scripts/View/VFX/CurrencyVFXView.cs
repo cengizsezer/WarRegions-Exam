@@ -35,8 +35,6 @@ public partial class CurrencyVFXView : BaseView, IPoolable<CurrencyVFXView.Args,
     private IMemoryPool _pool;
 
     [SerializeField] private ParticleSystem coinParticle;
-    [SerializeField] private ParticleSystem manaParticle;
-   
 
     private CoroutineHandle _coroutineHandle;
 
@@ -76,10 +74,7 @@ public partial class CurrencyVFXView : BaseView, IPoolable<CurrencyVFXView.Args,
                 coinParticle.emission.SetBurst(0, burst);
                 coinParticle.gameObject.SetActive(true);
                 break;
-            case CurrencyType.Mana:
-                manaParticle.emission.SetBurst(0, burst);
-                manaParticle.gameObject.SetActive(true);
-                break;
+         
         }
 
         _coroutineHandle = _coroutineService.StartCoroutine(Despawn());
@@ -92,8 +87,7 @@ public partial class CurrencyVFXView : BaseView, IPoolable<CurrencyVFXView.Args,
 
     public void OnDespawned()
     {
-        coinParticle.gameObject.SetActive(false);
-        manaParticle.gameObject.SetActive(false);
+
 
     }
 

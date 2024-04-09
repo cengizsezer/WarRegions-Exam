@@ -2,7 +2,7 @@
 using MyProject.Core.Controllers;
 using MyProject.Core.Services;
 using MyProject.Core.Settings;
-using MyProject.GamePlay.Characters;
+using MyProject.GamePlay.Views;
 using MyProject.GamePlay.Controllers;
 using System.Collections;
 using System.Collections.Generic;

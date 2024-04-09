@@ -26,6 +26,7 @@ public class CoinCurrencyView : BaseCurrencyView
         _signalBus.Subscribe<CoinUpdatedSignal>(OnCoinUpdated);
 
         UpdateCurrencyLabel(_currencyModel.CoinValue);
+
         base.Initialize();
     }
 

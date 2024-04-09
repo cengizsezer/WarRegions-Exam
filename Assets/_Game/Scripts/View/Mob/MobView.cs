@@ -1,7 +1,6 @@
 ﻿using DG.Tweening;
 using MyProject.Core.Data;
 using MyProject.Core.Enums;
-using MyProject.Core.Settings;
 using MyProject.GamePlay.Controllers;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,9 +9,9 @@ using UnityEngine;
 using Zenject;
 
 
-namespace MyProject.GamePlay.Characters
+namespace MyProject.GamePlay.Views
 {
-    public partial class MobView : BaseGridItemView, IPoolable<IMemoryPool>, IMessageReceiver
+    public partial class MobView : BaseMobView, IPoolable<IMemoryPool>, IMessageReceiver
     {
         public class Factory : PlaceholderFactory<MobView> { }
         public class Pool : MonoPoolableMemoryPool<IMemoryPool, MobView> { }
@@ -25,7 +24,6 @@ namespace MyProject.GamePlay.Characters
             set
             {
                 _resourceTypeData = value;
-                SetResourceDataProps();
             }
         }
         public Damageable Damageable;
@@ -99,16 +97,19 @@ namespace MyProject.GamePlay.Characters
         
         private SignalBus _signalBus;
         private MobVFXController _mobVfxController;
+        private DamageTextFeedbackView.Factory _damageTextFeedbackFactory;
 
         [Inject]
         protected virtual void Construct
         (
               SignalBus signalBus,
-              MobVFXController mobVFXController
+              MobVFXController mobVFXController,
+              DamageTextFeedbackView.Factory damageTextFeedbackFactory
         )
         {
             _signalBus = signalBus;
             _mobVfxController = mobVFXController;
+            _damageTextFeedbackFactory = damageTextFeedbackFactory;
         }
         #endregion
 
@@ -141,10 +142,12 @@ namespace MyProject.GamePlay.Characters
         }
         public override void Initialize()
         {
-            StartMovementRoutine(_currentPath,1f);
+            StartMovementRoutine(_currentPath, 1f);
         }
 
-        private List<GridView> _currentPath = new();
+        private List<GridView> _currentPath;
+        public ResourceTypeData CurrentOwnerResourceTypeData;
+        public UserType CurrentOwnerUserType;
         public void SetPropsView(SoldierWarData data)
         {
             MilitaryBaseType = data.MilitaryBaseType;
@@ -158,11 +161,15 @@ namespace MyProject.GamePlay.Characters
             transform.position = data.SpawnPosition + Vector3.up * 3f;
             TargetMilitaryBaseView = data.TargetMilitaryBase;
             SoldierCount = data.SoldierCount;
+            _currentPath = new();
             _currentPath = data.Path;
             OwnerMilitaryBaseView = data.OwnerMilitaryBase;
             TargetMilitaryBaseView = data.TargetMilitaryBase;
             ResourceTypeData = data.ResourceTypeData;
-          
+            CurrentOwnerResourceTypeData = OwnerMilitaryBaseView.ResourceTypeData;
+            CurrentOwnerUserType = OwnerMilitaryBaseView.UserType;
+            SetResourceDataProps();
+
         }
 
         private void SetResourceDataProps()
@@ -179,6 +186,8 @@ namespace MyProject.GamePlay.Characters
         private void ApplyDamage(Damageable.DamageMessage msg)
         {
             SoldierCount=Damageable.SoldierCount;
+            var infoText = _damageTextFeedbackFactory.Create();
+            infoText.Init(this.transform, msg.Damage, Color.red);
         }
 
         public void StartMovementRoutine(List<GridView> lsGridView, float time)
@@ -203,160 +212,42 @@ namespace MyProject.GamePlay.Characters
             ResetAnimatorController();
             AnimState = AnimStates.Run;
 
-            int startIndex = 0; // Başlangıç indexi
+            int startIndex = 0; 
 
             while (startIndex < lsGridView.Count)
             {
                 GridView targetGrid = lsGridView[startIndex];
                 Vector3 targetPosition = targetGrid.transform.position + Vector3.up * 3f;
 
-                // Düşmanı ara
+                
                 TargetView = SearchForEnemy();
 
                 if (TargetView)
                 {
-                    // Düşman bulundu, hareketi iptal et ve ateş et
+                    
                     AnimState = AnimStates.Idle;
                     Damageable.SoldierCount = SoldierCount;
                     _currentAttackBase.Cast();
                     yield return new WaitForSeconds(attackInterval);
-                    AnimState = AnimStates.Run; // Animasyonu tekrar koşuya geçir
+                    AnimState = AnimStates.Run; 
 
-                    // Hedef öldüğünde TargetView'i null olarak ayarla ve yeni bir hedef ara
+                   
                     TargetView = null;
-                    continue; // Hedef ölmediği için bir sonraki adıma geçme
+                    continue; 
                 }
                 else
                 {
-                    // Düşman bulunamadı, hedefe doğru hareket et
+                  
                     transform.DOLookAt(targetPosition, .2f).WaitForCompletion();
                     yield return transform.DOMove(targetPosition, moveTime).SetEase(Ease.Linear).WaitForCompletion();
                 }
 
-                startIndex++; // Index'i bir sonraki hedefe taşı
+                startIndex++; 
             }
 
             TargetMilitaryBaseView.TakeOver(this);
             Despawn();
         }
-
-        //private IEnumerator MovementAndAttackRoutine(List<GridView> lsGridView, float moveTime, float attackInterval)
-        //{
-        //    ResetAnimatorController();
-        //    AnimState = AnimStates.Run;
-
-        //    int startIndex = 0; // Başlangıç indexi
-
-        //    while (startIndex < lsGridView.Count)
-        //    {
-        //        GridView targetGrid = lsGridView[startIndex];
-        //        Vector3 targetPosition = targetGrid.transform.position + Vector3.up * 3f;
-
-        //        transform.DOLookAt(targetPosition, .2f).WaitForCompletion();
-        //        yield return transform.DOMove(targetPosition, moveTime).SetEase(Ease.Linear).WaitForCompletion();
-
-        //        // Eğer hedef grid üzerinde düşman varsa, ateş et
-        //        TargetView = null;
-        //        TargetView = SearchForEnemy();
-
-        //        if (TargetView)
-        //        {
-        //            AnimState = AnimStates.Idle;
-        //            Damageable.SoldierCount = SoldierCount;
-
-        //            while (TargetView.IsAlive)
-        //            {
-        //                _currentAttackBase.Cast();
-
-        //                yield return new WaitForSeconds(attackInterval);
-        //            }
-
-        //            // Hedef öldüğünde TargetView'i null olarak ayarla ve yeni bir hedef ara
-        //            TargetView = null;
-        //            AnimState = AnimStates.Run;
-        //        }
-        //        else
-        //        {
-        //            // Etrafı tarayıp, düşman bulmaya çalış
-        //            MobView newTarget = SearchForEnemy();
-        //            if (newTarget)
-        //            {
-        //                // Yeni hedef bulundu, hedefe yönel ve ateş et
-        //                TargetView = newTarget;
-        //                AnimState = AnimStates.Idle;
-        //                Damageable.SoldierCount = SoldierCount;
-
-        //                while (TargetView.IsAlive)
-        //                {
-        //                    _currentAttackBase.Cast();
-
-        //                    yield return new WaitForSeconds(attackInterval);
-        //                }
-
-        //                // Hedef öldüğünde TargetView'i null olarak ayarla ve yeni bir hedef ara
-        //                TargetView = null;
-        //                AnimState = AnimStates.Run;
-        //            }
-        //            else
-        //            {
-        //                // Hiç düşman yok, yoluna devam et
-        //                AnimState = AnimStates.Run;
-        //            }
-        //        }
-
-        //        startIndex++; // Index'i bir sonraki hedefe taşı
-        //    }
-
-        //    TargetMilitaryBaseView.TakeOver(this);
-        //    Despawn();
-        //}
-
-        //private IEnumerator MovementAndAttackRoutine(List<GridView> lsGridView, float moveTime, float attackInterval)
-        //{
-        //    ResetAnimatorController();
-        //    AnimState = AnimStates.Run;
-
-        //    int startIndex = 0; // Başlangıç indexi
-
-        //    while (startIndex < lsGridView.Count)
-        //    {
-        //        GridView targetGrid = lsGridView[startIndex];
-        //        Vector3 targetPosition = targetGrid.transform.position + Vector3.up * 3f;
-
-        //        transform.DOLookAt(targetPosition, .2f).WaitForCompletion();
-        //        yield return transform.DOMove(targetPosition, moveTime).SetEase(Ease.Linear).WaitForCompletion();
-
-        //        // Eğer hedef grid üzerinde düşman varsa, ateş et
-        //        TargetView = null;
-        //        TargetView = SearchForEnemy();
-               
-        //        if (TargetView)
-        //        {
-        //            AnimState = AnimStates.Idle;
-        //            Damageable.SoldierCount = SoldierCount;
-
-        //            while (TargetView.IsAlive)
-        //            {
-        //                _currentAttackBase.Cast();
-
-        //                yield return new WaitForSeconds(attackInterval);
-        //            }
-
-        //            // Hedef öldüğünde TargetView'i null olarak ayarla ve yeni bir hedef ara
-        //            TargetView = null;
-        //            startIndex++;
-        //            AnimState = AnimStates.Run;
-        //            continue;
-        //        }
-
-               
-        //        AnimState = AnimStates.Run;
-        //        startIndex++; // Index'i bir sonraki hedefe taşı
-        //    }
-
-        //    TargetMilitaryBaseView.TakeOver(this);
-        //    Despawn();
-        //}
 
         private MobView SearchForEnemy()
         {
@@ -415,7 +306,8 @@ namespace MyProject.GamePlay.Characters
         {
             _pool = pool;
             IsAlive = true;
-            Damageable = GetComponent<Damageable>();
+            _resourceTypeData = new();
+            ResourceTypeData = new();
             Damageable.onDamageMessageReceivers.Add(this);
             Damage = _characterSettings.PlayerGamingSettings.Damage;
             _attackSpeed = _characterSettings.PlayerGamingSettings.AttackSpeed;
@@ -423,13 +315,26 @@ namespace MyProject.GamePlay.Characters
 
         public override void Despawn()
         {
-
+            
             if (!gameObject.activeSelf)
             {
                 return;
             }
+            ResourceTypeData = null;
+            MobColorType = default;
+            CurrentOwnerUserType = default;
+            CurrentOwnerResourceTypeData = null;
+            OwnerMilitaryBaseView = null;
+            TargetMilitaryBaseView = null;
+            TargetView = null;
+            
+
+            Damageable.onDamageMessageReceivers.Remove(this);
+            Damageable.onDamageMessageReceivers.Clear();
+            StopAllCoroutines();
             IsAlive = false;
             TargetView = null;
+            _currentPath.Clear();
             _pool.Despawn(this);
         }
         public void OnDespawned()

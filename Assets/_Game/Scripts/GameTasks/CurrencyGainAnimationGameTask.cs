@@ -46,9 +46,6 @@ public class CurrencyGainAnimationGameTask : GameTask
             case CurrencyType.Coin:
                 _signalBus.Fire(new CoinUpdatedSignal(_startPosition, true, false));
                 break;
-            case CurrencyType.Mana:
-                _signalBus.Fire(new ManaUpdatedSignal(_startPosition, true));
-                break;
            
         }
         base.StartTask(cancellationTokenSource, taskCompleteCallback);

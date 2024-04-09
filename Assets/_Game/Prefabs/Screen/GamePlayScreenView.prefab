@@ -592,22 +592,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CurrencyItemView_Coin
       objectReference: {fileID: 0}
-    - target: {fileID: 4238009128981690279, guid: b4f901bbd01e74bdbbfba91cdc171846, type: 3}
-      propertyPath: m_fontSize
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 4238009128981690279, guid: b4f901bbd01e74bdbbfba91cdc171846, type: 3}
-      propertyPath: m_fontAsset
+    - target: {fileID: 4312387757719008921, guid: b4f901bbd01e74bdbbfba91cdc171846, type: 3}
+      propertyPath: particleSystemForceField
       value: 
-      objectReference: {fileID: 11400000, guid: 2b4c9e37f209a4cceb1fef7979642406, type: 2}
-    - target: {fileID: 4238009128981690279, guid: b4f901bbd01e74bdbbfba91cdc171846, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -5380902189579395744, guid: 2b4c9e37f209a4cceb1fef7979642406, type: 2}
-    - target: {fileID: 4238009128981690279, guid: b4f901bbd01e74bdbbfba91cdc171846, type: 3}
-      propertyPath: m_enableAutoSizing
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4438716812516470002}
     - target: {fileID: 7827848638374888989, guid: b4f901bbd01e74bdbbfba91cdc171846, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -615,10 +603,6 @@ PrefabInstance:
     - target: {fileID: 7827848638374888989, guid: b4f901bbd01e74bdbbfba91cdc171846, type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7827848638374888989, guid: b4f901bbd01e74bdbbfba91cdc171846, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7827848638374888989, guid: b4f901bbd01e74bdbbfba91cdc171846, type: 3}
       propertyPath: m_AnchorMax.x
@@ -708,6 +692,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031d536385d28524dbc37b549d0bf6ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!330 &4438716812516470002 stripped
+ParticleSystemForceField:
+  m_CorrespondingSourceObject: {fileID: 789597048721445830, guid: b4f901bbd01e74bdbbfba91cdc171846, type: 3}
+  m_PrefabInstance: {fileID: 3993649679368994612}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6615314948890851625 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7827848638374888989, guid: b4f901bbd01e74bdbbfba91cdc171846, type: 3}

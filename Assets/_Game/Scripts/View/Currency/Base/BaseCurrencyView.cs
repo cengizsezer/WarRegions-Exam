@@ -104,6 +104,7 @@ public class BaseCurrencyView : BaseView
 
     private void TakeHitFromParticle(ParticleHitSignal signal)
     {
+       
         _tween?.Kill();
 
         transform.localScale = Vector3.one;
@@ -151,6 +152,6 @@ public class BaseCurrencyView : BaseView
         _tween?.Kill();
         _coroutineService.StopCoroutineWithTag(CoroutineConsts.CURRENCY_ADD_ANIM + _currencyType);
         _coroutineService.StopCoroutineWithTag(CoroutineConsts.CURRENCY_FLY_ANIM + _currencyType);
-        _signalBus.Unsubscribe<ParticleHitSignal>(TakeHitFromParticle);
+        _signalBus.TryUnsubscribe<ParticleHitSignal>(TakeHitFromParticle);
     }
 }

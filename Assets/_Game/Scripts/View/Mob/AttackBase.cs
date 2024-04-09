@@ -1,4 +1,4 @@
-using MyProject.GamePlay.Characters;
+using MyProject.GamePlay.Views;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

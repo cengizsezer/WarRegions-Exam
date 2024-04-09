@@ -1,3 +1,4 @@
+using MyProject.Core.Settings;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

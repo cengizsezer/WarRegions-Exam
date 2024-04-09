@@ -50,6 +50,7 @@ namespace MyProject.Core.Controllers
         {
             var newValue = GetCurrency(currencyData.CurrencyType) + currencyData.CurrencyValue;
             UpdateCurrency(new CurrencyData(currencyData.CurrencyType, newValue));
+            SaveLoadController.AddCoin((int)newValue);
         }
         public void ResetCurrency(CurrencyType currencyType)
         {
@@ -78,8 +79,7 @@ namespace MyProject.Core.Controllers
             {
                 case CurrencyType.Coin:
                     return _currencyModel.CoinValue;
-                case CurrencyType.Mana:
-                    return _currencyModel.ManaValue;
+                
             }
 
             return 0;
@@ -103,9 +103,7 @@ namespace MyProject.Core.Controllers
                 case CurrencyType.Coin:
                     _currencyModel.UpdateCoin(currencyData.CurrencyValue);
                     break;
-                case CurrencyType.Mana:
-                    _currencyModel.UpdateMana(currencyData.CurrencyValue);
-                    break;
+               
             }
         }
 
@@ -113,7 +111,9 @@ namespace MyProject.Core.Controllers
         {
             CurrencyGainAnimationGameTask gameTask = new CurrencyGainAnimationGameTask();
             gameTask.Initialize(GetCurrencyData(signal.ItemName, signal.Count), signal.Position);
+            AddCurrency(GetCurrencyData(signal.ItemName, signal.Count));
             _taskService.AddTask(gameTask);
+            
         }
 
         protected override void OnInitialize()
@@ -136,8 +136,6 @@ namespace MyProject.Core.Controllers
             {
                 case ItemName.Coin:
                     return new CurrencyData(CurrencyType.Coin, count);
-                case ItemName.Mana:
-                    return new CurrencyData(CurrencyType.Mana, count);
                 default:
                     return new CurrencyData(CurrencyType.Coin, count);
             }

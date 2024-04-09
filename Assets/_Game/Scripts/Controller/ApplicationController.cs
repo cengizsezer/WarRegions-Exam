@@ -42,7 +42,6 @@ namespace MyProject.Core.Controllers
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 60;
             Time.fixedDeltaTime = 0.02f;
-            Application.runInBackground = _prefabSettings.runInBackground;
 
             _loadingProgressBarView.Initialize();
 

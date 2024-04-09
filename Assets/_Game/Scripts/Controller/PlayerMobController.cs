@@ -1,7 +1,7 @@
 using MyProject.Core.Controllers;
 using MyProject.Core.Data;
 using MyProject.Core.Enums;
-using MyProject.GamePlay.Characters;
+using MyProject.GamePlay.Views;
 using System;
 using System.Collections.Generic;
 using Zenject;

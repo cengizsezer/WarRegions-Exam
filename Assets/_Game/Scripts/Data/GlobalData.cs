@@ -1,13 +1,11 @@
 using MyProject.Core.Enums;
+using MyProject.GamePlay.Views;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 namespace MyProject.Core.Data
 {
-
     [Serializable]
     public class SoldierWarData
     {
@@ -18,7 +16,6 @@ namespace MyProject.Core.Data
         public MilitaryBaseView OwnerMilitaryBase;
         public int SoldierCount;
         public List<GridView> Path;
-       
     }
 
 }

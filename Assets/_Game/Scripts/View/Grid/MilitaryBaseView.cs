@@ -6,9 +6,10 @@ using MyProject.Core.Enums;
 using DG.Tweening;
 using TMPro;
 using MyProject.GamePlay.Controllers;
-using MyProject.GamePlay.Characters;
+using MyProject.GamePlay.Views;
 using MyProject.Core.Data;
 using MyProject.Core.Const;
+using MyProject.Core.Controllers;
 
 [System.Serializable]
 public class Region
@@ -66,7 +67,7 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
     public int ConfigureType;
     public ColorType GetColorType() => _colorType;
 
-    [SerializeField]private UserType _userType;
+    [SerializeField] private UserType _userType = UserType.None;
     public UserType UserType
     {
         get => _userType;
@@ -78,7 +79,7 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
 
         }
     }
-    public UserType GetUserType() => _userType;
+    public UserType GetUserType() => UserType;
 
     private MilitaryBaseType militaryBaseType;
     public MilitaryBaseType MilitaryBaseType
@@ -145,6 +146,8 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
                
             }
         }
+
+        txt.gameObject.SetActive(true);
     }
 
     private void SetProps()
@@ -153,7 +156,7 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
         {
             material.color = ToColorFromHex(ResourceTypeData.HexColor);
         }
-
+        
         txt.color = ToColorFromHex(ResourceTypeData.HexColor);
         
         _colorType = ResourceTypeData.ColorType;
@@ -241,18 +244,18 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
     {
         if(MilitaryBaseType==MilitaryBaseType.Sea)
         {
-            _boardCoordinateSystem.CalculateNeigbor(true);
+            _boardCoordinateSystem.CalculateNeighbor(true);
         }
         else
         {
-            _boardCoordinateSystem.CalculateNeigbor(false);
+            _boardCoordinateSystem.CalculateNeighbor(false);
         }
       
         var path = new List<GridView>();
 
         path = _pathFinderController.FindGridPath(this.Owner, other.Owner);
         MobView mob = _MobController.CreateMobView();
-
+       
 
         mob.SetPropsView(new SoldierWarData
         {
@@ -278,7 +281,7 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
         {
             case UserType.Player:
 
-                if(mob.OwnerMilitaryBaseView.GetUserType()==UserType.Player)
+                if(mob.CurrentOwnerUserType==UserType.Player)
                 {
                     SoldierCount += mob.GetSoldierCount();
                     return;
@@ -293,16 +296,18 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
                 {
                     var value = mob.GetSoldierCount() - SoldierCount;
                     SoldierCount = value;
-                    Region.RegionPairs.ForEach(n => n.ResourceTypeData = mob.OwnerMilitaryBaseView.ResourceTypeData);
-                    ResourceTypeData = mob.OwnerMilitaryBaseView.ResourceTypeData;
-                    UserType = mob.OwnerMilitaryBaseView.UserType;
-                    _boardCoordinateSystem.lsEnemyMilitaryBaseView.Remove(this);
+
+                   
+                    Region.RegionPairs.ForEach(n => n.ResourceTypeData = mob.CurrentOwnerResourceTypeData);
+                    ResourceTypeData = mob.CurrentOwnerResourceTypeData;
+                    UserType = mob.CurrentOwnerUserType;
+                    _boardCoordinateSystem.LsPlayerMilitaryBaseView.Remove(this);
 
                 }
                 break;
             case UserType.Enemy:
 
-                if (mob.OwnerMilitaryBaseView.GetUserType() == UserType.Enemy)
+                if (mob.CurrentOwnerUserType == UserType.Enemy)
                 {
                     SoldierCount += mob.GetSoldierCount();
                     return;
@@ -317,9 +322,10 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
                 {
                     var value = mob.GetSoldierCount() - SoldierCount;
                     SoldierCount = value;
-                    Region.RegionPairs.ForEach(n => n.ResourceTypeData = mob.OwnerMilitaryBaseView.ResourceTypeData);
-                    ResourceTypeData = mob.OwnerMilitaryBaseView.ResourceTypeData;
-                    UserType = mob.OwnerMilitaryBaseView.UserType;
+                   
+                    Region.RegionPairs.ForEach(n => n.ResourceTypeData = mob.CurrentOwnerResourceTypeData);
+                    ResourceTypeData = mob.CurrentOwnerResourceTypeData;
+                    UserType = mob.CurrentOwnerUserType;
                     _boardCoordinateSystem.lsEnemyMilitaryBaseView.Remove(this);
 
                 }
@@ -328,7 +334,7 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
                 if (SoldierCount >= mob.GetSoldierCount())
                 {
                     SoldierCount -= mob.GetSoldierCount();
-                    Debug.Log(SoldierCount);
+                   
                     return;
                 }
                 else
@@ -337,9 +343,10 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
 
                     SoldierCount = value;
                     OnTentWorking();
-                    Region.RegionPairs.ForEach(n => n.ResourceTypeData = mob.OwnerMilitaryBaseView.ResourceTypeData);
-                    ResourceTypeData = mob.OwnerMilitaryBaseView.ResourceTypeData;
-                    UserType = mob.OwnerMilitaryBaseView.UserType;
+                   
+                    Region.RegionPairs.ForEach(n => n.ResourceTypeData = mob.CurrentOwnerResourceTypeData);
+                    ResourceTypeData = mob.CurrentOwnerResourceTypeData;
+                    UserType = mob.CurrentOwnerUserType;
                    
                 }
                 break;
@@ -384,7 +391,7 @@ public class MilitaryBaseView : BaseView, IPoolable<MilitaryBaseView.Args, IMemo
     {
         if (!this.gameObject.activeInHierarchy)
             return;
-       
+        UserType = UserType.None;
         _signalBus.TryUnsubscribe<LevelFailSignal>(CloseTent);
         _signalBus.TryUnsubscribe<LevelSuccessSignal>(CloseTent);
         _pool.Despawn(this);

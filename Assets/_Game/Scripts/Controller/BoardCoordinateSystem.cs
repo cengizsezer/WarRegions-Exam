@@ -1,11 +1,11 @@
-﻿using MyProject.Core.Const;
+﻿using MyProject.Core.Data;
 using MyProject.Core.Enums;
 using MyProject.Core.Settings;
+using MyProject.GamePlay.Views;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zenject;
-using static MyProject.Core.Const.GlobalConsts.BoardConsts;
 
 [System.Serializable]
 public class ColorRegion
@@ -83,7 +83,7 @@ namespace MyProject.GamePlay.Controllers
         IBlockEntityTypeDefinition entity;
         public void SpawnHexes()
         {
-           
+            LsAllGridViews.Clear();
             startGroundLayout = _levelData.LevelGroundTypeSettings.gridStartLayout;
             startMilitaryBaseLayout = _levelData.MilitaryBaseTypeSettings.gridStartLayout;
             startMountainLayout = _levelData.LevelMountainSettings.gridStartLayout;
@@ -120,16 +120,16 @@ namespace MyProject.GamePlay.Controllers
                     grid.name = $"grid--{x}-{z}";
 
                     LsAllGridViews.Add(grid);
+                    
                 }
             }
             SetLevelGroundDesign(xSize,zSize);
             SetMountains();
-            //CalculateNeigbor(false);
-
-
+            _boardView.lsAllGridView = LsAllGridViews;
+            CalculateNeighbor(false);
 
         }
-        public void CalculateNeigbor(bool IsSea)
+        public void CalculateNeighbor(bool IsSea)
         {
             switch (IsSea)
             {
@@ -192,8 +192,8 @@ namespace MyProject.GamePlay.Controllers
                         GridView view = LsAllGridViews[gridIndex];
                         view.ResourceTypeData = (entity as GroundTypeDefinition).ResourceTypeData;
                         view.TypeDefinition = entity as GroundTypeDefinition;
-                       
-                        
+                        view.Initialize();
+
                         AddColorPair(view);
                         //üzerine mountain gelecek hexagonları ekliyorum.
                         if (startMountainLayout.BlockDatas.Blocks[i] != null)
@@ -237,6 +237,7 @@ namespace MyProject.GamePlay.Controllers
         {
             for (int i = 0; i < LsPrevMountainViews.Count; i++)
             {
+                LsPrevMountainViews[i].IsMountain = true;
                 CreateMountain(LsPrevMountainViews[i],
                    _levelData.LevelMountainSettings.MountainIndex[i],
                     _levelData.LevelMountainSettings.MountainHexColor);
@@ -308,7 +309,7 @@ namespace MyProject.GamePlay.Controllers
                     militaryBase.UserType = UserType.Enemy;
                     break;
             }
-
+           
             return militaryBase;
         }
 

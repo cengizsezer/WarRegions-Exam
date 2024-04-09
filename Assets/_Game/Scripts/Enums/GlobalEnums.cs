@@ -29,7 +29,8 @@ namespace MyProject.Core.Enums
     {
         Player,
         Enemy,
-        Nötr
+        Nötr,
+        None
     }
 
     public enum BuildType

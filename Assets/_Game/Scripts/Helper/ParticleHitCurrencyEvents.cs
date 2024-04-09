@@ -6,6 +6,7 @@ using Zenject;
 public class ParticleHitCurrencyEvents : MonoBehaviour
 {
     [SerializeField] private ParticleSystem particleSystem;
+  
     #region Injection
 
     private SignalBus _signalBus;
@@ -19,6 +20,10 @@ public class ParticleHitCurrencyEvents : MonoBehaviour
     #endregion
     private void OnParticleCollision(GameObject other)
     {
-        _signalBus.Fire(new ParticleHitSignal(other));
+        //if(gameObject != null && other!=null)
+        //{
+        //    _signalBus.Fire(new ParticleHitSignal(other));
+        //}
+      
     }
 }
